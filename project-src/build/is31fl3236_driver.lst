@@ -1,0 +1,1508 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"is31fl3236_driver.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IS31FL3236_WritePWM.part.1,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	IS31FL3236_WritePWM.part.1:
+  25              	.LVL0:
+  26              	.LFB77:
+  27              		.file 1 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c"
+   1:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*----------------------------------------------------------------
+   2:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * FILENAME :		is31fl3236_driver.c
+   3:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * PROJECT :		IS31FL3236_STM32_Driver
+   4:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * AUTHOR :			Johannes Berndorfer
+   5:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * BREIF :			Hardware abstraction layer for the IS31FL3236
+   6:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * 					IC on STM32 (ARM) hardware. (Source code)
+   7:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  *
+   8:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   9:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * ---------------------------------------------------------------
+  10:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * DATE CREATED :	28.04.2019
+  11:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * VERSION :		1.0
+  12:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * ---------------------------------------------------------------
+  13:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * DESCRIPTION :
+  14:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * 		This file contains the source code of the IS31FL3236
+  15:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * 		library for the STM32 platform.
+  16:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  *
+  17:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  *--------------------------------------------------------------*/
+  18:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  19:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** #include <is31fl3236_driver.h>
+  20:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  21:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** static uint8_t __IS31FL3236_Select_Color(uint8_t color_selector, uint8_t r, uint8_t g, uint8_t b);
+  22:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  23:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  24:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Initialises the given handle.
+  25:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  26:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_Init(IS31FL3236_HandleTypeDef* handle)
+  27:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  28:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_Reset(handle);
+  29:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_SetSoftwareShutdown(handle, IS31FL3236_SOFTWARE_SHUTDOWN_DISABLED);
+  30:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_SetChipEnable(handle, IS31FL3236_CHIP_ENABLED);
+  31:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 2
+
+
+  32:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  33:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  34:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Changes the chip enable state of the specified chip.
+  35:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  36:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_SetChipEnable(IS31FL3236_HandleTypeDef* handle, uint8_t enable_state)
+  37:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_GPIO_WritePin(handle->Init.Chip_Enable_Signal_Port, handle->Init.Chip_Enable_Signal_Pin, enabl
+  39:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  40:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  41:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  42:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Writes a given value to a given register.
+  43:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_WriteRegister(IS31FL3236_HandleTypeDef* handle, uint8_t register_address, uint8_t v
+  45:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	uint8_t buf[2];
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+  50:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  51:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  52:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  53:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Resets the specified chip. (Through I2C)
+  54:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  55:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_Reset(IS31FL3236_HandleTypeDef* handle)
+  56:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  57:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_RESET, 0x00);
+  58:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  59:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  60:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  61:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Latches the written PWM and led control values in the chip to the led control circuit.
+  62:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  63:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_Update(IS31FL3236_HandleTypeDef* handle)
+  64:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  65:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_UPDATE, 0x00);
+  66:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  67:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  68:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  69:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Sets the LED control for the specified chip / channel.
+  70:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  71:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_WriteLEDControl(IS31FL3236_HandleTypeDef* handle, uint8_t channel, uint8_t led_curr
+  72:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  73:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (channel < IS31FL3236_MAX_CHANNELS)
+  74:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_LED_CTRL + channel, (led_current_setting | l
+  75:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  76:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  77:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  78:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Writes an led control word to all channels of a specified chip.
+  79:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  80:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_WriteGlobalLEDControl(IS31FL3236_HandleTypeDef* handle, uint8_t led_current_setting
+  81:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  82:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	for (uint8_t i = 0; i < IS31FL3236_MAX_CHANNELS; i++)
+  83:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+  84:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteLEDControl(handle, i, led_current_setting, led_state);
+  85:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	}
+  86:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  87:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  88:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 3
+
+
+  89:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Writes the given PWM value (0 - 255) to the specified chip / channel.
+  90:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_WritePWM(IS31FL3236_HandleTypeDef* handle, uint8_t channel, uint8_t pwm_value)
+  28              		.loc 1 91 6 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  92:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (channel < IS31FL3236_MAX_CHANNELS)
+  94:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+  32              		.loc 1 94 3 view .LVU1
+  33              	.LBB37:
+  34              	.LBI37:
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  35              		.loc 1 44 6 view .LVU2
+  36              	.LBB38:
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+  37              		.loc 1 46 2 view .LVU3
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+  38              		.loc 1 47 2 view .LVU4
+  39              	.LBE38:
+  40              	.LBE37:
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  41              		.loc 1 91 6 is_stmt 0 view .LVU5
+  42 0000 10B5     		push	{r4, lr}
+  43              	.LCFI0:
+  44              		.cfi_def_cfa_offset 8
+  45              		.cfi_offset 4, -8
+  46              		.cfi_offset 14, -4
+  47              	.LBB42:
+  48              	.LBB39:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  49              		.loc 1 49 2 view .LVU6
+  50 0002 8368     		ldr	r3, [r0, #8]
+  51              	.LBE39:
+  52              	.LBE42:
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+  53              		.loc 1 91 6 view .LVU7
+  54 0004 84B0     		sub	sp, sp, #16
+  55              	.LCFI1:
+  56              		.cfi_def_cfa_offset 24
+  57              	.LBB43:
+  58              	.LBB40:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  59              		.loc 1 49 2 view .LVU8
+  60 0006 0093     		str	r3, [sp]
+  61              	.LBE40:
+  62              	.LBE43:
+  63              		.loc 1 94 3 view .LVU9
+  64 0008 4C1C     		adds	r4, r1, #1
+  65              	.LBB44:
+  66              	.LBB41:
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+  67              		.loc 1 48 9 view .LVU10
+  68 000a 8DF80D20 		strb	r2, [sp, #13]
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  69              		.loc 1 49 2 view .LVU11
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 4
+
+
+  70 000e 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+  71              	.LVL1:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  72              		.loc 1 49 2 view .LVU12
+  73 0010 0223     		movs	r3, #2
+  74 0012 03AA     		add	r2, sp, #12
+  75              	.LVL2:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  76              		.loc 1 49 2 view .LVU13
+  77 0014 0068     		ldr	r0, [r0]
+  78              	.LVL3:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+  79              		.loc 1 47 9 view .LVU14
+  80 0016 8DF80C40 		strb	r4, [sp, #12]
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+  81              		.loc 1 48 2 is_stmt 1 view .LVU15
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  82              		.loc 1 49 2 view .LVU16
+  83 001a FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+  84              	.LVL4:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  85              		.loc 1 49 2 is_stmt 0 view .LVU17
+  86              	.LBE41:
+  87              	.LBE44:
+  95:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+  88              		.loc 1 95 1 view .LVU18
+  89 001e 04B0     		add	sp, sp, #16
+  90              	.LCFI2:
+  91              		.cfi_def_cfa_offset 8
+  92              		@ sp needed
+  93 0020 10BD     		pop	{r4, pc}
+  94              		.cfi_endproc
+  95              	.LFE77:
+  97 0022 00BF     		.section	.text.IS31FL3236_SetChipEnable,"ax",%progbits
+  98              		.align	1
+  99              		.p2align 2,,3
+ 100              		.global	IS31FL3236_SetChipEnable
+ 101              		.syntax unified
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.fpu softvfp
+ 106              	IS31FL3236_SetChipEnable:
+ 107              	.LVL5:
+ 108              	.LFB66:
+  37:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_GPIO_WritePin(handle->Init.Chip_Enable_Signal_Port, handle->Init.Chip_Enable_Signal_Pin, enabl
+ 109              		.loc 1 37 1 is_stmt 1 view -0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 0, uses_anonymous_args = 0
+ 113              		@ link register save eliminated.
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 114              		.loc 1 38 2 view .LVU20
+  37:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_GPIO_WritePin(handle->Init.Chip_Enable_Signal_Port, handle->Init.Chip_Enable_Signal_Pin, enabl
+ 115              		.loc 1 37 1 is_stmt 0 view .LVU21
+ 116 0000 0346     		mov	r3, r0
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 117              		.loc 1 38 2 view .LVU22
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 5
+
+
+ 118 0002 0A46     		mov	r2, r1
+ 119 0004 C068     		ldr	r0, [r0, #12]
+ 120              	.LVL6:
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 121              		.loc 1 38 2 view .LVU23
+ 122 0006 198A     		ldrh	r1, [r3, #16]
+ 123              	.LVL7:
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 124              		.loc 1 38 2 view .LVU24
+ 125 0008 FFF7FEBF 		b	HAL_GPIO_WritePin
+ 126              	.LVL8:
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 127              		.loc 1 38 2 view .LVU25
+ 128              		.cfi_endproc
+ 129              	.LFE66:
+ 131              		.section	.text.IS31FL3236_WriteRegister,"ax",%progbits
+ 132              		.align	1
+ 133              		.p2align 2,,3
+ 134              		.global	IS31FL3236_WriteRegister
+ 135              		.syntax unified
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.fpu softvfp
+ 140              	IS31FL3236_WriteRegister:
+ 141              	.LVL9:
+ 142              	.LFB67:
+  45:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	uint8_t buf[2];
+ 143              		.loc 1 45 1 is_stmt 1 view -0
+ 144              		.cfi_startproc
+ 145              		@ args = 0, pretend = 0, frame = 8
+ 146              		@ frame_needed = 0, uses_anonymous_args = 0
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+ 147              		.loc 1 46 2 view .LVU27
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 148              		.loc 1 47 2 view .LVU28
+  45:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	uint8_t buf[2];
+ 149              		.loc 1 45 1 is_stmt 0 view .LVU29
+ 150 0000 00B5     		push	{lr}
+ 151              	.LCFI3:
+ 152              		.cfi_def_cfa_offset 4
+ 153              		.cfi_offset 14, -4
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 154              		.loc 1 49 2 view .LVU30
+ 155 0002 8368     		ldr	r3, [r0, #8]
+  45:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	uint8_t buf[2];
+ 156              		.loc 1 45 1 view .LVU31
+ 157 0004 85B0     		sub	sp, sp, #20
+ 158              	.LCFI4:
+ 159              		.cfi_def_cfa_offset 24
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 160              		.loc 1 49 2 view .LVU32
+ 161 0006 0093     		str	r3, [sp]
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 162              		.loc 1 47 9 view .LVU33
+ 163 0008 8DF80C10 		strb	r1, [sp, #12]
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 164              		.loc 1 48 2 is_stmt 1 view .LVU34
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 6
+
+
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 165              		.loc 1 48 9 is_stmt 0 view .LVU35
+ 166 000c 8DF80D20 		strb	r2, [sp, #13]
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 167              		.loc 1 49 2 is_stmt 1 view .LVU36
+ 168 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 169              	.LVL10:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 170              		.loc 1 49 2 is_stmt 0 view .LVU37
+ 171 0012 0223     		movs	r3, #2
+ 172 0014 03AA     		add	r2, sp, #12
+ 173              	.LVL11:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 174              		.loc 1 49 2 view .LVU38
+ 175 0016 0068     		ldr	r0, [r0]
+ 176              	.LVL12:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 177              		.loc 1 49 2 view .LVU39
+ 178 0018 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 179              	.LVL13:
+  50:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 180              		.loc 1 50 1 view .LVU40
+ 181 001c 05B0     		add	sp, sp, #20
+ 182              	.LCFI5:
+ 183              		.cfi_def_cfa_offset 4
+ 184              		@ sp needed
+ 185 001e 5DF804FB 		ldr	pc, [sp], #4
+ 186              		.cfi_endproc
+ 187              	.LFE67:
+ 189 0022 00BF     		.section	.text.IS31FL3236_Reset,"ax",%progbits
+ 190              		.align	1
+ 191              		.p2align 2,,3
+ 192              		.global	IS31FL3236_Reset
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.fpu softvfp
+ 198              	IS31FL3236_Reset:
+ 199              	.LVL14:
+ 200              	.LFB68:
+  56:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_RESET, 0x00);
+ 201              		.loc 1 56 1 is_stmt 1 view -0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 8
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+  57:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 205              		.loc 1 57 2 view .LVU42
+ 206              	.LBB45:
+ 207              	.LBI45:
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 208              		.loc 1 44 6 view .LVU43
+ 209              	.LBB46:
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+ 210              		.loc 1 46 2 view .LVU44
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 211              		.loc 1 47 2 view .LVU45
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 7
+
+
+ 212              		.loc 1 48 2 view .LVU46
+ 213              	.LBE46:
+ 214              	.LBE45:
+  56:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_RESET, 0x00);
+ 215              		.loc 1 56 1 is_stmt 0 view .LVU47
+ 216 0000 10B5     		push	{r4, lr}
+ 217              	.LCFI6:
+ 218              		.cfi_def_cfa_offset 8
+ 219              		.cfi_offset 4, -8
+ 220              		.cfi_offset 14, -4
+ 221              	.LBB49:
+ 222              	.LBB47:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 223              		.loc 1 47 9 view .LVU48
+ 224 0002 4F24     		movs	r4, #79
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 225              		.loc 1 49 2 view .LVU49
+ 226 0004 8368     		ldr	r3, [r0, #8]
+ 227              	.LBE47:
+ 228              	.LBE49:
+  56:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_RESET, 0x00);
+ 229              		.loc 1 56 1 view .LVU50
+ 230 0006 84B0     		sub	sp, sp, #16
+ 231              	.LCFI7:
+ 232              		.cfi_def_cfa_offset 24
+ 233              	.LBB50:
+ 234              	.LBB48:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 235              		.loc 1 49 2 view .LVU51
+ 236 0008 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 237 000a 0093     		str	r3, [sp]
+ 238 000c 03AA     		add	r2, sp, #12
+ 239 000e 0223     		movs	r3, #2
+ 240 0010 0068     		ldr	r0, [r0]
+ 241              	.LVL15:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 242              		.loc 1 47 9 view .LVU52
+ 243 0012 ADF80C40 		strh	r4, [sp, #12]	@ movhi
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 244              		.loc 1 49 2 is_stmt 1 view .LVU53
+ 245 0016 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 246              	.LVL16:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 247              		.loc 1 49 2 is_stmt 0 view .LVU54
+ 248              	.LBE48:
+ 249              	.LBE50:
+  58:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 250              		.loc 1 58 1 view .LVU55
+ 251 001a 04B0     		add	sp, sp, #16
+ 252              	.LCFI8:
+ 253              		.cfi_def_cfa_offset 8
+ 254              		@ sp needed
+ 255 001c 10BD     		pop	{r4, pc}
+ 256              		.cfi_endproc
+ 257              	.LFE68:
+ 259 001e 00BF     		.section	.text.IS31FL3236_Init,"ax",%progbits
+ 260              		.align	1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 8
+
+
+ 261              		.p2align 2,,3
+ 262              		.global	IS31FL3236_Init
+ 263              		.syntax unified
+ 264              		.thumb
+ 265              		.thumb_func
+ 266              		.fpu softvfp
+ 268              	IS31FL3236_Init:
+ 269              	.LVL17:
+ 270              	.LFB65:
+  27:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_Reset(handle);
+ 271              		.loc 1 27 1 is_stmt 1 view -0
+ 272              		.cfi_startproc
+ 273              		@ args = 0, pretend = 0, frame = 8
+ 274              		@ frame_needed = 0, uses_anonymous_args = 0
+  28:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_SetSoftwareShutdown(handle, IS31FL3236_SOFTWARE_SHUTDOWN_DISABLED);
+ 275              		.loc 1 28 2 view .LVU57
+  27:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_Reset(handle);
+ 276              		.loc 1 27 1 is_stmt 0 view .LVU58
+ 277 0000 30B5     		push	{r4, r5, lr}
+ 278              	.LCFI9:
+ 279              		.cfi_def_cfa_offset 12
+ 280              		.cfi_offset 4, -12
+ 281              		.cfi_offset 5, -8
+ 282              		.cfi_offset 14, -4
+ 283 0002 0446     		mov	r4, r0
+ 284              	.LBB51:
+ 285              	.LBB52:
+ 286              	.LBB53:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 287              		.loc 1 47 9 view .LVU59
+ 288 0004 4FF48075 		mov	r5, #256
+ 289              	.LBE53:
+ 290              	.LBE52:
+ 291              	.LBE51:
+  27:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_Reset(handle);
+ 292              		.loc 1 27 1 view .LVU60
+ 293 0008 85B0     		sub	sp, sp, #20
+ 294              	.LCFI10:
+ 295              		.cfi_def_cfa_offset 32
+  28:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_SetSoftwareShutdown(handle, IS31FL3236_SOFTWARE_SHUTDOWN_DISABLED);
+ 296              		.loc 1 28 2 view .LVU61
+ 297 000a FFF7FEFF 		bl	IS31FL3236_Reset
+ 298              	.LVL18:
+  29:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_SetChipEnable(handle, IS31FL3236_CHIP_ENABLED);
+ 299              		.loc 1 29 2 is_stmt 1 view .LVU62
+ 300              	.LBB56:
+ 301              	.LBI51:
+  96:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+  97:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+  98:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Writes a given color (r, g, b) to a specified rgb channel of the specified chip. The periodic or
+  99:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * are connected can be set in the Init attribute of the handle struct. (RGB_Mode_Color_x)
+ 100:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+ 101:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_WriteRGBPWM(IS31FL3236_HandleTypeDef* handle, uint8_t rgb_channel, uint8_t red, uin
+ 102:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 103:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (rgb_channel < IS31FL3236_MAX_RGB_CHANNELS)
+ 104:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 105:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, rgb_channel * 3, __IS31FL3236_Select_Color(handle->Init.RGB_Mode_Colo
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 9
+
+
+ 106:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 1, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 107:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 2, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 108:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	}
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 110:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 111:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+ 112:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Sets the software shutdown mode of the specified chip.
+ 113:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+ 114:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** void IS31FL3236_SetSoftwareShutdown(IS31FL3236_HandleTypeDef* handle, uint8_t software_shutdown_mod
+ 302              		.loc 1 114 6 view .LVU63
+ 303              	.LBE56:
+ 115:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 116:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_SHUTDOWN, software_shutdown_mode);
+ 304              		.loc 1 116 2 view .LVU64
+ 305              	.LBB57:
+ 306              	.LBB55:
+ 307              	.LBI52:
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 308              		.loc 1 44 6 view .LVU65
+ 309              	.LBB54:
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+ 310              		.loc 1 46 2 view .LVU66
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 311              		.loc 1 47 2 view .LVU67
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 312              		.loc 1 48 2 view .LVU68
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 313              		.loc 1 49 2 is_stmt 0 view .LVU69
+ 314 000e A368     		ldr	r3, [r4, #8]
+ 315 0010 2179     		ldrb	r1, [r4, #4]	@ zero_extendqisi2
+ 316 0012 0093     		str	r3, [sp]
+ 317 0014 03AA     		add	r2, sp, #12
+ 318 0016 0223     		movs	r3, #2
+ 319 0018 2068     		ldr	r0, [r4]
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 320              		.loc 1 47 9 view .LVU70
+ 321 001a ADF80C50 		strh	r5, [sp, #12]	@ movhi
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 322              		.loc 1 49 2 is_stmt 1 view .LVU71
+ 323 001e FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 324              	.LVL19:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 325              		.loc 1 49 2 is_stmt 0 view .LVU72
+ 326              	.LBE54:
+ 327              	.LBE55:
+ 328              	.LBE57:
+  30:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 329              		.loc 1 30 2 is_stmt 1 view .LVU73
+ 330              	.LBB58:
+ 331              	.LBI58:
+  36:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 332              		.loc 1 36 6 view .LVU74
+ 333              	.LBB59:
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 334              		.loc 1 38 2 view .LVU75
+ 335 0022 218A     		ldrh	r1, [r4, #16]
+ 336 0024 E068     		ldr	r0, [r4, #12]
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 10
+
+
+ 337 0026 0122     		movs	r2, #1
+ 338 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 339              	.LVL20:
+  38:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 340              		.loc 1 38 2 is_stmt 0 view .LVU76
+ 341              	.LBE59:
+ 342              	.LBE58:
+  31:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 343              		.loc 1 31 1 view .LVU77
+ 344 002c 05B0     		add	sp, sp, #20
+ 345              	.LCFI11:
+ 346              		.cfi_def_cfa_offset 12
+ 347              		@ sp needed
+ 348 002e 30BD     		pop	{r4, r5, pc}
+  31:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 349              		.loc 1 31 1 view .LVU78
+ 350              		.cfi_endproc
+ 351              	.LFE65:
+ 353              		.section	.text.IS31FL3236_Update,"ax",%progbits
+ 354              		.align	1
+ 355              		.p2align 2,,3
+ 356              		.global	IS31FL3236_Update
+ 357              		.syntax unified
+ 358              		.thumb
+ 359              		.thumb_func
+ 360              		.fpu softvfp
+ 362              	IS31FL3236_Update:
+ 363              	.LVL21:
+ 364              	.LFB69:
+  64:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_UPDATE, 0x00);
+ 365              		.loc 1 64 1 is_stmt 1 view -0
+ 366              		.cfi_startproc
+ 367              		@ args = 0, pretend = 0, frame = 8
+ 368              		@ frame_needed = 0, uses_anonymous_args = 0
+  65:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 369              		.loc 1 65 2 view .LVU80
+ 370              	.LBB60:
+ 371              	.LBI60:
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 372              		.loc 1 44 6 view .LVU81
+ 373              	.LBB61:
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+ 374              		.loc 1 46 2 view .LVU82
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 375              		.loc 1 47 2 view .LVU83
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 376              		.loc 1 48 2 view .LVU84
+ 377              	.LBE61:
+ 378              	.LBE60:
+  64:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_UPDATE, 0x00);
+ 379              		.loc 1 64 1 is_stmt 0 view .LVU85
+ 380 0000 10B5     		push	{r4, lr}
+ 381              	.LCFI12:
+ 382              		.cfi_def_cfa_offset 8
+ 383              		.cfi_offset 4, -8
+ 384              		.cfi_offset 14, -4
+ 385              	.LBB64:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 11
+
+
+ 386              	.LBB62:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 387              		.loc 1 47 9 view .LVU86
+ 388 0002 2524     		movs	r4, #37
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 389              		.loc 1 49 2 view .LVU87
+ 390 0004 8368     		ldr	r3, [r0, #8]
+ 391              	.LBE62:
+ 392              	.LBE64:
+  64:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_UPDATE, 0x00);
+ 393              		.loc 1 64 1 view .LVU88
+ 394 0006 84B0     		sub	sp, sp, #16
+ 395              	.LCFI13:
+ 396              		.cfi_def_cfa_offset 24
+ 397              	.LBB65:
+ 398              	.LBB63:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 399              		.loc 1 49 2 view .LVU89
+ 400 0008 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 401 000a 0093     		str	r3, [sp]
+ 402 000c 03AA     		add	r2, sp, #12
+ 403 000e 0223     		movs	r3, #2
+ 404 0010 0068     		ldr	r0, [r0]
+ 405              	.LVL22:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 406              		.loc 1 47 9 view .LVU90
+ 407 0012 ADF80C40 		strh	r4, [sp, #12]	@ movhi
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 408              		.loc 1 49 2 is_stmt 1 view .LVU91
+ 409 0016 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 410              	.LVL23:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 411              		.loc 1 49 2 is_stmt 0 view .LVU92
+ 412              	.LBE63:
+ 413              	.LBE65:
+  66:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 414              		.loc 1 66 1 view .LVU93
+ 415 001a 04B0     		add	sp, sp, #16
+ 416              	.LCFI14:
+ 417              		.cfi_def_cfa_offset 8
+ 418              		@ sp needed
+ 419 001c 10BD     		pop	{r4, pc}
+ 420              		.cfi_endproc
+ 421              	.LFE69:
+ 423 001e 00BF     		.section	.text.IS31FL3236_WriteLEDControl,"ax",%progbits
+ 424              		.align	1
+ 425              		.p2align 2,,3
+ 426              		.global	IS31FL3236_WriteLEDControl
+ 427              		.syntax unified
+ 428              		.thumb
+ 429              		.thumb_func
+ 430              		.fpu softvfp
+ 432              	IS31FL3236_WriteLEDControl:
+ 433              	.LVL24:
+ 434              	.LFB70:
+  72:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (channel < IS31FL3236_MAX_CHANNELS)
+ 435              		.loc 1 72 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 12
+
+
+ 436              		.cfi_startproc
+ 437              		@ args = 0, pretend = 0, frame = 8
+ 438              		@ frame_needed = 0, uses_anonymous_args = 0
+  73:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_LED_CTRL + channel, (led_current_setting | l
+ 439              		.loc 1 73 2 view .LVU95
+  73:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_LED_CTRL + channel, (led_current_setting | l
+ 440              		.loc 1 73 5 is_stmt 0 view .LVU96
+ 441 0000 2329     		cmp	r1, #35
+ 442 0002 00D9     		bls	.L19
+ 443 0004 7047     		bx	lr
+ 444              	.L19:
+ 445              	.LVL25:
+ 446              	.LBB70:
+ 447              	.LBI70:
+  71:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 448              		.loc 1 71 6 is_stmt 1 view .LVU97
+ 449              	.LBB71:
+  74:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 450              		.loc 1 74 3 view .LVU98
+ 451              	.LBB72:
+ 452              	.LBI72:
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 453              		.loc 1 44 6 view .LVU99
+ 454              	.LBB73:
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+ 455              		.loc 1 46 2 view .LVU100
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 456              		.loc 1 47 2 view .LVU101
+ 457              	.LBE73:
+ 458              	.LBE72:
+ 459              	.LBE71:
+ 460              	.LBE70:
+  72:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (channel < IS31FL3236_MAX_CHANNELS)
+ 461              		.loc 1 72 1 is_stmt 0 view .LVU102
+ 462 0006 70B5     		push	{r4, r5, r6, lr}
+ 463              	.LCFI15:
+ 464              		.cfi_def_cfa_offset 16
+ 465              		.cfi_offset 4, -16
+ 466              		.cfi_offset 5, -12
+ 467              		.cfi_offset 6, -8
+ 468              		.cfi_offset 14, -4
+ 469              	.LBB82:
+ 470              	.LBB80:
+ 471              	.LBB77:
+ 472              	.LBB74:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 473              		.loc 1 49 2 view .LVU103
+ 474 0008 8668     		ldr	r6, [r0, #8]
+ 475              	.LBE74:
+ 476              	.LBE77:
+ 477              	.LBE80:
+ 478              	.LBE82:
+  72:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (channel < IS31FL3236_MAX_CHANNELS)
+ 479              		.loc 1 72 1 view .LVU104
+ 480 000a 84B0     		sub	sp, sp, #16
+ 481              	.LCFI16:
+ 482              		.cfi_def_cfa_offset 32
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 13
+
+
+ 483              	.LBB83:
+ 484              	.LBB81:
+ 485              	.LBB78:
+ 486              	.LBB75:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 487              		.loc 1 49 2 view .LVU105
+ 488 000c 0096     		str	r6, [sp]
+ 489              	.LBE75:
+ 490              	.LBE78:
+  74:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 491              		.loc 1 74 3 view .LVU106
+ 492 000e 42EA0305 		orr	r5, r2, r3
+ 493 0012 01F12604 		add	r4, r1, #38
+ 494              	.LBB79:
+ 495              	.LBB76:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 496              		.loc 1 49 2 view .LVU107
+ 497 0016 0223     		movs	r3, #2
+ 498              	.LVL26:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 499              		.loc 1 49 2 view .LVU108
+ 500 0018 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 501              	.LVL27:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 502              		.loc 1 49 2 view .LVU109
+ 503 001a 03AA     		add	r2, sp, #12
+ 504              	.LVL28:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 505              		.loc 1 49 2 view .LVU110
+ 506 001c 0068     		ldr	r0, [r0]
+ 507              	.LVL29:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 508              		.loc 1 47 9 view .LVU111
+ 509 001e 8DF80C40 		strb	r4, [sp, #12]
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 510              		.loc 1 48 2 is_stmt 1 view .LVU112
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 511              		.loc 1 48 9 is_stmt 0 view .LVU113
+ 512 0022 8DF80D50 		strb	r5, [sp, #13]
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 513              		.loc 1 49 2 is_stmt 1 view .LVU114
+ 514 0026 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 515              	.LVL30:
+ 516              	.LBE76:
+ 517              	.LBE79:
+ 518              	.LBE81:
+ 519              	.LBE83:
+  75:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 520              		.loc 1 75 1 is_stmt 0 view .LVU115
+ 521 002a 04B0     		add	sp, sp, #16
+ 522              	.LCFI17:
+ 523              		.cfi_def_cfa_offset 16
+ 524              		@ sp needed
+ 525 002c 70BD     		pop	{r4, r5, r6, pc}
+ 526              		.cfi_endproc
+ 527              	.LFE70:
+ 529 002e 00BF     		.section	.text.IS31FL3236_WriteGlobalLEDControl,"ax",%progbits
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 14
+
+
+ 530              		.align	1
+ 531              		.p2align 2,,3
+ 532              		.global	IS31FL3236_WriteGlobalLEDControl
+ 533              		.syntax unified
+ 534              		.thumb
+ 535              		.thumb_func
+ 536              		.fpu softvfp
+ 538              	IS31FL3236_WriteGlobalLEDControl:
+ 539              	.LVL31:
+ 540              	.LFB71:
+  81:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	for (uint8_t i = 0; i < IS31FL3236_MAX_CHANNELS; i++)
+ 541              		.loc 1 81 1 is_stmt 1 view -0
+ 542              		.cfi_startproc
+ 543              		@ args = 0, pretend = 0, frame = 8
+ 544              		@ frame_needed = 0, uses_anonymous_args = 0
+  81:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	for (uint8_t i = 0; i < IS31FL3236_MAX_CHANNELS; i++)
+ 545              		.loc 1 81 1 is_stmt 0 view .LVU117
+ 546 0000 70B5     		push	{r4, r5, r6, lr}
+ 547              	.LCFI18:
+ 548              		.cfi_def_cfa_offset 16
+ 549              		.cfi_offset 4, -16
+ 550              		.cfi_offset 5, -12
+ 551              		.cfi_offset 6, -8
+ 552              		.cfi_offset 14, -4
+ 553 0002 0546     		mov	r5, r0
+  82:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 554              		.loc 1 82 2 is_stmt 1 view .LVU118
+ 555              	.LBB91:
+  82:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 556              		.loc 1 82 7 view .LVU119
+ 557              	.LVL32:
+  82:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 558              		.loc 1 82 7 is_stmt 0 view .LVU120
+ 559              	.LBE91:
+  81:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	for (uint8_t i = 0; i < IS31FL3236_MAX_CHANNELS; i++)
+ 560              		.loc 1 81 1 view .LVU121
+ 561 0004 2624     		movs	r4, #38
+ 562 0006 84B0     		sub	sp, sp, #16
+ 563              	.LCFI19:
+ 564              		.cfi_def_cfa_offset 32
+ 565 0008 41EA0206 		orr	r6, r1, r2
+ 566              	.LVL33:
+ 567              	.L21:
+ 568              	.LBB99:
+  84:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	}
+ 569              		.loc 1 84 3 is_stmt 1 view .LVU122
+ 570              	.LBB92:
+ 571              	.LBI92:
+  71:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 572              		.loc 1 71 6 view .LVU123
+ 573              	.LBE92:
+ 574              	.LBE99:
+  73:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_LED_CTRL + channel, (led_current_setting | l
+ 575              		.loc 1 73 2 view .LVU124
+ 576              	.LBB100:
+ 577              	.LBB97:
+ 578              	.LBB93:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 15
+
+
+ 579              	.LBI93:
+  71:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 580              		.loc 1 71 6 view .LVU125
+ 581              	.LBE93:
+ 582              	.LBE97:
+ 583              	.LBE100:
+  74:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 584              		.loc 1 74 3 view .LVU126
+ 585              	.LBB101:
+ 586              	.LBB98:
+ 587              	.LBB96:
+ 588              	.LBB94:
+ 589              	.LBI94:
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 590              		.loc 1 44 6 view .LVU127
+ 591              	.LBB95:
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+ 592              		.loc 1 46 2 view .LVU128
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 593              		.loc 1 47 2 view .LVU129
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 594              		.loc 1 49 2 is_stmt 0 view .LVU130
+ 595 000c AA68     		ldr	r2, [r5, #8]
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 596              		.loc 1 47 9 view .LVU131
+ 597 000e 8DF80C40 		strb	r4, [sp, #12]
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 598              		.loc 1 48 2 is_stmt 1 view .LVU132
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 599              		.loc 1 49 2 is_stmt 0 view .LVU133
+ 600 0012 0092     		str	r2, [sp]
+ 601 0014 0134     		adds	r4, r4, #1
+ 602              	.LVL34:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 603              		.loc 1 49 2 view .LVU134
+ 604 0016 0223     		movs	r3, #2
+ 605 0018 03AA     		add	r2, sp, #12
+ 606              	.LVL35:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 607              		.loc 1 49 2 view .LVU135
+ 608 001a 2979     		ldrb	r1, [r5, #4]	@ zero_extendqisi2
+ 609 001c 2868     		ldr	r0, [r5]
+ 610 001e E4B2     		uxtb	r4, r4
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 611              		.loc 1 48 9 view .LVU136
+ 612 0020 8DF80D60 		strb	r6, [sp, #13]
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 613              		.loc 1 49 2 is_stmt 1 view .LVU137
+ 614 0024 FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 615              	.LVL36:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 616              		.loc 1 49 2 is_stmt 0 view .LVU138
+ 617              	.LBE95:
+ 618              	.LBE94:
+ 619              	.LBE96:
+ 620              	.LBE98:
+  82:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 16
+
+
+ 621              		.loc 1 82 2 view .LVU139
+ 622 0028 4A2C     		cmp	r4, #74
+ 623 002a EFD1     		bne	.L21
+ 624              	.LBE101:
+  86:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 625              		.loc 1 86 1 view .LVU140
+ 626 002c 04B0     		add	sp, sp, #16
+ 627              	.LCFI20:
+ 628              		.cfi_def_cfa_offset 16
+ 629              		@ sp needed
+ 630 002e 70BD     		pop	{r4, r5, r6, pc}
+  86:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 631              		.loc 1 86 1 view .LVU141
+ 632              		.cfi_endproc
+ 633              	.LFE71:
+ 635              		.section	.text.IS31FL3236_WritePWM,"ax",%progbits
+ 636              		.align	1
+ 637              		.p2align 2,,3
+ 638              		.global	IS31FL3236_WritePWM
+ 639              		.syntax unified
+ 640              		.thumb
+ 641              		.thumb_func
+ 642              		.fpu softvfp
+ 644              	IS31FL3236_WritePWM:
+ 645              	.LVL37:
+ 646              	.LFB72:
+  92:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (channel < IS31FL3236_MAX_CHANNELS)
+ 647              		.loc 1 92 1 is_stmt 1 view -0
+ 648              		.cfi_startproc
+ 649              		@ args = 0, pretend = 0, frame = 0
+ 650              		@ frame_needed = 0, uses_anonymous_args = 0
+ 651              		@ link register save eliminated.
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 652              		.loc 1 93 2 view .LVU143
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 653              		.loc 1 93 5 is_stmt 0 view .LVU144
+ 654 0000 2329     		cmp	r1, #35
+ 655 0002 00D9     		bls	.L26
+  95:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 656              		.loc 1 95 1 view .LVU145
+ 657 0004 7047     		bx	lr
+ 658              	.L26:
+ 659 0006 FFF7FEBF 		b	IS31FL3236_WritePWM.part.1
+ 660              	.LVL38:
+  95:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 661              		.loc 1 95 1 view .LVU146
+ 662              		.cfi_endproc
+ 663              	.LFE72:
+ 665 000a 00BF     		.section	.text.IS31FL3236_WriteRGBPWM,"ax",%progbits
+ 666              		.align	1
+ 667              		.p2align 2,,3
+ 668              		.global	IS31FL3236_WriteRGBPWM
+ 669              		.syntax unified
+ 670              		.thumb
+ 671              		.thumb_func
+ 672              		.fpu softvfp
+ 674              	IS31FL3236_WriteRGBPWM:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 17
+
+
+ 675              	.LVL39:
+ 676              	.LFB73:
+ 102:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (rgb_channel < IS31FL3236_MAX_RGB_CHANNELS)
+ 677              		.loc 1 102 1 is_stmt 1 view -0
+ 678              		.cfi_startproc
+ 679              		@ args = 4, pretend = 0, frame = 0
+ 680              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 681              		.loc 1 103 2 view .LVU148
+ 102:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (rgb_channel < IS31FL3236_MAX_RGB_CHANNELS)
+ 682              		.loc 1 102 1 is_stmt 0 view .LVU149
+ 683 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 684              	.LCFI21:
+ 685              		.cfi_def_cfa_offset 24
+ 686              		.cfi_offset 4, -24
+ 687              		.cfi_offset 5, -20
+ 688              		.cfi_offset 6, -16
+ 689              		.cfi_offset 7, -12
+ 690              		.cfi_offset 8, -8
+ 691              		.cfi_offset 14, -4
+ 103:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 692              		.loc 1 103 5 view .LVU150
+ 693 0004 0B29     		cmp	r1, #11
+ 102:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	if (rgb_channel < IS31FL3236_MAX_RGB_CHANNELS)
+ 694              		.loc 1 102 1 view .LVU151
+ 695 0006 9DF81860 		ldrb	r6, [sp, #24]	@ zero_extendqisi2
+ 103:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 696              		.loc 1 103 5 view .LVU152
+ 697 000a 2DD8     		bhi	.L27
+ 105:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 1, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 698              		.loc 1 105 3 is_stmt 1 view .LVU153
+ 699 000c 857C     		ldrb	r5, [r0, #18]	@ zero_extendqisi2
+ 700              	.LVL40:
+ 701              	.LBB102:
+ 702              	.LBI102:
+ 117:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 118:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 119:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 120:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 121:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 122:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** /*
+ 123:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  * Selects red, green or blue value by the given color selector.
+ 124:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c ****  */
+ 125:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** static uint8_t __IS31FL3236_Select_Color(uint8_t color_selector, uint8_t r, uint8_t g, uint8_t b)
+ 703              		.loc 1 125 16 view .LVU154
+ 704              	.LBB103:
+ 126:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	switch (color_selector)
+ 705              		.loc 1 127 2 view .LVU155
+ 706              	.LBE103:
+ 707              	.LBE102:
+ 105:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 1, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 708              		.loc 1 105 3 is_stmt 0 view .LVU156
+ 709 000e 01EB4101 		add	r1, r1, r1, lsl #1
+ 710              	.LVL41:
+ 711              	.LBB108:
+ 712              	.LBB104:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 18
+
+
+ 713              		.loc 1 127 2 view .LVU157
+ 714 0012 012D     		cmp	r5, #1
+ 715              	.LBE104:
+ 716              	.LBE108:
+ 105:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 1, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 717              		.loc 1 105 3 view .LVU158
+ 718 0014 CCB2     		uxtb	r4, r1
+ 719              	.LBB109:
+ 720              	.LBB105:
+ 721              		.loc 1 127 2 view .LVU159
+ 722 0016 29D0     		beq	.L32
+ 723 0018 9DB3     		cbz	r5, .L33
+ 724 001a 022D     		cmp	r5, #2
+ 128:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 129:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_RED:
+ 130:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		return r;
+ 131:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_GREEN:
+ 132:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		return g;
+ 133:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_BLUE:
+ 134:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		return b;
+ 135:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	default:
+ 136:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		return 0;
+ 725              		.loc 1 136 10 view .LVU160
+ 726 001c 0CBF     		ite	eq
+ 727 001e 3146     		moveq	r1, r6
+ 728 0020 0021     		movne	r1, #0
+ 729              	.L29:
+ 730 0022 0546     		mov	r5, r0
+ 731              	.LVL42:
+ 732              		.loc 1 136 10 view .LVU161
+ 733              	.LBE105:
+ 734              	.LBE109:
+ 735              	.LBB110:
+ 736              	.LBI110:
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 737              		.loc 1 91 6 is_stmt 1 view .LVU162
+ 738              	.LBB111:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 739              		.loc 1 93 2 view .LVU163
+ 740 0024 1746     		mov	r7, r2
+ 741 0026 0A46     		mov	r2, r1
+ 742              	.LVL43:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 743              		.loc 1 93 2 is_stmt 0 view .LVU164
+ 744 0028 2146     		mov	r1, r4
+ 745              	.LVL44:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 746              		.loc 1 93 2 view .LVU165
+ 747 002a 9846     		mov	r8, r3
+ 748 002c FFF7FEFF 		bl	IS31FL3236_WritePWM.part.1
+ 749              	.LVL45:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 750              		.loc 1 93 2 view .LVU166
+ 751              	.LBE111:
+ 752              	.LBE110:
+ 106:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 2, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 753              		.loc 1 106 3 is_stmt 1 view .LVU167
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 19
+
+
+ 754 0030 EB7C     		ldrb	r3, [r5, #19]	@ zero_extendqisi2
+ 755              	.LVL46:
+ 756              	.LBB112:
+ 757              	.LBI112:
+ 125:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 758              		.loc 1 125 16 view .LVU168
+ 759              	.LBB113:
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 760              		.loc 1 127 2 view .LVU169
+ 761              	.LBE113:
+ 762              	.LBE112:
+ 106:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 2, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 763              		.loc 1 106 3 is_stmt 0 view .LVU170
+ 764 0032 611C     		adds	r1, r4, #1
+ 765              	.LBB118:
+ 766              	.LBB114:
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 767              		.loc 1 127 2 view .LVU171
+ 768 0034 012B     		cmp	r3, #1
+ 769              	.LBE114:
+ 770              	.LBE118:
+ 106:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WritePWM(handle, (rgb_channel * 3) + 2, __IS31FL3236_Select_Color(handle->Init.RGB_Mod
+ 771              		.loc 1 106 3 view .LVU172
+ 772 0036 C9B2     		uxtb	r1, r1
+ 773              	.LBB119:
+ 774              	.LBB115:
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 775              		.loc 1 127 2 view .LVU173
+ 776 0038 2CD0     		beq	.L35
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 777              		.loc 1 127 2 view .LVU174
+ 778 003a 03B3     		cbz	r3, .L36
+ 779 003c 022B     		cmp	r3, #2
+ 780              		.loc 1 136 10 view .LVU175
+ 781 003e 0CBF     		ite	eq
+ 782 0040 3246     		moveq	r2, r6
+ 783 0042 0022     		movne	r2, #0
+ 784              	.L30:
+ 785              	.LVL47:
+ 786              		.loc 1 136 10 view .LVU176
+ 787              	.LBE115:
+ 788              	.LBE119:
+ 789              	.LBB120:
+ 790              	.LBI120:
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 791              		.loc 1 91 6 is_stmt 1 view .LVU177
+ 792              	.LBB121:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 793              		.loc 1 93 2 view .LVU178
+ 794 0044 2846     		mov	r0, r5
+ 795 0046 FFF7FEFF 		bl	IS31FL3236_WritePWM.part.1
+ 796              	.LVL48:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 797              		.loc 1 93 2 is_stmt 0 view .LVU179
+ 798              	.LBE121:
+ 799              	.LBE120:
+ 107:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	}
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 20
+
+
+ 800              		.loc 1 107 3 is_stmt 1 view .LVU180
+ 801 004a 2B7D     		ldrb	r3, [r5, #20]	@ zero_extendqisi2
+ 802              	.LVL49:
+ 803              	.LBB122:
+ 804              	.LBI122:
+ 125:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 805              		.loc 1 125 16 view .LVU181
+ 806              	.LBB123:
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 807              		.loc 1 127 2 view .LVU182
+ 808              	.LBE123:
+ 809              	.LBE122:
+ 107:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	}
+ 810              		.loc 1 107 3 is_stmt 0 view .LVU183
+ 811 004c A11C     		adds	r1, r4, #2
+ 812              	.LBB128:
+ 813              	.LBB124:
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 814              		.loc 1 127 2 view .LVU184
+ 815 004e 012B     		cmp	r3, #1
+ 816              	.LBE124:
+ 817              	.LBE128:
+ 107:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	}
+ 818              		.loc 1 107 3 view .LVU185
+ 819 0050 C9B2     		uxtb	r1, r1
+ 820              	.LBB129:
+ 821              	.LBB125:
+ 127:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	{
+ 822              		.loc 1 127 2 view .LVU186
+ 823 0052 18D0     		beq	.L38
+ 824 0054 63B1     		cbz	r3, .L39
+ 825 0056 022B     		cmp	r3, #2
+ 826              		.loc 1 136 10 view .LVU187
+ 827 0058 18BF     		it	ne
+ 828 005a 0026     		movne	r6, #0
+ 829              	.LVL50:
+ 830              		.loc 1 136 10 view .LVU188
+ 831              	.LBE125:
+ 832              	.LBE129:
+ 833              	.LBB130:
+ 834              	.LBI130:
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 835              		.loc 1 91 6 is_stmt 1 view .LVU189
+ 836              	.LBB131:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 837              		.loc 1 93 2 view .LVU190
+ 838 005c 2846     		mov	r0, r5
+ 839 005e 3246     		mov	r2, r6
+ 840              	.LBE131:
+ 841              	.LBE130:
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 842              		.loc 1 109 1 is_stmt 0 view .LVU191
+ 843 0060 BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ 844              	.LCFI22:
+ 845              		.cfi_remember_state
+ 846              		.cfi_restore 14
+ 847              		.cfi_restore 8
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 21
+
+
+ 848              		.cfi_restore 7
+ 849              		.cfi_restore 6
+ 850              		.cfi_restore 5
+ 851              		.cfi_restore 4
+ 852              		.cfi_def_cfa_offset 0
+ 853              	.LVL51:
+ 854              	.LBB137:
+ 855              	.LBB132:
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 856              		.loc 1 109 1 view .LVU192
+ 857 0064 FFF7FEBF 		b	IS31FL3236_WritePWM.part.1
+ 858              	.LVL52:
+ 859              	.L27:
+ 860              	.LCFI23:
+ 861              		.cfi_restore_state
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 862              		.loc 1 109 1 view .LVU193
+ 863              	.LBE132:
+ 864              	.LBE137:
+ 865 0068 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 866              	.LVL53:
+ 867              	.L32:
+ 868              	.LBB138:
+ 869              	.LBB106:
+ 132:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_BLUE:
+ 870              		.loc 1 132 10 view .LVU194
+ 871 006c 1946     		mov	r1, r3
+ 872 006e D8E7     		b	.L29
+ 873              	.LVL54:
+ 874              	.L39:
+ 132:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_BLUE:
+ 875              		.loc 1 132 10 view .LVU195
+ 876              	.LBE106:
+ 877              	.LBE138:
+ 878              	.LBB139:
+ 879              	.LBB126:
+ 130:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_GREEN:
+ 880              		.loc 1 130 10 view .LVU196
+ 881 0070 3E46     		mov	r6, r7
+ 882              	.LVL55:
+ 130:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_GREEN:
+ 883              		.loc 1 130 10 view .LVU197
+ 884              	.LBE126:
+ 885              	.LBE139:
+ 886              	.LBB140:
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 887              		.loc 1 91 6 is_stmt 1 view .LVU198
+ 888              	.LBB133:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 889              		.loc 1 93 2 view .LVU199
+ 890 0072 2846     		mov	r0, r5
+ 891 0074 3246     		mov	r2, r6
+ 892              	.LBE133:
+ 893              	.LBE140:
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 894              		.loc 1 109 1 is_stmt 0 view .LVU200
+ 895 0076 BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 22
+
+
+ 896              	.LCFI24:
+ 897              		.cfi_remember_state
+ 898              		.cfi_restore 14
+ 899              		.cfi_restore 8
+ 900              		.cfi_restore 7
+ 901              		.cfi_restore 6
+ 902              		.cfi_restore 5
+ 903              		.cfi_restore 4
+ 904              		.cfi_def_cfa_offset 0
+ 905              	.LVL56:
+ 906              	.LBB141:
+ 907              	.LBB134:
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 908              		.loc 1 109 1 view .LVU201
+ 909 007a FFF7FEBF 		b	IS31FL3236_WritePWM.part.1
+ 910              	.LVL57:
+ 911              	.L36:
+ 912              	.LCFI25:
+ 913              		.cfi_restore_state
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 914              		.loc 1 109 1 view .LVU202
+ 915              	.LBE134:
+ 916              	.LBE141:
+ 917              	.LBB142:
+ 918              	.LBB116:
+ 130:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_GREEN:
+ 919              		.loc 1 130 10 view .LVU203
+ 920 007e 3A46     		mov	r2, r7
+ 921 0080 E0E7     		b	.L30
+ 922              	.LVL58:
+ 923              	.L33:
+ 130:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_GREEN:
+ 924              		.loc 1 130 10 view .LVU204
+ 925              	.LBE116:
+ 926              	.LBE142:
+ 927              	.LBB143:
+ 928              	.LBB107:
+ 929 0082 1146     		mov	r1, r2
+ 930 0084 CDE7     		b	.L29
+ 931              	.LVL59:
+ 932              	.L38:
+ 130:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_GREEN:
+ 933              		.loc 1 130 10 view .LVU205
+ 934              	.LBE107:
+ 935              	.LBE143:
+ 936              	.LBB144:
+ 937              	.LBB127:
+ 132:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_BLUE:
+ 938              		.loc 1 132 10 view .LVU206
+ 939 0086 4646     		mov	r6, r8
+ 940              	.LVL60:
+ 132:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_BLUE:
+ 941              		.loc 1 132 10 view .LVU207
+ 942              	.LBE127:
+ 943              	.LBE144:
+ 944              	.LBB145:
+  91:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 23
+
+
+ 945              		.loc 1 91 6 is_stmt 1 view .LVU208
+ 946              	.LBB135:
+  93:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 		IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_PWM + channel, pwm_value);
+ 947              		.loc 1 93 2 view .LVU209
+ 948 0088 2846     		mov	r0, r5
+ 949 008a 3246     		mov	r2, r6
+ 950              	.LBE135:
+ 951              	.LBE145:
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 952              		.loc 1 109 1 is_stmt 0 view .LVU210
+ 953 008c BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ 954              	.LCFI26:
+ 955              		.cfi_remember_state
+ 956              		.cfi_restore 14
+ 957              		.cfi_restore 8
+ 958              		.cfi_restore 7
+ 959              		.cfi_restore 6
+ 960              		.cfi_restore 5
+ 961              		.cfi_restore 4
+ 962              		.cfi_def_cfa_offset 0
+ 963              	.LVL61:
+ 964              	.LBB146:
+ 965              	.LBB136:
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 966              		.loc 1 109 1 view .LVU211
+ 967 0090 FFF7FEBF 		b	IS31FL3236_WritePWM.part.1
+ 968              	.LVL62:
+ 969              	.L35:
+ 970              	.LCFI27:
+ 971              		.cfi_restore_state
+ 109:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 972              		.loc 1 109 1 view .LVU212
+ 973              	.LBE136:
+ 974              	.LBE146:
+ 975              	.LBB147:
+ 976              	.LBB117:
+ 132:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	case IS31FL3236_RGB_CONFIG_BLUE:
+ 977              		.loc 1 132 10 view .LVU213
+ 978 0094 4246     		mov	r2, r8
+ 979 0096 D5E7     		b	.L30
+ 980              	.LBE117:
+ 981              	.LBE147:
+ 982              		.cfi_endproc
+ 983              	.LFE73:
+ 985              		.section	.text.IS31FL3236_SetSoftwareShutdown,"ax",%progbits
+ 986              		.align	1
+ 987              		.p2align 2,,3
+ 988              		.global	IS31FL3236_SetSoftwareShutdown
+ 989              		.syntax unified
+ 990              		.thumb
+ 991              		.thumb_func
+ 992              		.fpu softvfp
+ 994              	IS31FL3236_SetSoftwareShutdown:
+ 995              	.LVL63:
+ 996              	.LFB74:
+ 115:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_SHUTDOWN, software_shutdown_mode);
+ 997              		.loc 1 115 1 is_stmt 1 view -0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 24
+
+
+ 998              		.cfi_startproc
+ 999              		@ args = 0, pretend = 0, frame = 8
+ 1000              		@ frame_needed = 0, uses_anonymous_args = 0
+ 116:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 1001              		.loc 1 116 2 view .LVU215
+ 1002              	.LBB148:
+ 1003              	.LBI148:
+  44:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** {
+ 1004              		.loc 1 44 6 view .LVU216
+ 1005              	.LBB149:
+  46:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[0] = register_address;
+ 1006              		.loc 1 46 2 view .LVU217
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 1007              		.loc 1 47 2 view .LVU218
+ 1008              	.LBE149:
+ 1009              	.LBE148:
+ 115:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_SHUTDOWN, software_shutdown_mode);
+ 1010              		.loc 1 115 1 is_stmt 0 view .LVU219
+ 1011 0000 10B5     		push	{r4, lr}
+ 1012              	.LCFI28:
+ 1013              		.cfi_def_cfa_offset 8
+ 1014              		.cfi_offset 4, -8
+ 1015              		.cfi_offset 14, -4
+ 1016              	.LBB152:
+ 1017              	.LBB150:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ 1018              		.loc 1 47 9 view .LVU220
+ 1019 0002 0024     		movs	r4, #0
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 1020              		.loc 1 49 2 view .LVU221
+ 1021 0004 8368     		ldr	r3, [r0, #8]
+ 1022              	.LBE150:
+ 1023              	.LBE152:
+ 115:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	IS31FL3236_WriteRegister(handle, IS31FL3236_REGISTER_SHUTDOWN, software_shutdown_mode);
+ 1024              		.loc 1 115 1 view .LVU222
+ 1025 0006 84B0     		sub	sp, sp, #16
+ 1026              	.LCFI29:
+ 1027              		.cfi_def_cfa_offset 24
+ 1028              	.LBB153:
+ 1029              	.LBB151:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 1030              		.loc 1 49 2 view .LVU223
+ 1031 0008 0093     		str	r3, [sp]
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 1032              		.loc 1 48 9 view .LVU224
+ 1033 000a 8DF80D10 		strb	r1, [sp, #13]
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 1034              		.loc 1 49 2 view .LVU225
+ 1035 000e 0223     		movs	r3, #2
+ 1036 0010 0179     		ldrb	r1, [r0, #4]	@ zero_extendqisi2
+ 1037              	.LVL64:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 1038              		.loc 1 49 2 view .LVU226
+ 1039 0012 03AA     		add	r2, sp, #12
+ 1040 0014 0068     		ldr	r0, [r0]
+ 1041              	.LVL65:
+  47:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	buf[1] = value;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 25
+
+
+ 1042              		.loc 1 47 9 view .LVU227
+ 1043 0016 8DF80C40 		strb	r4, [sp, #12]
+  48:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 	HAL_I2C_Master_Transmit(handle->Init.I2C_Bus, handle->Init.I2C_Device_Address, buf, 2, handle->Ini
+ 1044              		.loc 1 48 2 is_stmt 1 view .LVU228
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 1045              		.loc 1 49 2 view .LVU229
+ 1046 001a FFF7FEFF 		bl	HAL_I2C_Master_Transmit
+ 1047              	.LVL66:
+  49:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** }
+ 1048              		.loc 1 49 2 is_stmt 0 view .LVU230
+ 1049              	.LBE151:
+ 1050              	.LBE153:
+ 117:Middlewares/berndoJ/IS31FL3236_HAL_Driver/Src/is31fl3236_driver.c **** 
+ 1051              		.loc 1 117 1 view .LVU231
+ 1052 001e 04B0     		add	sp, sp, #16
+ 1053              	.LCFI30:
+ 1054              		.cfi_def_cfa_offset 8
+ 1055              		@ sp needed
+ 1056 0020 10BD     		pop	{r4, pc}
+ 1057              		.cfi_endproc
+ 1058              	.LFE74:
+ 1060 0022 00BF     		.text
+ 1061              	.Letext0:
+ 1062              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 1063              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1064              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 1065              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 1066              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 1067              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 1068              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 1069              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 1070              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 1071              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 1072              		.file 12 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 is31fl3236_driver.c
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:16     .text.IS31FL3236_WritePWM.part.1:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:24     .text.IS31FL3236_WritePWM.part.1:00000000 IS31FL3236_WritePWM.part.1
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:98     .text.IS31FL3236_SetChipEnable:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:106    .text.IS31FL3236_SetChipEnable:00000000 IS31FL3236_SetChipEnable
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:132    .text.IS31FL3236_WriteRegister:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:140    .text.IS31FL3236_WriteRegister:00000000 IS31FL3236_WriteRegister
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:190    .text.IS31FL3236_Reset:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:198    .text.IS31FL3236_Reset:00000000 IS31FL3236_Reset
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:260    .text.IS31FL3236_Init:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:268    .text.IS31FL3236_Init:00000000 IS31FL3236_Init
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:354    .text.IS31FL3236_Update:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:362    .text.IS31FL3236_Update:00000000 IS31FL3236_Update
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:424    .text.IS31FL3236_WriteLEDControl:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:432    .text.IS31FL3236_WriteLEDControl:00000000 IS31FL3236_WriteLEDControl
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:530    .text.IS31FL3236_WriteGlobalLEDControl:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:538    .text.IS31FL3236_WriteGlobalLEDControl:00000000 IS31FL3236_WriteGlobalLEDControl
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:636    .text.IS31FL3236_WritePWM:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:644    .text.IS31FL3236_WritePWM:00000000 IS31FL3236_WritePWM
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:666    .text.IS31FL3236_WriteRGBPWM:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:674    .text.IS31FL3236_WriteRGBPWM:00000000 IS31FL3236_WriteRGBPWM
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:986    .text.IS31FL3236_SetSoftwareShutdown:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccWqH9PU.s:994    .text.IS31FL3236_SetSoftwareShutdown:00000000 IS31FL3236_SetSoftwareShutdown
+
+UNDEFINED SYMBOLS
+HAL_I2C_Master_Transmit
+HAL_GPIO_WritePin

@@ -1,0 +1,140 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccaNi01e.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"fwtasks.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.TASK_ExecMain,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.global	TASK_ExecMain
+  19              		.arch armv7-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu softvfp
+  25              	TASK_ExecMain:
+  26              	.LVL0:
+  27              	.LFB70:
+  28              		.file 1 "Src/fwtasks.c"
+   1:Src/fwtasks.c **** /*----------------------------------------------------------------
+   2:Src/fwtasks.c ****  * FILENAME :		fwtasks.c
+   3:Src/fwtasks.c ****  * PROJECT :		jkp-infinikeys-test-fw
+   4:Src/fwtasks.c ****  * AUTHOR :			Johannes Berndorfer
+   5:Src/fwtasks.c ****  * BREIF :			FreeRTOS Task Routines
+   6:Src/fwtasks.c ****  *
+   7:Src/fwtasks.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:Src/fwtasks.c ****  * ---------------------------------------------------------------
+   9:Src/fwtasks.c ****  * DATE CREATED :	05.10.2019
+  10:Src/fwtasks.c ****  * VERSION :		1.0
+  11:Src/fwtasks.c ****  * ---------------------------------------------------------------
+  12:Src/fwtasks.c ****  * DESCRIPTION :
+  13:Src/fwtasks.c ****  * 		This file contains the task routines of all FreeRTOS
+  14:Src/fwtasks.c ****  *      tasks.
+  15:Src/fwtasks.c ****  *
+  16:Src/fwtasks.c ****  *--------------------------------------------------------------*/
+  17:Src/fwtasks.c **** 
+  18:Src/fwtasks.c **** #include "fwtasks.h"
+  19:Src/fwtasks.c **** 
+  20:Src/fwtasks.c **** #include "cmsis_os.h"
+  21:Src/fwtasks.c **** #include "is31fl3236_driver.h"
+  22:Src/fwtasks.c **** #include "main.h"
+  23:Src/fwtasks.c **** 
+  24:Src/fwtasks.c **** void TASK_ExecMain(void const* arg)
+  25:Src/fwtasks.c **** {
+  29              		.loc 1 25 1 view -0
+  30              		.cfi_startproc
+  31              		@ Volatile: function does not return.
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccaNi01e.s 			page 2
+
+
+  26:Src/fwtasks.c ****     // Main Task: Initialisation.
+  27:Src/fwtasks.c ****     IS31FL3236_WriteRGBPWM(&h_rgb_controller, 1, 0x00, 0xff, 0xff);
+  34              		.loc 1 27 5 view .LVU1
+  35 0000 FF23     		movs	r3, #255
+  25:Src/fwtasks.c ****     // Main Task: Initialisation.
+  36              		.loc 1 25 1 is_stmt 0 view .LVU2
+  37 0002 00B5     		push	{lr}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 4
+  40              		.cfi_offset 14, -4
+  41 0004 83B0     		sub	sp, sp, #12
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_offset 16
+  44              		.loc 1 27 5 view .LVU3
+  45 0006 0648     		ldr	r0, .L5
+  46              	.LVL1:
+  47              		.loc 1 27 5 view .LVU4
+  48 0008 0022     		movs	r2, #0
+  49 000a 0093     		str	r3, [sp]
+  50 000c 0121     		movs	r1, #1
+  51 000e FFF7FEFF 		bl	IS31FL3236_WriteRGBPWM
+  52              	.LVL2:
+  28:Src/fwtasks.c ****     IS31FL3236_Update(&h_rgb_controller);
+  53              		.loc 1 28 5 is_stmt 1 view .LVU5
+  54 0012 0348     		ldr	r0, .L5
+  55 0014 FFF7FEFF 		bl	IS31FL3236_Update
+  56              	.LVL3:
+  57              	.L2:
+  29:Src/fwtasks.c **** 
+  30:Src/fwtasks.c ****     // Main Task: Loop.
+  31:Src/fwtasks.c ****     for (;;)
+  58              		.loc 1 31 5 discriminator 1 view .LVU6
+  32:Src/fwtasks.c ****     {
+  33:Src/fwtasks.c ****         osDelay(1);
+  59              		.loc 1 33 9 discriminator 1 view .LVU7
+  60 0018 0120     		movs	r0, #1
+  61 001a FFF7FEFF 		bl	osDelay
+  62              	.LVL4:
+  63 001e FBE7     		b	.L2
+  64              	.L6:
+  65              		.align	2
+  66              	.L5:
+  67 0020 00000000 		.word	h_rgb_controller
+  68              		.cfi_endproc
+  69              	.LFE70:
+  71              		.text
+  72              	.Letext0:
+  73              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+  74              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+  75              		.file 4 "Inc/FreeRTOSConfig.h"
+  76              		.file 5 "Drivers/CMSIS/Include/core_cm3.h"
+  77              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+  78              		.file 7 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+  79              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+  80              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+  81              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+  82              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccaNi01e.s 			page 3
+
+
+  83              		.file 12 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+  84              		.file 13 "Inc/main.h"
+  85              		.file 14 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccaNi01e.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 fwtasks.c
+C:\Users\Johannes\AppData\Local\Temp\ccaNi01e.s:16     .text.TASK_ExecMain:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccaNi01e.s:25     .text.TASK_ExecMain:00000000 TASK_ExecMain
+C:\Users\Johannes\AppData\Local\Temp\ccaNi01e.s:67     .text.TASK_ExecMain:00000020 $d
+
+UNDEFINED SYMBOLS
+IS31FL3236_WriteRGBPWM
+IS31FL3236_Update
+osDelay
+h_rgb_controller
