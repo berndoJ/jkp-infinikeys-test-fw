@@ -1,0 +1,2 @@
+infinikeys_usbif.c:39:6:IK_USBIF_SendHIDReport	16	static
+infinikeys_usbif.c:67:6:IK_USBIF_RecieveHIDReportCB	32	static

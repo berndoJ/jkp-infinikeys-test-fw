@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
   28:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****          (##) Enable the PCD/USB Low Level interface clock using
   29:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****               (+++) __HAL_RCC_USB_CLK_ENABLE(); For USB Device only FS peripheral
   30:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 2
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 2
 
 
   31:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****          (##) Initialize the related GPIO clocks
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
   85:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** /* Private functions prototypes ----------------------------------------------*/
   86:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** /** @defgroup PCD_Private_Functions PCD Private Functions
   87:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @{
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 3
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 3
 
 
   88:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   */
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  142:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #if defined (USB_OTG_FS)
  143:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   USBx = hpcd->Instance;
  144:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #endif /* defined (USB_OTG_FS) */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 4
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 4
 
 
  145:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  199:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
  200:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   /* Init endpoints structures */
  201:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   for (i = 0U; i < hpcd->Init.dev_endpoints; i++)
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 5
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 5
 
 
  202:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  256:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
  257:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
  258:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   if (hpcd->MspDeInitCallback == NULL)
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 6
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 6
 
 
  259:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
   54              		@ args = 0, pretend = 0, frame = 0
   55              		@ frame_needed = 0, uses_anonymous_args = 0
  131:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 7
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 7
 
 
   56              		.loc 1 131 3 view .LVU4
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  191:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
   97              		.loc 1 191 7 is_stmt 0 view .LVU18
   98 0026 56F810CB 		ldr	ip, [r6], #16
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 8
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 8
 
 
   99 002a 6D46     		mov	r5, sp
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  201:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  142              		.loc 1 201 30 is_stmt 0 view .LVU30
  143 005e 6068     		ldr	r0, [r4, #4]
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 9
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 9
 
 
  201:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  179              	.LVL9:
  211:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   }
  180              		.loc 1 211 29 is_stmt 0 discriminator 3 view .LVU50
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 10
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 10
 
 
  181 008a 1164     		str	r1, [r2, #64]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  214:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  217              		.loc 1 214 3 discriminator 3 view .LVU69
  218 00b6 EBD3     		bcc	.L10
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 11
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 11
 
 
  219              	.LVL13:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  260              	.L18:
  261              	.LCFI5:
  262              		.cfi_restore_state
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 12
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 12
 
 
  149:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  313              		.fpu softvfp
  315              	HAL_PCD_Start:
  316              	.LVL20:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 13
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 13
 
 
  317              	.LFB69:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  342:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         hpcd->SOFCallback = pCallback;
  343:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         break;
  344:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 14
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 14
 
 
  345:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       case HAL_PCD_SETUPSTAGE_CB_ID :
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  399:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
  400:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         /* Return error status */
  401:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         status =  HAL_ERROR;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 15
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 15
 
 
  402:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         break;
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  456:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         hpcd->ResetCallback = HAL_PCD_ResetCallback;
  457:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         break;
  458:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 16
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 16
 
 
  459:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       case HAL_PCD_SUSPEND_CB_ID :
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  513:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   else
  514:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  515:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     /* Update the error code */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 17
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 17
 
 
  516:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  570:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   *         USB PCD Data OUT Stage Callback is redirected to the weak HAL_PCD_DataOutStageCallback(
  571:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @param  hpcd PCD handle
  572:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @retval HAL status
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 18
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 18
 
 
  573:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   */
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  627:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  628:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     /* Update the error code */
  629:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 19
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 19
 
 
  630:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  684:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   if (pCallback == NULL)
  685:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  686:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     /* Update the error code */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 20
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 20
 
 
  687:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  741:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   __HAL_UNLOCK(hpcd);
  742:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
  743:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   return status;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 21
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 21
 
 
  744:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** }
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  798:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   __HAL_LOCK(hpcd);
  799:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
  800:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   if (hpcd->State == HAL_PCD_STATE_READY)
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 22
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 22
 
 
  801:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  325 0004 012B     		cmp	r3, #1
  326 0006 10D0     		beq	.L22
  327              		.loc 1 847 3 discriminator 2 view .LVU93
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 23
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 23
 
 
  328 0008 0121     		movs	r1, #1
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  373              		.p2align 2,,3
  374              		.global	HAL_PCD_Stop
  375              		.syntax unified
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 24
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 24
 
 
  376              		.thumb
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  417              		.loc 1 867 6 discriminator 2 view .LVU117
  418 001e 0546     		mov	r5, r0
  419 0020 28B1     		cbz	r0, .L29
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 25
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 25
 
 
  868:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  455              		.loc 1 864 3 view .LVU132
  456 003c 0225     		movs	r5, #2
  457              		.loc 1 877 1 view .LVU133
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 26
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 26
 
 
  458 003e 2846     		mov	r0, r5
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  270:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
  504              		.loc 1 270 3 view .LVU145
  270:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 27
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 27
 
 
  505              		.loc 1 270 15 is_stmt 0 view .LVU146
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  898:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       return;
  899:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     }
  900:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 28
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 28
 
 
  901:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     if (__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_MMIS))
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  955:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     if (__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_IEPINT))
  956:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     {
  957:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       /* Read in the device interrupt bits */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 29
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 29
 
 
  958:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       ep_intr = USB_ReadDevAllInEpInterrupt(hpcd->Instance);
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1012:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 1013:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
 1014:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       hpcd->ResumeCallback(hpcd);
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 30
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 30
 
 
 1015:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #else
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1069:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****                                 USB_OTG_DIEPMSK_XFRCM |
 1070:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****                                 USB_OTG_DIEPMSK_EPDM;
 1071:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 31
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 31
 
 
 1072:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1126:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       }
 1127:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       else
 1128:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       {
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 32
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 32
 
 
 1129:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         /* ... */
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1183:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #else
 1184:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       HAL_PCD_ConnectCallback(hpcd);
 1185:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 33
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 33
 
 
 1186:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1240:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   }
 1241:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 1242:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   if (__HAL_PCD_GET_FLAG(hpcd, USB_ISTR_ERR))
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 34
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 34
 
 
 1243:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1297:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     /* clear ESOF flag in ISTR */
 1298:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     __HAL_PCD_CLEAR_FLAG(hpcd, USB_ISTR_ESOF);
 1299:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 35
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 35
 
 
 1300:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** }
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  575              		.fpu softvfp
  577              	HAL_PCD_SetupStageCallback:
  578              	.LFB104:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 36
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 36
 
 
  579              		.cfi_startproc
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  639              		@ link register save eliminated.
  640 0000 7047     		bx	lr
  641              		.cfi_endproc
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 37
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 37
 
 
  642              	.LFE108:
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  703              		.p2align 2,,3
  704              		.weak	HAL_PCD_ConnectCallback
  705              		.syntax unified
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 38
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 38
 
 
  706              		.thumb
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1333:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****             the HAL_PCD_DataInStageCallback could be implemented in the user file
 1334:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****    */
 1335:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 39
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 39
 
 
 1336:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** /**
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1390:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 1391:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   /* NOTE : This function should not be modified, when the callback is needed,
 1392:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****             the HAL_PCD_SuspendCallback could be implemented in the user file
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 40
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 40
 
 
 1393:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****    */
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1447:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @param  hpcd PCD handle
 1448:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @retval None
 1449:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 41
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 41
 
 
 1450:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** __weak void HAL_PCD_ConnectCallback(PCD_HandleTypeDef *hpcd)
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  754              		@ frame_needed = 0, uses_anonymous_args = 0
 1501:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   __HAL_LOCK(hpcd);
  755              		.loc 1 1501 3 view .LVU156
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 42
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 42
 
 
  756              		.loc 1 1501 3 view .LVU157
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  802              		.p2align 2,,3
  803              		.global	HAL_PCD_DevDisconnect
  804              		.syntax unified
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 43
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 43
 
 
  805              		.thumb
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1523:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   return HAL_OK;
  845              		.loc 1 1523 3 discriminator 2 view .LVU181
 1524:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 44
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 44
 
 
  846              		.loc 1 1524 1 is_stmt 0 discriminator 2 view .LVU182
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  890 000a 0446     		mov	r4, r0
  891              		.loc 1 1534 3 discriminator 2 view .LVU190
  892 000c 0122     		movs	r2, #1
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 45
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 45
 
 
 1535:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   hpcd->USB_Address = address;
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1544:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @param  ep_mps endpoint max packet size
 1545:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @param  ep_type endpoint type
 1546:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   * @retval HAL status
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 46
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 46
 
 
 1547:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   */
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  974              	.L73:
 1562:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   }
 1563:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 47
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 47
 
 
 1564:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   ep->num = ep_addr & EP_ADDR_MSK;
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1008 003a 80F82832 		strb	r3, [r0, #552]
  1009              	.LVL60:
 1580:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   (void)USB_ActivateEndpoint(hpcd->Instance, ep);
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 48
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 48
 
 
  1010              		.loc 1 1580 3 discriminator 2 view .LVU233
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1051 0062 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
  1052              		.cfi_endproc
  1053              	.LFE86:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 49
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 49
 
 
  1055              		.section	.text.HAL_PCD_EP_Close,"ax",%progbits
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1089 0010 C118     		adds	r1, r0, r3
 1603:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     ep->is_in = 0U;
  1090              		.loc 1 1603 8 view .LVU258
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 50
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 50
 
 
  1091 0012 03F59473 		add	r3, r3, #296
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1599:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   }
  1133              		.loc 1 1599 15 view .LVU277
  1134 0042 81F82940 		strb	r4, [r1, #41]
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 51
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 51
 
 
 1598:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     ep->is_in = 1U;
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1625:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   PCD_EPTypeDef *ep;
  1172              		.loc 1 1625 3 view .LVU287
 1626:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 52
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 52
 
 
 1627:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   ep = &hpcd->OUT_ep[ep_addr & EP_ADDR_MSK];
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1204              		.loc 1 1632 18 view .LVU299
  1205 001c C4F84461 		str	r6, [r4, #324]
 1633:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   ep->num = ep_addr & EP_ADDR_MSK;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 53
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 53
 
 
  1206              		.loc 1 1633 3 is_stmt 1 view .LVU300
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1245 0004 00EB4111 		add	r1, r0, r1, lsl #5
 1657:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** }
  1246              		.loc 1 1657 1 view .LVU313
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 54
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 54
 
 
  1247 0008 D1F84401 		ldr	r0, [r1, #324]
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1676:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   ep->is_in = 1U;
  1284              		.loc 1 1676 13 view .LVU320
  1285 0004 0127     		movs	r7, #1
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 55
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 55
 
 
  1286 0006 01F00701 		and	r1, r1, #7
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1689:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** }
  1318              		.loc 1 1689 1 is_stmt 0 view .LVU337
  1319 0026 3046     		mov	r0, r6
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 56
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 56
 
 
  1320 0028 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1224:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  1369              		.loc 1 1224 3 is_stmt 1 view .LVU346
 1224:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 57
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 57
 
 
  1370              		.loc 1 1224 7 is_stmt 0 view .LVU347
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1247:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  1410              		.loc 1 1247 6 view .LVU362
  1411 004e C504     		lsls	r5, r0, #19
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 58
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 58
 
 
  1412 0050 25D4     		bmi	.L129
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1454 008a 23F40053 		bic	r3, r3, #8192
  1455 008e 1B04     		lsls	r3, r3, #16
  1456 0090 1B0C     		lsrs	r3, r3, #16
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 59
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 59
 
 
  1457 0092 A0F84430 		strh	r3, [r0, #68]	@ movhi
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1261:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  1498              		.loc 1 1261 6 view .LVU388
  1499 00dc 0005     		lsls	r0, r0, #20
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 60
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 60
 
 
  1500 00de BDD5     		bpl	.L131
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1541              	.LVL106:
 1284:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  1542              		.loc 1 1284 3 view .LVU402
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 61
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 61
 
 
 1284:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1584              		.loc 1 1534 3 view .LVU415
 1534:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   hpcd->USB_Address = address;
  1585              		.loc 1 1534 3 view .LVU416
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 62
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 62
 
 
  1586 0168 94F82832 		ldrb	r3, [r4, #552]	@ zero_extendqisi2
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1700:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 1701:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   if (((uint32_t)ep_addr & EP_ADDR_MSK) > hpcd->Init.dev_endpoints)
 1702:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 63
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 63
 
 
 1703:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     return HAL_ERROR;
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1757:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 1758:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   ep->is_stall = 0U;
 1759:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   ep->num = ep_addr & EP_ADDR_MSK;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 64
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 64
 
 
 1760:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1814:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   */
 1815:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 1816:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** /** @defgroup PCD_Exported_Functions_Group4 Peripheral State functions
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 65
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 65
 
 
 1817:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****  *  @brief   Peripheral State functions
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1871:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   if (ep->xfer_count > ep->xfer_len)
 1872:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
 1873:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     return HAL_ERROR;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 66
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 66
 
 
 1874:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   }
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1928:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     /* StupPktRcvd = 1 this is a setup packet */
 1929:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     if ((DoepintReg & USB_OTG_DOEPINT_STPKTRX) == USB_OTG_DOEPINT_STPKTRX)
 1930:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     {
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 67
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 67
 
 
 1931:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       CLEAR_OUT_EP_INTR(epnum, USB_OTG_DOEPINT_STPKTRX);
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1985:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 1986:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 1987:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   return HAL_OK;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 68
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 68
 
 
 1988:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** }
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 2042:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       else
 2043:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       {
 2044:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         /* DIR = 1 */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 69
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 69
 
 
 2045:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 2099:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       /* Decode and service non control endpoints interrupt  */
 2100:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
 2101:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       /* process related endpoint register */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 70
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 70
 
 
 2102:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       wEPVal = PCD_GET_ENDPOINT(hpcd->Instance, epindex);
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 2156:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****           (void)HAL_PCD_EP_Receive(hpcd, ep->num, ep->xfer_buff, ep->xfer_len);
 2157:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         }
 2158:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 71
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 71
 
 
 2159:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****       } /* if((wEPVal & EP_CTR_RX) */
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1651              		.loc 1 2048 9 is_stmt 1 view .LVU442
  1652              	.LVL114:
 2049:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 72
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 72
 
 
  1653              		.loc 1 2049 9 view .LVU443
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1692 01ec 9BB1     		cbz	r3, .L106
 2077:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****           {
  1693              		.loc 1 2077 44 view .LVU459
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 73
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 73
 
 
  1694 01ee D4F83C11 		ldr	r1, [r4, #316]
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1734              		.loc 1 2092 11 view .LVU473
 2092:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****           PCD_SET_EP_RX_STATUS(hpcd->Instance, PCD_ENDP0, USB_EP_RX_VALID);
  1735              		.loc 1 2092 11 view .LVU474
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 74
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 74
 
 
  1736 0224 0029     		cmp	r1, #0
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 2093:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         }
  1775              		.loc 1 2093 11 view .LVU490
 2093:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 75
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 75
 
 
  1776              		.loc 1 2093 11 view .LVU491
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1816              		.loc 1 2169 26 is_stmt 0 view .LVU507
  1817 0266 04EB4611 		add	r1, r4, r6, lsl #5
  1818              	.LBB36:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 76
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 76
 
 
 2166:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1854              	.LVL138:
  1855              		.loc 1 2179 11 is_stmt 1 view .LVU523
  1856 02a2 FFF7FEFF 		bl	HAL_PCD_DataInStageCallback
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 77
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 77
 
 
  1857              	.LVL139:
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 2112:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****           if (count != 0U)
  1898              		.loc 1 2112 17 view .LVU538
  1899 02dc 30F81380 		ldrh	r8, [r0, r3, lsl #1]
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 78
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 78
 
 
  1900 02e0 C8F30908 		ubfx	r8, r8, #0, #10
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 2023:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         ep = &hpcd->IN_ep[0];
  1940              		.loc 1 2023 9 view .LVU553
  1941              	.LBB39:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 79
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 79
 
 
 2023:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         ep = &hpcd->IN_ep[0];
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  1978              		.loc 1 2036 18 is_stmt 0 view .LVU571
  1979 0350 94F82430 		ldrb	r3, [r4, #36]	@ zero_extendqisi2
 2036:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****         {
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 80
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 80
 
 
  1980              		.loc 1 2036 12 view .LVU572
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2018 0384 03EBC103 		add	r3, r3, r1, lsl #3
  2019 0388 02EB4302 		add	r2, r2, r3, lsl #1
  2020 038c B2F80C34 		ldrh	r3, [r2, #1036]
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 81
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 81
 
 
 2056:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****                       ep->pmaadress, (uint16_t)ep->xfer_count);
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 2120:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****           {
  2062              		.loc 1 2120 14 view .LVU600
  2063 03ca 1CF4804F 		tst	ip, #16384
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 82
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 82
 
 
 2123:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****             if (count != 0U)
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2102              		.loc 1 2123 13 is_stmt 1 view .LVU616
 2123:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****             if (count != 0U)
  2103              		.loc 1 2123 31 is_stmt 0 view .LVU617
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 83
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 83
 
 
  2104 03fc 0233     		adds	r3, r3, #2
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2149 0444 1046     		mov	r0, r2
  2150 0446 4346     		mov	r3, r8
  2151 0448 B9F82E21 		ldrh	r2, [r9, #302]
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 84
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 84
 
 
  2152 044c D9F83C11 		ldr	r1, [r9, #316]
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2195              		.loc 1 2135 15 is_stmt 1 view .LVU637
  2196 047c 1046     		mov	r0, r2
  2197 047e 4346     		mov	r3, r8
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 85
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 85
 
 
  2198 0480 B9F83221 		ldrh	r2, [r9, #306]
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1713:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****     ep->is_in = 0U;
  2247              		.loc 1 1713 5 is_stmt 1 view .LVU645
 1714:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 86
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 86
 
 
  2248              		.loc 1 1714 15 is_stmt 0 view .LVU646
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
 1723:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
  2286              		.loc 1 1723 6 is_stmt 0 discriminator 2 view .LVU663
  2287 003a B5B1     		cbz	r5, .L197
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 87
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 87
 
 
  2288              	.L192:
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2325              	.L194:
 1720:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
  2326              		.loc 1 1720 3 is_stmt 0 view .LVU681
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 88
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 88
 
 
  2327 0062 0220     		movs	r0, #2
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2374              		.cfi_offset 5, -8
  2375              		.cfi_offset 14, -4
 1742:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   {
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 89
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 89
 
 
  2376              		.loc 1 1742 6 view .LVU691
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2414              	.L207:
 1761:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   (void)USB_EPClearStall(hpcd->Instance, ep);
  2415              		.loc 1 1761 3 discriminator 2 view .LVU708
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 90
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 90
 
 
  2416 0034 0123     		movs	r3, #1
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2453              		.loc 1 1759 3 is_stmt 1 view .LVU725
 1761:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   (void)USB_EPClearStall(hpcd->Instance, ep);
  2454              		.loc 1 1761 3 view .LVU726
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 91
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 91
 
 
 1761:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c ****   (void)USB_EPClearStall(hpcd->Instance, ep);
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2501              		.cfi_offset 4, -8
  2502              		.cfi_offset 14, -4
 1776:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pcd.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 92
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 92
 
 
  2503              		.loc 1 1776 3 discriminator 2 view .LVU737
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2541              	.LVL203:
  2542              	.L212:
  2543              	.LCFI26:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 93
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 93
 
 
  2544              		.cfi_def_cfa_offset 0
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2595              		.cfi_startproc
  2596              		@ args = 0, pretend = 0, frame = 0
  2597              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 94
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 94
 
 
  2598              		@ link register save eliminated.
@@ -5634,79 +5634,79 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 1
  2644              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h"
  2645              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
  2646              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h"
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 95
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 95
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32f1xx_hal_pcd.c
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:16     .text.HAL_PCD_MspInit:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:25     .text.HAL_PCD_MspInit:00000000 HAL_PCD_MspInit
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:41     .text.HAL_PCD_Init:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:49     .text.HAL_PCD_Init:00000000 HAL_PCD_Init
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:288    .text.HAL_PCD_MspDeInit:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:296    .text.HAL_PCD_MspDeInit:00000000 HAL_PCD_MspDeInit
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:307    .text.HAL_PCD_Start:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:315    .text.HAL_PCD_Start:00000000 HAL_PCD_Start
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:372    .text.HAL_PCD_Stop:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:380    .text.HAL_PCD_Stop:00000000 HAL_PCD_Stop
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:466    .text.HAL_PCD_DeInit:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:474    .text.HAL_PCD_DeInit:00000000 HAL_PCD_DeInit
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:526    .text.HAL_PCD_DataOutStageCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:534    .text.HAL_PCD_DataOutStageCallback:00000000 HAL_PCD_DataOutStageCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:550    .text.HAL_PCD_DataInStageCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:558    .text.HAL_PCD_DataInStageCallback:00000000 HAL_PCD_DataInStageCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:569    .text.HAL_PCD_SetupStageCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:577    .text.HAL_PCD_SetupStageCallback:00000000 HAL_PCD_SetupStageCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:588    .text.HAL_PCD_SOFCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:596    .text.HAL_PCD_SOFCallback:00000000 HAL_PCD_SOFCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:607    .text.HAL_PCD_ResetCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:615    .text.HAL_PCD_ResetCallback:00000000 HAL_PCD_ResetCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:626    .text.HAL_PCD_SuspendCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:634    .text.HAL_PCD_SuspendCallback:00000000 HAL_PCD_SuspendCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:645    .text.HAL_PCD_ResumeCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:653    .text.HAL_PCD_ResumeCallback:00000000 HAL_PCD_ResumeCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:664    .text.HAL_PCD_ISOOUTIncompleteCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:672    .text.HAL_PCD_ISOOUTIncompleteCallback:00000000 HAL_PCD_ISOOUTIncompleteCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:683    .text.HAL_PCD_ISOINIncompleteCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:691    .text.HAL_PCD_ISOINIncompleteCallback:00000000 HAL_PCD_ISOINIncompleteCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:702    .text.HAL_PCD_ConnectCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:710    .text.HAL_PCD_ConnectCallback:00000000 HAL_PCD_ConnectCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:721    .text.HAL_PCD_DisconnectCallback:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:729    .text.HAL_PCD_DisconnectCallback:00000000 HAL_PCD_DisconnectCallback
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:740    .text.HAL_PCD_DevConnect:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:748    .text.HAL_PCD_DevConnect:00000000 HAL_PCD_DevConnect
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:801    .text.HAL_PCD_DevDisconnect:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:809    .text.HAL_PCD_DevDisconnect:00000000 HAL_PCD_DevDisconnect
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:863    .text.HAL_PCD_SetAddress:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:871    .text.HAL_PCD_SetAddress:00000000 HAL_PCD_SetAddress
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:927    .text.HAL_PCD_EP_Open:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:935    .text.HAL_PCD_EP_Open:00000000 HAL_PCD_EP_Open
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1056   .text.HAL_PCD_EP_Close:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1064   .text.HAL_PCD_EP_Close:00000000 HAL_PCD_EP_Close
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1157   .text.HAL_PCD_EP_Receive:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1165   .text.HAL_PCD_EP_Receive:00000000 HAL_PCD_EP_Receive
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1224   .text.HAL_PCD_EP_GetRxCount:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1232   .text.HAL_PCD_EP_GetRxCount:00000000 HAL_PCD_EP_GetRxCount
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1255   .text.HAL_PCD_EP_Transmit:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1263   .text.HAL_PCD_EP_Transmit:00000000 HAL_PCD_EP_Transmit
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1326   .text.HAL_PCD_IRQHandler:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:1334   .text.HAL_PCD_IRQHandler:00000000 HAL_PCD_IRQHandler
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2203   .text.HAL_PCD_IRQHandler:00000488 $d
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2213   .text.HAL_PCD_EP_SetStall:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2221   .text.HAL_PCD_EP_SetStall:00000000 HAL_PCD_EP_SetStall
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s 			page 96
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:16     .text.HAL_PCD_MspInit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:25     .text.HAL_PCD_MspInit:00000000 HAL_PCD_MspInit
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:41     .text.HAL_PCD_Init:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:49     .text.HAL_PCD_Init:00000000 HAL_PCD_Init
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:288    .text.HAL_PCD_MspDeInit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:296    .text.HAL_PCD_MspDeInit:00000000 HAL_PCD_MspDeInit
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:307    .text.HAL_PCD_Start:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:315    .text.HAL_PCD_Start:00000000 HAL_PCD_Start
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:372    .text.HAL_PCD_Stop:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:380    .text.HAL_PCD_Stop:00000000 HAL_PCD_Stop
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:466    .text.HAL_PCD_DeInit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:474    .text.HAL_PCD_DeInit:00000000 HAL_PCD_DeInit
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:526    .text.HAL_PCD_DataOutStageCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:534    .text.HAL_PCD_DataOutStageCallback:00000000 HAL_PCD_DataOutStageCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:550    .text.HAL_PCD_DataInStageCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:558    .text.HAL_PCD_DataInStageCallback:00000000 HAL_PCD_DataInStageCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:569    .text.HAL_PCD_SetupStageCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:577    .text.HAL_PCD_SetupStageCallback:00000000 HAL_PCD_SetupStageCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:588    .text.HAL_PCD_SOFCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:596    .text.HAL_PCD_SOFCallback:00000000 HAL_PCD_SOFCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:607    .text.HAL_PCD_ResetCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:615    .text.HAL_PCD_ResetCallback:00000000 HAL_PCD_ResetCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:626    .text.HAL_PCD_SuspendCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:634    .text.HAL_PCD_SuspendCallback:00000000 HAL_PCD_SuspendCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:645    .text.HAL_PCD_ResumeCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:653    .text.HAL_PCD_ResumeCallback:00000000 HAL_PCD_ResumeCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:664    .text.HAL_PCD_ISOOUTIncompleteCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:672    .text.HAL_PCD_ISOOUTIncompleteCallback:00000000 HAL_PCD_ISOOUTIncompleteCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:683    .text.HAL_PCD_ISOINIncompleteCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:691    .text.HAL_PCD_ISOINIncompleteCallback:00000000 HAL_PCD_ISOINIncompleteCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:702    .text.HAL_PCD_ConnectCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:710    .text.HAL_PCD_ConnectCallback:00000000 HAL_PCD_ConnectCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:721    .text.HAL_PCD_DisconnectCallback:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:729    .text.HAL_PCD_DisconnectCallback:00000000 HAL_PCD_DisconnectCallback
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:740    .text.HAL_PCD_DevConnect:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:748    .text.HAL_PCD_DevConnect:00000000 HAL_PCD_DevConnect
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:801    .text.HAL_PCD_DevDisconnect:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:809    .text.HAL_PCD_DevDisconnect:00000000 HAL_PCD_DevDisconnect
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:863    .text.HAL_PCD_SetAddress:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:871    .text.HAL_PCD_SetAddress:00000000 HAL_PCD_SetAddress
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:927    .text.HAL_PCD_EP_Open:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:935    .text.HAL_PCD_EP_Open:00000000 HAL_PCD_EP_Open
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1056   .text.HAL_PCD_EP_Close:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1064   .text.HAL_PCD_EP_Close:00000000 HAL_PCD_EP_Close
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1157   .text.HAL_PCD_EP_Receive:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1165   .text.HAL_PCD_EP_Receive:00000000 HAL_PCD_EP_Receive
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1224   .text.HAL_PCD_EP_GetRxCount:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1232   .text.HAL_PCD_EP_GetRxCount:00000000 HAL_PCD_EP_GetRxCount
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1255   .text.HAL_PCD_EP_Transmit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1263   .text.HAL_PCD_EP_Transmit:00000000 HAL_PCD_EP_Transmit
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1326   .text.HAL_PCD_IRQHandler:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:1334   .text.HAL_PCD_IRQHandler:00000000 HAL_PCD_IRQHandler
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2203   .text.HAL_PCD_IRQHandler:00000488 $d
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2213   .text.HAL_PCD_EP_SetStall:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2221   .text.HAL_PCD_EP_SetStall:00000000 HAL_PCD_EP_SetStall
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s 			page 96
 
 
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2351   .text.HAL_PCD_EP_ClrStall:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2359   .text.HAL_PCD_EP_ClrStall:00000000 HAL_PCD_EP_ClrStall
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2476   .text.HAL_PCD_EP_Flush:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2484   .text.HAL_PCD_EP_Flush:00000000 HAL_PCD_EP_Flush
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2556   .text.HAL_PCD_ActivateRemoteWakeup:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2564   .text.HAL_PCD_ActivateRemoteWakeup:00000000 HAL_PCD_ActivateRemoteWakeup
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2583   .text.HAL_PCD_DeActivateRemoteWakeup:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2591   .text.HAL_PCD_DeActivateRemoteWakeup:00000000 HAL_PCD_DeActivateRemoteWakeup
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2610   .text.HAL_PCD_GetState:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccrbbasp.s:2618   .text.HAL_PCD_GetState:00000000 HAL_PCD_GetState
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2351   .text.HAL_PCD_EP_ClrStall:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2359   .text.HAL_PCD_EP_ClrStall:00000000 HAL_PCD_EP_ClrStall
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2476   .text.HAL_PCD_EP_Flush:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2484   .text.HAL_PCD_EP_Flush:00000000 HAL_PCD_EP_Flush
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2556   .text.HAL_PCD_ActivateRemoteWakeup:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2564   .text.HAL_PCD_ActivateRemoteWakeup:00000000 HAL_PCD_ActivateRemoteWakeup
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2583   .text.HAL_PCD_DeActivateRemoteWakeup:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2591   .text.HAL_PCD_DeActivateRemoteWakeup:00000000 HAL_PCD_DeActivateRemoteWakeup
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2610   .text.HAL_PCD_GetState:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccIOgVS4.s:2618   .text.HAL_PCD_GetState:00000000 HAL_PCD_GetState
 
 UNDEFINED SYMBOLS
 USB_DisableGlobalInt

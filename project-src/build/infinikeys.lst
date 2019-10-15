@@ -1,0 +1,283 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IK_Init,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.global	IK_Init
+  19              		.arch armv7-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu softvfp
+  25              	IK_Init:
+  26              	.LFB0:
+  27              		.file 1 "../../infinikeys-arm32/src/infinikeys.c"
+   1:../../infinikeys-arm32/src/infinikeys.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys.c ****  * FILENAME :		infinikeys.c
+   3:../../infinikeys-arm32/src/infinikeys.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys.c ****  * BREIF :			Main extension file.
+   6:../../infinikeys-arm32/src/infinikeys.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys.c ****  * DATE CREATED :	16.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys.c ****  * 		DESCRIPTION_OF_FILE
+  14:../../infinikeys-arm32/src/infinikeys.c ****  * 
+  15:../../infinikeys-arm32/src/infinikeys.c ****  *--------------------------------------------------------------*/
+  16:../../infinikeys-arm32/src/infinikeys.c **** 
+  17:../../infinikeys-arm32/src/infinikeys.c **** #include "infinikeys.h"
+  18:../../infinikeys-arm32/src/infinikeys.c **** 
+  19:../../infinikeys-arm32/src/infinikeys.c **** #include "infinikeys_acq.h"
+  20:../../infinikeys-arm32/src/infinikeys.c **** #include "infinikeys_parser.h"
+  21:../../infinikeys-arm32/src/infinikeys.c **** #include "infinikeys_kbcfg.h"
+  22:../../infinikeys-arm32/src/infinikeys.c **** 
+  23:../../infinikeys-arm32/src/infinikeys.c **** /* --------------------------------------------------------------
+  24:../../infinikeys-arm32/src/infinikeys.c ****  * PRIVATE VARIABLE DEFINITIONS
+  25:../../infinikeys-arm32/src/infinikeys.c ****  * ------------------------------------------------------------*/
+  26:../../infinikeys-arm32/src/infinikeys.c **** 
+  27:../../infinikeys-arm32/src/infinikeys.c **** static uint8_t pressed_keys_buffer[IK_PHYSICAL_KEY_COUNT];
+  28:../../infinikeys-arm32/src/infinikeys.c **** 
+  29:../../infinikeys-arm32/src/infinikeys.c **** /* --------------------------------------------------------------
+  30:../../infinikeys-arm32/src/infinikeys.c ****  * FUNCTION DEFINITIONS
+  31:../../infinikeys-arm32/src/infinikeys.c ****  * ------------------------------------------------------------*/
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s 			page 2
+
+
+  32:../../infinikeys-arm32/src/infinikeys.c **** 
+  33:../../infinikeys-arm32/src/infinikeys.c **** uint8_t IK_Init(void)
+  34:../../infinikeys-arm32/src/infinikeys.c **** {
+  28              		.loc 1 34 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  35:../../infinikeys-arm32/src/infinikeys.c **** 	if (IK_CFG_Init() != 0)
+  32              		.loc 1 35 2 view .LVU1
+  34:../../infinikeys-arm32/src/infinikeys.c **** 	if (IK_CFG_Init() != 0)
+  33              		.loc 1 34 1 is_stmt 0 view .LVU2
+  34 0000 10B5     		push	{r4, lr}
+  35              	.LCFI0:
+  36              		.cfi_def_cfa_offset 8
+  37              		.cfi_offset 4, -8
+  38              		.cfi_offset 14, -4
+  39 0002 82B0     		sub	sp, sp, #8
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 16
+  42              		.loc 1 35 6 view .LVU3
+  43 0004 FFF7FEFF 		bl	IK_CFG_Init
+  44              	.LVL0:
+  45              		.loc 1 35 5 view .LVU4
+  46 0008 18B1     		cbz	r0, .L6
+  36:../../infinikeys-arm32/src/infinikeys.c **** 		return 1;
+  47              		.loc 1 36 10 view .LVU5
+  48 000a 0124     		movs	r4, #1
+  37:../../infinikeys-arm32/src/infinikeys.c **** 
+  38:../../infinikeys-arm32/src/infinikeys.c ****     static IK_StaticMapMetadata_t test_meta = {
+  39:../../infinikeys-arm32/src/infinikeys.c ****         0x04
+  40:../../infinikeys-arm32/src/infinikeys.c ****     };
+  41:../../infinikeys-arm32/src/infinikeys.c **** 
+  42:../../infinikeys-arm32/src/infinikeys.c ****     IK_KeyMap_t test_km = {
+  43:../../infinikeys-arm32/src/infinikeys.c ****         KEYMAP_STATIC,
+  44:../../infinikeys-arm32/src/infinikeys.c ****         &test_meta
+  45:../../infinikeys-arm32/src/infinikeys.c ****     };
+  46:../../infinikeys-arm32/src/infinikeys.c **** 
+  47:../../infinikeys-arm32/src/infinikeys.c ****     IK_CFG_LoadKeyMapToTable(0, 8, test_km);
+  48:../../infinikeys-arm32/src/infinikeys.c **** 
+  49:../../infinikeys-arm32/src/infinikeys.c **** 	return 0;
+  50:../../infinikeys-arm32/src/infinikeys.c **** }
+  49              		.loc 1 50 1 view .LVU6
+  50 000c 2046     		mov	r0, r4
+  51 000e 02B0     		add	sp, sp, #8
+  52              	.LCFI2:
+  53              		.cfi_remember_state
+  54              		.cfi_def_cfa_offset 8
+  55              		@ sp needed
+  56 0010 10BD     		pop	{r4, pc}
+  57              	.L6:
+  58              	.LCFI3:
+  59              		.cfi_restore_state
+  38:../../infinikeys-arm32/src/infinikeys.c ****         0x04
+  60              		.loc 1 38 5 is_stmt 1 view .LVU7
+  42:../../infinikeys-arm32/src/infinikeys.c ****         KEYMAP_STATIC,
+  61              		.loc 1 42 5 view .LVU8
+  42:../../infinikeys-arm32/src/infinikeys.c ****         KEYMAP_STATIC,
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s 			page 3
+
+
+  62              		.loc 1 42 17 is_stmt 0 view .LVU9
+  63 0012 0122     		movs	r2, #1
+  64 0014 0446     		mov	r4, r0
+  65 0016 064B     		ldr	r3, .L7
+  66 0018 8DF80020 		strb	r2, [sp]
+  67 001c 0193     		str	r3, [sp, #4]
+  47:../../infinikeys-arm32/src/infinikeys.c **** 
+  68              		.loc 1 47 5 is_stmt 1 view .LVU10
+  69 001e 02AB     		add	r3, sp, #8
+  70 0020 13E90C00 		ldmdb	r3, {r2, r3}
+  71 0024 0821     		movs	r1, #8
+  72 0026 FFF7FEFF 		bl	IK_CFG_LoadKeyMapToTable
+  73              	.LVL1:
+  49:../../infinikeys-arm32/src/infinikeys.c **** }
+  74              		.loc 1 49 2 view .LVU11
+  75              		.loc 1 50 1 is_stmt 0 view .LVU12
+  76 002a 2046     		mov	r0, r4
+  77 002c 02B0     		add	sp, sp, #8
+  78              	.LCFI4:
+  79              		.cfi_def_cfa_offset 8
+  80              		@ sp needed
+  81 002e 10BD     		pop	{r4, pc}
+  82              	.L8:
+  83              		.align	2
+  84              	.L7:
+  85 0030 00000000 		.word	.LANCHOR0
+  86              		.cfi_endproc
+  87              	.LFE0:
+  89              		.section	.text.IK_DeInit,"ax",%progbits
+  90              		.align	1
+  91              		.p2align 2,,3
+  92              		.global	IK_DeInit
+  93              		.syntax unified
+  94              		.thumb
+  95              		.thumb_func
+  96              		.fpu softvfp
+  98              	IK_DeInit:
+  99              	.LFB1:
+  51:../../infinikeys-arm32/src/infinikeys.c **** 
+  52:../../infinikeys-arm32/src/infinikeys.c **** uint8_t IK_DeInit(void)
+  53:../../infinikeys-arm32/src/infinikeys.c **** {
+ 100              		.loc 1 53 1 is_stmt 1 view -0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+  54:../../infinikeys-arm32/src/infinikeys.c **** 	return 0;
+ 105              		.loc 1 54 2 view .LVU14
+  55:../../infinikeys-arm32/src/infinikeys.c **** }
+ 106              		.loc 1 55 1 is_stmt 0 view .LVU15
+ 107 0000 0020     		movs	r0, #0
+ 108 0002 7047     		bx	lr
+ 109              		.cfi_endproc
+ 110              	.LFE1:
+ 112              		.section	.text.IK_KeyboardPollCyleTick,"ax",%progbits
+ 113              		.align	1
+ 114              		.p2align 2,,3
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s 			page 4
+
+
+ 115              		.global	IK_KeyboardPollCyleTick
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.fpu softvfp
+ 121              	IK_KeyboardPollCyleTick:
+ 122              	.LFB2:
+  56:../../infinikeys-arm32/src/infinikeys.c **** 
+  57:../../infinikeys-arm32/src/infinikeys.c **** void IK_KeyboardPollCyleTick(void)
+  58:../../infinikeys-arm32/src/infinikeys.c **** {
+ 123              		.loc 1 58 1 is_stmt 1 view -0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+  59:../../infinikeys-arm32/src/infinikeys.c **** 	// Acquire keyboard states.
+  60:../../infinikeys-arm32/src/infinikeys.c **** 	_IK_ACQ_Poll(pressed_keys_buffer, IK_PHYSICAL_KEY_COUNT);
+ 127              		.loc 1 60 2 view .LVU17
+  58:../../infinikeys-arm32/src/infinikeys.c **** 	// Acquire keyboard states.
+ 128              		.loc 1 58 1 is_stmt 0 view .LVU18
+ 129 0000 10B5     		push	{r4, lr}
+ 130              	.LCFI5:
+ 131              		.cfi_def_cfa_offset 8
+ 132              		.cfi_offset 4, -8
+ 133              		.cfi_offset 14, -4
+ 134              		.loc 1 60 2 view .LVU19
+ 135 0002 054C     		ldr	r4, .L12
+ 136 0004 9A21     		movs	r1, #154
+ 137 0006 2046     		mov	r0, r4
+ 138 0008 FFF7FEFF 		bl	_IK_ACQ_Poll
+ 139              	.LVL2:
+  61:../../infinikeys-arm32/src/infinikeys.c **** 
+  62:../../infinikeys-arm32/src/infinikeys.c **** 	// Parse the pressed keys and send necessary HID reports.
+  63:../../infinikeys-arm32/src/infinikeys.c **** 	_IK_Parser_ParseKeyStates(pressed_keys_buffer, IK_PHYSICAL_KEY_COUNT);
+ 140              		.loc 1 63 2 is_stmt 1 view .LVU20
+ 141 000c 2046     		mov	r0, r4
+  64:../../infinikeys-arm32/src/infinikeys.c **** }
+ 142              		.loc 1 64 1 is_stmt 0 view .LVU21
+ 143 000e BDE81040 		pop	{r4, lr}
+ 144              	.LCFI6:
+ 145              		.cfi_restore 14
+ 146              		.cfi_restore 4
+ 147              		.cfi_def_cfa_offset 0
+  63:../../infinikeys-arm32/src/infinikeys.c **** }
+ 148              		.loc 1 63 2 view .LVU22
+ 149 0012 9A21     		movs	r1, #154
+ 150 0014 FFF7FEBF 		b	_IK_Parser_ParseKeyStates
+ 151              	.LVL3:
+ 152              	.L13:
+ 153              		.align	2
+ 154              	.L12:
+ 155 0018 00000000 		.word	.LANCHOR1
+ 156              		.cfi_endproc
+ 157              	.LFE2:
+ 159              		.section	.bss.pressed_keys_buffer,"aw",%nobits
+ 160              		.align	2
+ 161              		.set	.LANCHOR1,. + 0
+ 164              	pressed_keys_buffer:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s 			page 5
+
+
+ 165 0000 00000000 		.space	154
+ 165      00000000 
+ 165      00000000 
+ 165      00000000 
+ 165      00000000 
+ 166              		.section	.data.test_meta.4324,"aw"
+ 167              		.align	2
+ 168              		.set	.LANCHOR0,. + 0
+ 171              	test_meta.4324:
+ 172 0000 04       		.byte	4
+ 173              		.text
+ 174              	.Letext0:
+ 175              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 176              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 177              		.file 4 "../../infinikeys-arm32/inc/infinikeys_kbcfg.h"
+ 178              		.file 5 "../../infinikeys-arm32/inc/infinikeys_acq.h"
+ 179              		.file 6 "../../infinikeys-arm32/inc/infinikeys_parser.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys.c
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:16     .text.IK_Init:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:25     .text.IK_Init:00000000 IK_Init
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:85     .text.IK_Init:00000030 $d
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:90     .text.IK_DeInit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:98     .text.IK_DeInit:00000000 IK_DeInit
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:113    .text.IK_KeyboardPollCyleTick:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:121    .text.IK_KeyboardPollCyleTick:00000000 IK_KeyboardPollCyleTick
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:155    .text.IK_KeyboardPollCyleTick:00000018 $d
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:160    .bss.pressed_keys_buffer:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:164    .bss.pressed_keys_buffer:00000000 pressed_keys_buffer
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:167    .data.test_meta.4324:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccOLgKlL.s:171    .data.test_meta.4324:00000000 test_meta.4324
+
+UNDEFINED SYMBOLS
+IK_CFG_Init
+IK_CFG_LoadKeyMapToTable
+_IK_ACQ_Poll
+_IK_Parser_ParseKeyStates

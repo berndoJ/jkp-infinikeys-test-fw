@@ -42,7 +42,11 @@ build/fwtasks.o: Src/fwtasks.c Inc/fwtasks.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h \
  Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h \
- Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h Inc/main.h
+ Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h Inc/main.h \
+ ../../infinikeys-arm32/inc/infinikeys.h \
+ ../../infinikeys-arm32/inc/infinikeys_common.h \
+ ../../infinikeys-arm32/inc/infinikeys_def.h Inc/infinikeys_cfg.h \
+ Inc/infinikeys_cfg_stm32cube.h
 
 Inc/fwtasks.h:
 
@@ -139,3 +143,13 @@ Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h:
 Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h:
 
 Inc/main.h:
+
+../../infinikeys-arm32/inc/infinikeys.h:
+
+../../infinikeys-arm32/inc/infinikeys_common.h:
+
+../../infinikeys-arm32/inc/infinikeys_def.h:
+
+Inc/infinikeys_cfg.h:
+
+Inc/infinikeys_cfg_stm32cube.h:

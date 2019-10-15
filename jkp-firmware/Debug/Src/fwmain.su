@@ -1,0 +1,3 @@
+fwmain.c:45:6:FW_Exec	8	static
+fwmain.c:56:6:FW_ThrowError	16	static
+fwmain.c:37:6:FW_Setup	16	static

@@ -1,0 +1,3 @@
+infinikeys_hal_stm32cube.c:40:6:IK_HAL_Setup	16	static
+infinikeys_hal_stm32cube.c:49:6:IK_HAL_SetMatrixProbeLine	4	static
+infinikeys_hal_stm32cube.c:65:17:IK_HAL_ReadMatrixSenseLine	8	static

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 1
   30:Src/usbd_custom_hid_if.c **** /* Private define ------------------------------------------------------------*/
   31:Src/usbd_custom_hid_if.c **** /* Private macro -------------------------------------------------------------*/
   32:Src/usbd_custom_hid_if.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 2
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 2
 
 
   33:Src/usbd_custom_hid_if.c **** /* USER CODE BEGIN PV */
@@ -118,88 +118,144 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 1
   87:Src/usbd_custom_hid_if.c ****   * @brief Private variables.
   88:Src/usbd_custom_hid_if.c ****   * @{
   89:Src/usbd_custom_hid_if.c ****   */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 3
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 3
 
 
   90:Src/usbd_custom_hid_if.c **** 
   91:Src/usbd_custom_hid_if.c **** /** Usb HID report descriptor. */
   92:Src/usbd_custom_hid_if.c **** __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DESC_SIZE] __ALIGN_END
   93:Src/usbd_custom_hid_if.c **** {
-  94:Src/usbd_custom_hid_if.c ****   /* USER CODE BEGIN 0 */
-  95:Src/usbd_custom_hid_if.c ****   0x00,
-  96:Src/usbd_custom_hid_if.c ****   /* USER CODE END 0 */
-  97:Src/usbd_custom_hid_if.c ****   0xC0    /*     END_COLLECTION	             */
-  98:Src/usbd_custom_hid_if.c **** };
+  94:Src/usbd_custom_hid_if.c ****   0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
+  95:Src/usbd_custom_hid_if.c **** 	0x09, 0x06,                    // USAGE (Keyboard)
+  96:Src/usbd_custom_hid_if.c **** 	0xa1, 0x01,                    // COLLECTION (Application)
+  97:Src/usbd_custom_hid_if.c **** 
+  98:Src/usbd_custom_hid_if.c **** 	0x85, 1, //   REPORT_ID (1)
   99:Src/usbd_custom_hid_if.c **** 
- 100:Src/usbd_custom_hid_if.c **** /* USER CODE BEGIN PRIVATE_VARIABLES */
- 101:Src/usbd_custom_hid_if.c **** 
- 102:Src/usbd_custom_hid_if.c **** /* USER CODE END PRIVATE_VARIABLES */
- 103:Src/usbd_custom_hid_if.c **** 
- 104:Src/usbd_custom_hid_if.c **** /**
- 105:Src/usbd_custom_hid_if.c ****   * @}
- 106:Src/usbd_custom_hid_if.c ****   */
- 107:Src/usbd_custom_hid_if.c **** 
- 108:Src/usbd_custom_hid_if.c **** /** @defgroup USBD_CUSTOM_HID_Exported_Variables USBD_CUSTOM_HID_Exported_Variables
- 109:Src/usbd_custom_hid_if.c ****   * @brief Public variables.
- 110:Src/usbd_custom_hid_if.c ****   * @{
- 111:Src/usbd_custom_hid_if.c ****   */
- 112:Src/usbd_custom_hid_if.c **** extern USBD_HandleTypeDef hUsbDeviceFS;
- 113:Src/usbd_custom_hid_if.c **** 
- 114:Src/usbd_custom_hid_if.c **** /* USER CODE BEGIN EXPORTED_VARIABLES */
- 115:Src/usbd_custom_hid_if.c **** 
- 116:Src/usbd_custom_hid_if.c **** /* USER CODE END EXPORTED_VARIABLES */
- 117:Src/usbd_custom_hid_if.c **** /**
- 118:Src/usbd_custom_hid_if.c ****   * @}
- 119:Src/usbd_custom_hid_if.c ****   */
- 120:Src/usbd_custom_hid_if.c **** 
- 121:Src/usbd_custom_hid_if.c **** /** @defgroup USBD_CUSTOM_HID_Private_FunctionPrototypes USBD_CUSTOM_HID_Private_FunctionPrototypes
- 122:Src/usbd_custom_hid_if.c ****   * @brief Private functions declaration.
- 123:Src/usbd_custom_hid_if.c ****   * @{
- 124:Src/usbd_custom_hid_if.c ****   */
- 125:Src/usbd_custom_hid_if.c **** 
- 126:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_Init_FS(void);
- 127:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_DeInit_FS(void);
- 128:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state);
- 129:Src/usbd_custom_hid_if.c **** 
- 130:Src/usbd_custom_hid_if.c **** /**
- 131:Src/usbd_custom_hid_if.c ****   * @}
- 132:Src/usbd_custom_hid_if.c ****   */
- 133:Src/usbd_custom_hid_if.c **** 
- 134:Src/usbd_custom_hid_if.c **** USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS =
- 135:Src/usbd_custom_hid_if.c **** {
- 136:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_ReportDesc_FS,
- 137:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_Init_FS,
- 138:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_DeInit_FS,
- 139:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_OutEvent_FS
- 140:Src/usbd_custom_hid_if.c **** };
+ 100:Src/usbd_custom_hid_if.c **** 	0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
+ 101:Src/usbd_custom_hid_if.c **** 	0x19, 0xe0,                    //   USAGE_MINIMUM (Keyboard LeftControl)
+ 102:Src/usbd_custom_hid_if.c **** 	0x29, 0xe7,                    //   USAGE_MAXIMUM (Keyboard Right GUI)
+ 103:Src/usbd_custom_hid_if.c **** 	0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+ 104:Src/usbd_custom_hid_if.c **** 	0x25, 0x01,                    //   LOGICAL_MAXIMUM (1)
+ 105:Src/usbd_custom_hid_if.c **** 	0x75, 0x01,                    //   REPORT_SIZE (1)
+ 106:Src/usbd_custom_hid_if.c **** 	0x95, 0x08,                    //   REPORT_COUNT (8)
+ 107:Src/usbd_custom_hid_if.c **** 	0x81, 0x02,                    //   INPUT (Data,Var,Abs)
+ 108:Src/usbd_custom_hid_if.c **** 
+ 109:Src/usbd_custom_hid_if.c **** 	0x95, 0x01,                    //   REPORT_COUNT (1)
+ 110:Src/usbd_custom_hid_if.c **** 	0x75, 0x08,                    //   REPORT_SIZE (8)
+ 111:Src/usbd_custom_hid_if.c **** 	0x81, 0x03,                    //   INPUT (Cnst,Var,Abs)
+ 112:Src/usbd_custom_hid_if.c **** 
+ 113:Src/usbd_custom_hid_if.c **** 	0x95, 0x05,                    //   REPORT_COUNT (5)
+ 114:Src/usbd_custom_hid_if.c **** 	0x75, 0x01,                    //   REPORT_SIZE (1)
+ 115:Src/usbd_custom_hid_if.c **** 	0x05, 0x08,                    //   USAGE_PAGE (LEDs)
+ 116:Src/usbd_custom_hid_if.c **** 	0x19, 0x01,                    //   USAGE_MINIMUM (Num Lock)
+ 117:Src/usbd_custom_hid_if.c **** 	0x29, 0x05,                    //   USAGE_MAXIMUM (Kana)
+ 118:Src/usbd_custom_hid_if.c **** 	0x91, 0x02,                    //   OUTPUT (Data,Var,Abs)
+ 119:Src/usbd_custom_hid_if.c **** 
+ 120:Src/usbd_custom_hid_if.c **** 	0x95, 0x01,                    //   REPORT_COUNT (1)
+ 121:Src/usbd_custom_hid_if.c **** 	0x75, 0x03,                    //   REPORT_SIZE (3)
+ 122:Src/usbd_custom_hid_if.c **** 	0x91, 0x03,                    //   OUTPUT (Cnst,Var,Abs)
+ 123:Src/usbd_custom_hid_if.c **** 
+ 124:Src/usbd_custom_hid_if.c **** 	0x95, 5,		   //   REPORT_COUNT (VAR)
+ 125:Src/usbd_custom_hid_if.c **** 	0x75, 0x08,                    //   REPORT_SIZE (8)
+ 126:Src/usbd_custom_hid_if.c **** 	0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+ 127:Src/usbd_custom_hid_if.c **** 	0x25, 0x65,                    //   LOGICAL_MAXIMUM (101)
+ 128:Src/usbd_custom_hid_if.c **** 	0x05, 0x07,                    //   USAGE_PAGE (Keyboard)
+ 129:Src/usbd_custom_hid_if.c **** 	0x19, 0x00,                    //   USAGE_MINIMUM (Reserved (no event indicated))
+ 130:Src/usbd_custom_hid_if.c **** 	0x29, 0x65,                    //   USAGE_MAXIMUM (Keyboard Application)
+ 131:Src/usbd_custom_hid_if.c **** 	0x81, 0x00,                    //   INPUT (Data,Ary,Abs)
+ 132:Src/usbd_custom_hid_if.c **** 
+ 133:Src/usbd_custom_hid_if.c **** 	0xc0,                          // END_COLLECTION
+ 134:Src/usbd_custom_hid_if.c **** 
+ 135:Src/usbd_custom_hid_if.c **** 
+ 136:Src/usbd_custom_hid_if.c **** 	0x06, 0x00, 0xff,              // USAGE_PAGE (Vendor Defined Page 1)
+ 137:Src/usbd_custom_hid_if.c **** 	0x09, 0x01,                    // USAGE (Vendor Usage 1)
+ 138:Src/usbd_custom_hid_if.c **** 	0xa1, 0x01,                    // COLLECTION (Application)
+ 139:Src/usbd_custom_hid_if.c **** 
+ 140:Src/usbd_custom_hid_if.c **** 	0x85, 2,    //   REPORT_ID (2)
  141:Src/usbd_custom_hid_if.c **** 
- 142:Src/usbd_custom_hid_if.c **** /** @defgroup USBD_CUSTOM_HID_Private_Functions USBD_CUSTOM_HID_Private_Functions
- 143:Src/usbd_custom_hid_if.c ****   * @brief Private functions.
- 144:Src/usbd_custom_hid_if.c ****   * @{
- 145:Src/usbd_custom_hid_if.c ****   */
- 146:Src/usbd_custom_hid_if.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 4
+ 142:Src/usbd_custom_hid_if.c **** 	0x06, 0x00, 0xff,              //   USAGE_PAGE (Vendor Defined Page 1)
+ 143:Src/usbd_custom_hid_if.c **** 	0x09, 0x01,                    //   USAGE (Vendor Usage 1)
+ 144:Src/usbd_custom_hid_if.c **** 	0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+ 145:Src/usbd_custom_hid_if.c **** 	0x26, 0xff, 0x00,              //   LOGICAL_MAXIMUM (255)
+ 146:Src/usbd_custom_hid_if.c **** 	0x75, 0x08,                    //   REPORT_SIZE (8)/
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 4
 
 
- 147:Src/usbd_custom_hid_if.c **** /* Private functions ---------------------------------------------------------*/
- 148:Src/usbd_custom_hid_if.c **** 
- 149:Src/usbd_custom_hid_if.c **** /**
- 150:Src/usbd_custom_hid_if.c ****   * @brief  Initializes the CUSTOM HID media low layer
- 151:Src/usbd_custom_hid_if.c ****   * @retval USBD_OK if all operations are OK else USBD_FAIL
- 152:Src/usbd_custom_hid_if.c ****   */
- 153:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_Init_FS(void)
- 154:Src/usbd_custom_hid_if.c **** {
-  27              		.loc 1 154 1 view -0
+ 147:Src/usbd_custom_hid_if.c **** 	0x95, 0x40,                    //   REPORT_COUNT (64)
+ 148:Src/usbd_custom_hid_if.c **** 	0x91, 0x02,                    //   OUTPUT (Data,Var,Abs)
+ 149:Src/usbd_custom_hid_if.c **** 
+ 150:Src/usbd_custom_hid_if.c **** 	0xc0   
+ 151:Src/usbd_custom_hid_if.c **** };
+ 152:Src/usbd_custom_hid_if.c **** 
+ 153:Src/usbd_custom_hid_if.c **** /* USER CODE BEGIN PRIVATE_VARIABLES */
+ 154:Src/usbd_custom_hid_if.c **** 
+ 155:Src/usbd_custom_hid_if.c **** /* USER CODE END PRIVATE_VARIABLES */
+ 156:Src/usbd_custom_hid_if.c **** 
+ 157:Src/usbd_custom_hid_if.c **** /**
+ 158:Src/usbd_custom_hid_if.c ****   * @}
+ 159:Src/usbd_custom_hid_if.c ****   */
+ 160:Src/usbd_custom_hid_if.c **** 
+ 161:Src/usbd_custom_hid_if.c **** /** @defgroup USBD_CUSTOM_HID_Exported_Variables USBD_CUSTOM_HID_Exported_Variables
+ 162:Src/usbd_custom_hid_if.c ****   * @brief Public variables.
+ 163:Src/usbd_custom_hid_if.c ****   * @{
+ 164:Src/usbd_custom_hid_if.c ****   */
+ 165:Src/usbd_custom_hid_if.c **** extern USBD_HandleTypeDef hUsbDeviceFS;
+ 166:Src/usbd_custom_hid_if.c **** 
+ 167:Src/usbd_custom_hid_if.c **** /* USER CODE BEGIN EXPORTED_VARIABLES */
+ 168:Src/usbd_custom_hid_if.c **** 
+ 169:Src/usbd_custom_hid_if.c **** /* USER CODE END EXPORTED_VARIABLES */
+ 170:Src/usbd_custom_hid_if.c **** /**
+ 171:Src/usbd_custom_hid_if.c ****   * @}
+ 172:Src/usbd_custom_hid_if.c ****   */
+ 173:Src/usbd_custom_hid_if.c **** 
+ 174:Src/usbd_custom_hid_if.c **** /** @defgroup USBD_CUSTOM_HID_Private_FunctionPrototypes USBD_CUSTOM_HID_Private_FunctionPrototypes
+ 175:Src/usbd_custom_hid_if.c ****   * @brief Private functions declaration.
+ 176:Src/usbd_custom_hid_if.c ****   * @{
+ 177:Src/usbd_custom_hid_if.c ****   */
+ 178:Src/usbd_custom_hid_if.c **** 
+ 179:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_Init_FS(void);
+ 180:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_DeInit_FS(void);
+ 181:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state);
+ 182:Src/usbd_custom_hid_if.c **** 
+ 183:Src/usbd_custom_hid_if.c **** /**
+ 184:Src/usbd_custom_hid_if.c ****   * @}
+ 185:Src/usbd_custom_hid_if.c ****   */
+ 186:Src/usbd_custom_hid_if.c **** 
+ 187:Src/usbd_custom_hid_if.c **** USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS =
+ 188:Src/usbd_custom_hid_if.c **** {
+ 189:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_ReportDesc_FS,
+ 190:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_Init_FS,
+ 191:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_DeInit_FS,
+ 192:Src/usbd_custom_hid_if.c ****   CUSTOM_HID_OutEvent_FS
+ 193:Src/usbd_custom_hid_if.c **** };
+ 194:Src/usbd_custom_hid_if.c **** 
+ 195:Src/usbd_custom_hid_if.c **** /** @defgroup USBD_CUSTOM_HID_Private_Functions USBD_CUSTOM_HID_Private_Functions
+ 196:Src/usbd_custom_hid_if.c ****   * @brief Private functions.
+ 197:Src/usbd_custom_hid_if.c ****   * @{
+ 198:Src/usbd_custom_hid_if.c ****   */
+ 199:Src/usbd_custom_hid_if.c **** 
+ 200:Src/usbd_custom_hid_if.c **** /* Private functions ---------------------------------------------------------*/
+ 201:Src/usbd_custom_hid_if.c **** 
+ 202:Src/usbd_custom_hid_if.c **** /**
+ 203:Src/usbd_custom_hid_if.c ****   * @brief  Initializes the CUSTOM HID media low layer
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 5
+
+
+ 204:Src/usbd_custom_hid_if.c ****   * @retval USBD_OK if all operations are OK else USBD_FAIL
+ 205:Src/usbd_custom_hid_if.c ****   */
+ 206:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_Init_FS(void)
+ 207:Src/usbd_custom_hid_if.c **** {
+  27              		.loc 1 207 1 view -0
   28              		.cfi_startproc
   29              		@ args = 0, pretend = 0, frame = 0
   30              		@ frame_needed = 0, uses_anonymous_args = 0
   31              		@ link register save eliminated.
- 155:Src/usbd_custom_hid_if.c ****   /* USER CODE BEGIN 4 */
- 156:Src/usbd_custom_hid_if.c ****   return (USBD_OK);
-  32              		.loc 1 156 3 view .LVU1
- 157:Src/usbd_custom_hid_if.c ****   /* USER CODE END 4 */
- 158:Src/usbd_custom_hid_if.c **** }
-  33              		.loc 1 158 1 is_stmt 0 view .LVU2
+ 208:Src/usbd_custom_hid_if.c ****   /* USER CODE BEGIN 4 */
+ 209:Src/usbd_custom_hid_if.c ****   return (USBD_OK);
+  32              		.loc 1 209 3 view .LVU1
+ 210:Src/usbd_custom_hid_if.c ****   /* USER CODE END 4 */
+ 211:Src/usbd_custom_hid_if.c **** }
+  33              		.loc 1 211 1 is_stmt 0 view .LVU2
   34 0000 0020     		movs	r0, #0
   35 0002 7047     		bx	lr
   36              		.cfi_endproc
@@ -214,43 +270,43 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 1
   47              	CUSTOM_HID_OutEvent_FS:
   48              	.LVL0:
   49              	.LFB70:
- 159:Src/usbd_custom_hid_if.c **** 
- 160:Src/usbd_custom_hid_if.c **** /**
- 161:Src/usbd_custom_hid_if.c ****   * @brief  DeInitializes the CUSTOM HID media low layer
- 162:Src/usbd_custom_hid_if.c ****   * @retval USBD_OK if all operations are OK else USBD_FAIL
- 163:Src/usbd_custom_hid_if.c ****   */
- 164:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_DeInit_FS(void)
- 165:Src/usbd_custom_hid_if.c **** {
- 166:Src/usbd_custom_hid_if.c ****   /* USER CODE BEGIN 5 */
- 167:Src/usbd_custom_hid_if.c ****   return (USBD_OK);
- 168:Src/usbd_custom_hid_if.c ****   /* USER CODE END 5 */
- 169:Src/usbd_custom_hid_if.c **** }
- 170:Src/usbd_custom_hid_if.c **** 
- 171:Src/usbd_custom_hid_if.c **** /**
- 172:Src/usbd_custom_hid_if.c ****   * @brief  Manage the CUSTOM HID class events
- 173:Src/usbd_custom_hid_if.c ****   * @param  event_idx: Event index
- 174:Src/usbd_custom_hid_if.c ****   * @param  state: Event state
- 175:Src/usbd_custom_hid_if.c ****   * @retval USBD_OK if all operations are OK else USBD_FAIL
- 176:Src/usbd_custom_hid_if.c ****   */
- 177:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state)
- 178:Src/usbd_custom_hid_if.c **** {
-  50              		.loc 1 178 1 is_stmt 1 view -0
+ 212:Src/usbd_custom_hid_if.c **** 
+ 213:Src/usbd_custom_hid_if.c **** /**
+ 214:Src/usbd_custom_hid_if.c ****   * @brief  DeInitializes the CUSTOM HID media low layer
+ 215:Src/usbd_custom_hid_if.c ****   * @retval USBD_OK if all operations are OK else USBD_FAIL
+ 216:Src/usbd_custom_hid_if.c ****   */
+ 217:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_DeInit_FS(void)
+ 218:Src/usbd_custom_hid_if.c **** {
+ 219:Src/usbd_custom_hid_if.c ****   /* USER CODE BEGIN 5 */
+ 220:Src/usbd_custom_hid_if.c ****   return (USBD_OK);
+ 221:Src/usbd_custom_hid_if.c ****   /* USER CODE END 5 */
+ 222:Src/usbd_custom_hid_if.c **** }
+ 223:Src/usbd_custom_hid_if.c **** 
+ 224:Src/usbd_custom_hid_if.c **** /**
+ 225:Src/usbd_custom_hid_if.c ****   * @brief  Manage the CUSTOM HID class events
+ 226:Src/usbd_custom_hid_if.c ****   * @param  event_idx: Event index
+ 227:Src/usbd_custom_hid_if.c ****   * @param  state: Event state
+ 228:Src/usbd_custom_hid_if.c ****   * @retval USBD_OK if all operations are OK else USBD_FAIL
+ 229:Src/usbd_custom_hid_if.c ****   */
+ 230:Src/usbd_custom_hid_if.c **** static int8_t CUSTOM_HID_OutEvent_FS(uint8_t event_idx, uint8_t state)
+ 231:Src/usbd_custom_hid_if.c **** {
+  50              		.loc 1 231 1 is_stmt 1 view -0
   51              		.cfi_startproc
   52              		@ args = 0, pretend = 0, frame = 0
   53              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 5
-
-
   54              		@ link register save eliminated.
- 179:Src/usbd_custom_hid_if.c ****   /* USER CODE BEGIN 6 */
- 180:Src/usbd_custom_hid_if.c ****   return (USBD_OK);
-  55              		.loc 1 180 3 view .LVU4
- 181:Src/usbd_custom_hid_if.c ****   /* USER CODE END 6 */
- 182:Src/usbd_custom_hid_if.c **** }
-  56              		.loc 1 182 1 is_stmt 0 view .LVU5
+ 232:Src/usbd_custom_hid_if.c ****   /* USER CODE BEGIN 6 */
+ 233:Src/usbd_custom_hid_if.c ****   return (USBD_OK);
+  55              		.loc 1 233 3 view .LVU4
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 6
+
+
+ 234:Src/usbd_custom_hid_if.c ****   /* USER CODE END 6 */
+ 235:Src/usbd_custom_hid_if.c **** }
+  56              		.loc 1 235 1 is_stmt 0 view .LVU5
   57 0000 0020     		movs	r0, #0
   58              	.LVL1:
-  59              		.loc 1 182 1 view .LVU6
+  59              		.loc 1 235 1 view .LVU6
   60 0002 7047     		bx	lr
   61              		.cfi_endproc
   62              	.LFE70:
@@ -275,53 +331,145 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 1
   84              		.section	.data.CUSTOM_HID_ReportDesc_FS,"aw"
   85              		.align	2
   88              	CUSTOM_HID_ReportDesc_FS:
-  89 0000 00       		.byte	0
-  90 0001 C0       		.byte	-64
-  91              		.section	.data.USBD_CustomHID_fops_FS,"aw"
-  92              		.align	2
-  95              	USBD_CustomHID_fops_FS:
-  96 0000 00000000 		.word	CUSTOM_HID_ReportDesc_FS
-  97 0004 00000000 		.word	CUSTOM_HID_Init_FS
-  98 0008 00000000 		.word	CUSTOM_HID_DeInit_FS
-  99 000c 00000000 		.word	CUSTOM_HID_OutEvent_FS
- 100              		.text
- 101              	.Letext0:
- 102              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
- 103              		.file 3 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
- 104              		.file 4 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
- 105              		.file 5 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
- 106              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
- 107              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
- 108              		.file 8 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\stdlib.h"
- 109              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
- 110              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
- 111              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
- 112              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 113              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 6
+  89 0000 05       		.byte	5
+  90 0001 01       		.byte	1
+  91 0002 09       		.byte	9
+  92 0003 06       		.byte	6
+  93 0004 A1       		.byte	-95
+  94 0005 01       		.byte	1
+  95 0006 85       		.byte	-123
+  96 0007 01       		.byte	1
+  97 0008 05       		.byte	5
+  98 0009 07       		.byte	7
+  99 000a 19       		.byte	25
+ 100 000b E0       		.byte	-32
+ 101 000c 29       		.byte	41
+ 102 000d E7       		.byte	-25
+ 103 000e 15       		.byte	21
+ 104 000f 00       		.byte	0
+ 105 0010 25       		.byte	37
+ 106 0011 01       		.byte	1
+ 107 0012 75       		.byte	117
+ 108 0013 01       		.byte	1
+ 109 0014 95       		.byte	-107
+ 110 0015 08       		.byte	8
+ 111 0016 81       		.byte	-127
+ 112 0017 02       		.byte	2
+ 113 0018 95       		.byte	-107
+ 114 0019 01       		.byte	1
+ 115 001a 75       		.byte	117
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 7
 
 
- 114              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
- 115              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
- 116              		.file 16 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
- 117              		.file 17 "Inc/main.h"
- 118              		.file 18 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
- 119              		.file 19 "Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h"
- 120              		.file 20 "Inc/usbd_custom_hid_if.h"
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s 			page 7
+ 116 001b 08       		.byte	8
+ 117 001c 81       		.byte	-127
+ 118 001d 03       		.byte	3
+ 119 001e 95       		.byte	-107
+ 120 001f 05       		.byte	5
+ 121 0020 75       		.byte	117
+ 122 0021 01       		.byte	1
+ 123 0022 05       		.byte	5
+ 124 0023 08       		.byte	8
+ 125 0024 19       		.byte	25
+ 126 0025 01       		.byte	1
+ 127 0026 29       		.byte	41
+ 128 0027 05       		.byte	5
+ 129 0028 91       		.byte	-111
+ 130 0029 02       		.byte	2
+ 131 002a 95       		.byte	-107
+ 132 002b 01       		.byte	1
+ 133 002c 75       		.byte	117
+ 134 002d 03       		.byte	3
+ 135 002e 91       		.byte	-111
+ 136 002f 03       		.byte	3
+ 137 0030 95       		.byte	-107
+ 138 0031 05       		.byte	5
+ 139 0032 75       		.byte	117
+ 140 0033 08       		.byte	8
+ 141 0034 15       		.byte	21
+ 142 0035 00       		.byte	0
+ 143 0036 25       		.byte	37
+ 144 0037 65       		.byte	101
+ 145 0038 05       		.byte	5
+ 146 0039 07       		.byte	7
+ 147 003a 19       		.byte	25
+ 148 003b 00       		.byte	0
+ 149 003c 29       		.byte	41
+ 150 003d 65       		.byte	101
+ 151 003e 81       		.byte	-127
+ 152 003f 00       		.byte	0
+ 153 0040 C0       		.byte	-64
+ 154 0041 06       		.byte	6
+ 155 0042 00       		.byte	0
+ 156 0043 FF       		.byte	-1
+ 157 0044 09       		.byte	9
+ 158 0045 01       		.byte	1
+ 159 0046 A1       		.byte	-95
+ 160 0047 01       		.byte	1
+ 161 0048 85       		.byte	-123
+ 162 0049 02       		.byte	2
+ 163 004a 06       		.byte	6
+ 164 004b 00       		.byte	0
+ 165 004c FF       		.byte	-1
+ 166 004d 09       		.byte	9
+ 167 004e 01       		.byte	1
+ 168 004f 15       		.byte	21
+ 169 0050 00       		.byte	0
+ 170 0051 26       		.byte	38
+ 171 0052 FF       		.byte	-1
+ 172 0053 00       		.byte	0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 8
+
+
+ 173 0054 75       		.byte	117
+ 174 0055 08       		.byte	8
+ 175 0056 95       		.byte	-107
+ 176 0057 40       		.byte	64
+ 177 0058 91       		.byte	-111
+ 178 0059 02       		.byte	2
+ 179 005a C0       		.byte	-64
+ 180              		.section	.data.USBD_CustomHID_fops_FS,"aw"
+ 181              		.align	2
+ 184              	USBD_CustomHID_fops_FS:
+ 185 0000 00000000 		.word	CUSTOM_HID_ReportDesc_FS
+ 186 0004 00000000 		.word	CUSTOM_HID_Init_FS
+ 187 0008 00000000 		.word	CUSTOM_HID_DeInit_FS
+ 188 000c 00000000 		.word	CUSTOM_HID_OutEvent_FS
+ 189              		.text
+ 190              	.Letext0:
+ 191              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 192              		.file 3 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
+ 193              		.file 4 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 194              		.file 5 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 195              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 196              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 197              		.file 8 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\stdlib.h"
+ 198              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ 199              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 200              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 201              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 202              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 203              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 204              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 205              		.file 16 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+ 206              		.file 17 "Inc/main.h"
+ 207              		.file 18 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 208              		.file 19 "Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h"
+ 209              		.file 20 "Inc/usbd_custom_hid_if.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 usbd_custom_hid_if.c
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:16     .text.CUSTOM_HID_Init_FS:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:24     .text.CUSTOM_HID_Init_FS:00000000 CUSTOM_HID_Init_FS
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:40     .text.CUSTOM_HID_OutEvent_FS:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:47     .text.CUSTOM_HID_OutEvent_FS:00000000 CUSTOM_HID_OutEvent_FS
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:65     .text.CUSTOM_HID_DeInit_FS:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:72     .text.CUSTOM_HID_DeInit_FS:00000000 CUSTOM_HID_DeInit_FS
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:95     .data.USBD_CustomHID_fops_FS:00000000 USBD_CustomHID_fops_FS
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:85     .data.CUSTOM_HID_ReportDesc_FS:00000000 $d
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:88     .data.CUSTOM_HID_ReportDesc_FS:00000000 CUSTOM_HID_ReportDesc_FS
-C:\Users\Johannes\AppData\Local\Temp\ccerTxyP.s:92     .data.USBD_CustomHID_fops_FS:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:16     .text.CUSTOM_HID_Init_FS:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:24     .text.CUSTOM_HID_Init_FS:00000000 CUSTOM_HID_Init_FS
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:40     .text.CUSTOM_HID_OutEvent_FS:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:47     .text.CUSTOM_HID_OutEvent_FS:00000000 CUSTOM_HID_OutEvent_FS
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:65     .text.CUSTOM_HID_DeInit_FS:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:72     .text.CUSTOM_HID_DeInit_FS:00000000 CUSTOM_HID_DeInit_FS
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:184    .data.USBD_CustomHID_fops_FS:00000000 USBD_CustomHID_fops_FS
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:85     .data.CUSTOM_HID_ReportDesc_FS:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:88     .data.CUSTOM_HID_ReportDesc_FS:00000000 CUSTOM_HID_ReportDesc_FS
+C:\Users\Johannes\AppData\Local\Temp\cc4tRBPE.s:181    .data.USBD_CustomHID_fops_FS:00000000 $d
 
 NO UNDEFINED SYMBOLS

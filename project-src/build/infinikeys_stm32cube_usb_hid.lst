@@ -1,0 +1,1485 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_stm32cube_usb_hid.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IK_STM32CUBE_USBD_HID_GetConfigDescriptor,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	IK_STM32CUBE_USBD_HID_GetConfigDescriptor:
+  25              	.LVL0:
+  26              	.LFB73:
+  27              		.file 1 "../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c"
+   1:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * FILENAME :		infinikeys_stm32cube_usb_hid.c
+   3:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * PROJECT :		JKP-Firmware-InfiniKeys-v1.x
+   4:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * BREIF :			STM32 CUBE USB HID device module.
+   6:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * DATE CREATED :	21.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * 		USB HID device module for the STM32 CUBE platform.
+  14:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * 
+  15:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *--------------------------------------------------------------*/
+  16:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  17:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /* --------------------------------------------------------------
+  18:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * INCLUDES
+  19:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * ------------------------------------------------------------*/
+  20:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  21:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** #include "infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+  22:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  23:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** #if defined(IK_PLATFORM_STM32_CUBE)
+  24:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  25:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** #include "infinikeys_stm32cube/infinikeys_stm32cube_usb_descriptors.h"
+  26:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** #include "usbd_ctlreq.h"
+  27:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  28:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /* --------------------------------------------------------------
+  29:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * PRIVATE FUNCTION DECLARATIONS
+  30:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * ------------------------------------------------------------*/
+  31:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 2
+
+
+  32:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_Init(USBD_HandleTypeDef* device, uint8_t config_index);
+  33:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_DeInit(USBD_HandleTypeDef* device, uint8_t config_index);
+  34:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_Setup(USBD_HandleTypeDef* device, USBD_SetupReqTypedef* reques
+  35:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t* IK_STM32CUBE_USBD_HID_GetConfigDescriptor(uint16_t* length);
+  36:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t* IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor(uint16_t* length);
+  37:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_DataIn(USBD_HandleTypeDef* device, uint8_t endpoint_num);
+  38:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_DataOut(USBD_HandleTypeDef* device, uint8_t endpoint_num);
+  39:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_EP0RecieveReady(USBD_HandleTypeDef* device);
+  40:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  41:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /* --------------------------------------------------------------
+  42:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * VARIABLE DEFINITIONS
+  43:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * ------------------------------------------------------------*/
+  44:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  45:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** // Infinikeys USBD class
+  46:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** USBD_ClassTypeDef IK_HID_Class =
+  47:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+  48:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_Init,
+  49:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_DeInit,
+  50:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_Setup,
+  51:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	NULL, // EP0_TxSent
+  52:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_EP0RecieveReady,
+  53:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_DataIn,
+  54:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_DataOut,
+  55:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	NULL, // SOF
+  56:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	NULL, // IsoINIncomplete
+  57:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	NULL, // IsoOUTIncomplete
+  58:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_GetConfigDescriptor,
+  59:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_GetConfigDescriptor,
+  60:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_GetConfigDescriptor,
+  61:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor
+  62:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** };
+  63:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  64:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /* --------------------------------------------------------------
+  65:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * FUNCTION DEFINITIONS
+  66:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * ------------------------------------------------------------*/
+  67:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  68:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+  69:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+  70:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Sends a new HID report to the USB host.
+  71:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+  72:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+  73:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+  74:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint8_t* report: The report to send.
+  75:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint16_t report_length: The report's size.
+  76:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+  77:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** uint8_t IK_STM32CUBE_USBD_HID_SendReport(USBD_HandleTypeDef* device, uint8_t* report, uint16_t repo
+  78:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+  79:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+  80:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  81:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	if (device->dev_state == USBD_STATE_CONFIGURED)
+  82:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+  83:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		if (ikdev_handle->State == IK_HID_IDLE)
+  84:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+  85:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			ikdev_handle->State = IK_HID_BUSY;
+  86:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_LL_Transmit(device, IK_HID_EPIN_ADDR, report, report_length);
+  87:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		}
+  88:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         else
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 3
+
+
+  89:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         {
+  90:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             return USBD_BUSY;
+  91:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         }
+  92:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	}
+  93:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  94:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+  95:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+  96:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+  97:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+  98:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+  99:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Registers a new interface.
+ 100:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 101:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters:
+ 102:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+ 103:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - IK_HID_DeviceInterface_t* interface: The new interface to register.
+ 104:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 105:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** uint8_t IK_STM32CUBE_USBD_HID_RegisterInterface(USBD_HandleTypeDef* device, IK_HID_DeviceInterface_
+ 106:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+ 107:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	if (interface == NULL)
+ 108:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		return USBD_FAIL;
+ 109:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 110:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	device->pUserData = interface;
+ 111:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 112:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ 113:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 114:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 115:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /* --------------------------------------------------------------
+ 116:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * PRIVATE FUNCTION DEFINITIONS
+ 117:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * ------------------------------------------------------------*/
+ 118:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 119:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 120:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 121:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Initialises the USB HID interface.
+ 122:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 123:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+ 124:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+ 125:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint8_t config_index: The configuration index.
+ 126:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 127:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_Init(USBD_HandleTypeDef* device, uint8_t config_index)
+ 128:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+ 129:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle;
+ 130:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 131:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_OpenEP(device, IK_HID_EPIN_ADDR, USBD_EP_TYPE_INTR, IK_HID_EPIN_SIZE);
+ 132:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 1;
+ 133:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 134:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_OpenEP(device, IK_HID_EPOUT_ADDR, USBD_EP_TYPE_INTR, IK_HID_EPOUT_SIZE);
+ 135:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_out[IK_HID_EPOUT_ADDR & 0xF].is_used = 1;
+ 136:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 137:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	device->pClassData = USBD_malloc(sizeof(IK_HID_DeviceHandle_t));
+ 138:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 139:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	if (device->pClassData == NULL)
+ 140:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		return USBD_FAIL;
+ 141:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 142:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 143:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	ikdev_handle->State = IK_HID_IDLE;
+ 144:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	((IK_HID_DeviceInterface_t*) device->pUserData)->Init();
+ 145:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 4
+
+
+ 146:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_PrepareReceive(device, IK_HID_EPOUT_ADDR, ikdev_handle->ReportBuffer, IK_HID_OUT_REPORT_BU
+ 147:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 148:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ 149:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 150:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 151:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 152:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 153:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * De-initialises the USB HID interface.
+ 154:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 155:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+ 156:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+ 157:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint8_t config_index: The configuration index.
+ 158:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 159:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_DeInit(USBD_HandleTypeDef* device, uint8_t config_index)
+ 160:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+ 161:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_CloseEP(device, IK_HID_EPIN_ADDR);
+ 162:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 0;
+ 163:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 164:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_CloseEP(device, IK_HID_EPOUT_ADDR);
+ 165:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_out[IK_HID_EPOUT_ADDR & 0xF].is_used = 0;
+ 166:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 167:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	if (device->pClassData != NULL)
+ 168:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 169:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		((IK_HID_DeviceInterface_t*) device->pUserData)->DeInit();
+ 170:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		USBD_free(device->pClassData);
+ 171:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		device->pClassData = NULL;
+ 172:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	}
+ 173:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 174:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ 175:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 176:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 177:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 178:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 179:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Handle HID specific requests.
+ 180:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 181:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters:
+ 182:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+ 183:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_SetupReqTypedef* request: USB setup request.
+ 184:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 185:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_Setup(USBD_HandleTypeDef* device, USBD_SetupReqTypedef* reques
+ 186:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+ 187:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 188:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	uint8_t* buffer = NULL;
+ 189:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	uint16_t length = 0;
+ 190:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     uint16_t status_info = 0;
+ 191:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 192:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	switch (request->bmRequest & USB_REQ_TYPE_MASK)
+ 193:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 194:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	case USB_REQ_TYPE_STANDARD:
+ 195:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		switch (request->bRequest)
+ 196:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 197:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         case USB_REQ_GET_STATUS:
+ 198:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             if (device->dev_state == USBD_STATE_CONFIGURED)
+ 199:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 200:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 USBD_CtlSendData(device, (uint8_t *)(void *)&status_info, 2);
+ 201:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 202:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             else
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 5
+
+
+ 203:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 204:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 USBD_CtlError(device, request);
+ 205:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 return USBD_FAIL;
+ 206:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 207:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             break;
+ 208:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case USB_REQ_GET_DESCRIPTOR:
+ 209:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			if ((request->wValue >> 8) == IK_HID_REPORT_DESC_TYPE)
+ 210:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			{
+ 211:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				length = MIN(IK_HID_REPORT_DESC_SIZE, request->wLength);
+ 212:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				buffer = ((IK_HID_DeviceInterface_t*) device->pUserData)->Report;
+ 213:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 214:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			else if ((request->wValue >> 8) == IK_HID_DESC_TYPE)
+ 215:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			{
+ 216:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				buffer = IK_USB_HIDDescriptor;
+ 217:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				length = MIN(IK_HID_DESC_SIZE, request->wLength);
+ 218:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 219:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlSendData(device, buffer, length);
+ 220:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 221:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case USB_REQ_GET_INTERFACE:
+ 222:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			if (device->dev_state == USBD_STATE_CONFIGURED)
+ 223:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 224:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 USBD_CtlSendData(device, (uint8_t*)(void*)&(ikdev_handle->AltSetting), 1);
+ 225:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 226:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             else
+ 227:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 228:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 USBD_CtlError(device, request);
+ 229:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 return USBD_FAIL;
+ 230:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 231:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 232:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case USB_REQ_SET_INTERFACE:
+ 233:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			if (device->dev_state == USBD_STATE_CONFIGURED)
+ 234:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 235:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 ikdev_handle->AltSetting = (uint8_t)(request->wValue);
+ 236:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 237:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             else
+ 238:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 239:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 USBD_CtlError(device, request);
+ 240:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****                 return USBD_FAIL;
+ 241:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 242:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 243:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         default:
+ 244:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             USBD_CtlError(device, request);
+ 245:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             return USBD_FAIL;
+ 246:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             break;
+ 247:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		}
+ 248:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		break;
+ 249:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	case USB_REQ_TYPE_CLASS:
+ 250:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		switch (request->bRequest)
+ 251:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 252:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_SET_PROTOCOL:
+ 253:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			ikdev_handle->Protocol = (uint8_t)(request->wValue);
+ 254:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 255:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_GET_PROTOCOL:
+ 256:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlSendData(device, (uint8_t*)&(ikdev_handle->Protocol), 1);
+ 257:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 258:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_SET_IDLE:
+ 259:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			ikdev_handle->IdleState = (uint8_t)(request->wValue >> 8);
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 6
+
+
+ 260:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 261:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_GET_IDLE:
+ 262:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlSendData(device, (uint8_t*)&(ikdev_handle->IdleState), 1);
+ 263:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 264:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_SET_REPORT:
+ 265:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			ikdev_handle->IsReportAvailable = 1;
+ 266:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlPrepareRx(device, ikdev_handle->ReportBuffer, (uint8_t)(request->wLength));
+ 267:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 268:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		default:
+ 269:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlError(device, request);
+ 270:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			return USBD_FAIL;
+ 271:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		}
+ 272:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		break;
+ 273:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     default:
+ 274:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         USBD_CtlError(device, request);
+ 275:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         return USBD_FAIL;
+ 276:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         break;
+ 277:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	}
+ 278:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 279:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ 280:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 281:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 282:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 283:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 284:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Retrieves the device's configuration descriptor.
+ 285:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 286:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+ 287:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint16_t* length: Data length returned.
+ 288:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 289:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t* IK_STM32CUBE_USBD_HID_GetConfigDescriptor(uint16_t* length)
+ 290:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+  28              		.loc 1 290 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 291:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	*length = sizeof(IK_USB_ConfigurationDescriptor);
+  33              		.loc 1 291 2 view .LVU1
+  34              		.loc 1 291 10 is_stmt 0 view .LVU2
+  35 0000 2923     		movs	r3, #41
+  36 0002 0380     		strh	r3, [r0]	@ movhi
+ 292:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return IK_USB_ConfigurationDescriptor;
+  37              		.loc 1 292 2 is_stmt 1 view .LVU3
+ 293:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+  38              		.loc 1 293 1 is_stmt 0 view .LVU4
+  39 0004 0048     		ldr	r0, .L3
+  40              	.LVL1:
+  41              		.loc 1 293 1 view .LVU5
+  42 0006 7047     		bx	lr
+  43              	.L4:
+  44              		.align	2
+  45              	.L3:
+  46 0008 00000000 		.word	IK_USB_ConfigurationDescriptor
+  47              		.cfi_endproc
+  48              	.LFE73:
+  50              		.section	.text.IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor,"ax",%progbits
+  51              		.align	1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 7
+
+
+  52              		.p2align 2,,3
+  53              		.syntax unified
+  54              		.thumb
+  55              		.thumb_func
+  56              		.fpu softvfp
+  58              	IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor:
+  59              	.LVL2:
+  60              	.LFB74:
+ 294:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 295:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 296:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 297:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Retrieves the device's device qualifier descriptor.
+ 298:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 299:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+ 300:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint16_t* length: Data length returned.
+ 301:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 302:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t* IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor(uint16_t* length)
+ 303:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+  61              		.loc 1 303 1 is_stmt 1 view -0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+ 304:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	*length = sizeof(IK_USB_DeviceQualifierDescriptor);
+  66              		.loc 1 304 2 view .LVU7
+  67              		.loc 1 304 10 is_stmt 0 view .LVU8
+  68 0000 0A23     		movs	r3, #10
+  69 0002 0380     		strh	r3, [r0]	@ movhi
+ 305:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return IK_USB_DeviceQualifierDescriptor;
+  70              		.loc 1 305 2 is_stmt 1 view .LVU9
+ 306:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+  71              		.loc 1 306 1 is_stmt 0 view .LVU10
+  72 0004 0048     		ldr	r0, .L6
+  73              	.LVL3:
+  74              		.loc 1 306 1 view .LVU11
+  75 0006 7047     		bx	lr
+  76              	.L7:
+  77              		.align	2
+  78              	.L6:
+  79 0008 00000000 		.word	IK_USB_DeviceQualifierDescriptor
+  80              		.cfi_endproc
+  81              	.LFE74:
+  83              		.section	.text.IK_STM32CUBE_USBD_HID_DataIn,"ax",%progbits
+  84              		.align	1
+  85              		.p2align 2,,3
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu softvfp
+  91              	IK_STM32CUBE_USBD_HID_DataIn:
+  92              	.LVL4:
+  93              	.LFB75:
+ 307:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 308:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 309:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 310:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Handler for EPIN data.
+ 311:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 8
+
+
+ 312:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+ 313:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+ 314:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint8_t endpoint_num: The endpoint index.
+ 315:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 316:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_DataIn(USBD_HandleTypeDef* device, uint8_t endpoint_num)
+ 317:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+  94              		.loc 1 317 1 is_stmt 1 view -0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+ 318:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	((IK_HID_DeviceHandle_t*) device->pClassData)->State = IK_HID_IDLE;
+  99              		.loc 1 318 2 view .LVU13
+ 100              		.loc 1 318 55 is_stmt 0 view .LVU14
+ 101 0000 0023     		movs	r3, #0
+ 102 0002 D0F8B822 		ldr	r2, [r0, #696]
+ 319:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ 320:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 103              		.loc 1 320 1 view .LVU15
+ 104 0006 1846     		mov	r0, r3
+ 105              	.LVL5:
+ 318:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	((IK_HID_DeviceHandle_t*) device->pClassData)->State = IK_HID_IDLE;
+ 106              		.loc 1 318 55 view .LVU16
+ 107 0008 82F86030 		strb	r3, [r2, #96]
+ 319:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ 108              		.loc 1 319 2 is_stmt 1 view .LVU17
+ 109              		.loc 1 320 1 is_stmt 0 view .LVU18
+ 110 000c 7047     		bx	lr
+ 111              		.cfi_endproc
+ 112              	.LFE75:
+ 114 000e 00BF     		.section	.text.IK_STM32CUBE_USBD_HID_EP0RecieveReady,"ax",%progbits
+ 115              		.align	1
+ 116              		.p2align 2,,3
+ 117              		.syntax unified
+ 118              		.thumb
+ 119              		.thumb_func
+ 120              		.fpu softvfp
+ 122              	IK_STM32CUBE_USBD_HID_EP0RecieveReady:
+ 123              	.LVL6:
+ 124              	.LFB77:
+ 321:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 322:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 323:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 324:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Handler for EPOUT data.
+ 325:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 326:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+ 327:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+ 328:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - uint8_t endpoint_num: The endpoint index.
+ 329:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 330:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_DataOut(USBD_HandleTypeDef* device, uint8_t endpoint_num)
+ 331:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+ 332:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 333:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 334:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	((IK_HID_DeviceInterface_t*) device->pUserData)->OutEvent(ikdev_handle->ReportBuffer);
+ 335:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_PrepareReceive(device, IK_HID_EPOUT_ADDR, ikdev_handle->ReportBuffer, IK_HID_OUT_REPORT_BU
+ 336:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 337:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 9
+
+
+ 338:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 339:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 340:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** /*
+ 341:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Description
+ 342:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Handler for EP0 OUT data.
+ 343:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  *
+ 344:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * Parameters
+ 345:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  * - USBD_HandleTypeDef* device: The device instance.
+ 346:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****  */
+ 347:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** static uint8_t IK_STM32CUBE_USBD_HID_EP0RecieveReady(USBD_HandleTypeDef* device)
+ 348:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** {
+ 125              		.loc 1 348 1 is_stmt 1 view -0
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 349:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 129              		.loc 1 349 2 view .LVU20
+ 348:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 130              		.loc 1 348 1 is_stmt 0 view .LVU21
+ 131 0000 10B5     		push	{r4, lr}
+ 132              	.LCFI0:
+ 133              		.cfi_def_cfa_offset 8
+ 134              		.cfi_offset 4, -8
+ 135              		.cfi_offset 14, -4
+ 136              		.loc 1 349 25 view .LVU22
+ 137 0002 D0F8B842 		ldr	r4, [r0, #696]
+ 138              	.LVL7:
+ 350:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 351:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	if (ikdev_handle->IsReportAvailable == 1)
+ 139              		.loc 1 351 2 is_stmt 1 view .LVU23
+ 140              		.loc 1 351 5 is_stmt 0 view .LVU24
+ 141 0006 E36D     		ldr	r3, [r4, #92]
+ 142 0008 012B     		cmp	r3, #1
+ 143 000a 06D1     		bne	.L10
+ 352:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 353:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		((IK_HID_DeviceInterface_t*) device->pUserData)->OutEvent(ikdev_handle->ReportBuffer);
+ 144              		.loc 1 353 3 is_stmt 1 view .LVU25
+ 145              		.loc 1 353 50 is_stmt 0 view .LVU26
+ 146 000c D0F8BC32 		ldr	r3, [r0, #700]
+ 147              		.loc 1 353 4 view .LVU27
+ 148 0010 2046     		mov	r0, r4
+ 149              	.LVL8:
+ 150              		.loc 1 353 4 view .LVU28
+ 151 0012 DB68     		ldr	r3, [r3, #12]
+ 152 0014 9847     		blx	r3
+ 153              	.LVL9:
+ 354:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		ikdev_handle->IsReportAvailable = 0;
+ 154              		.loc 1 354 3 is_stmt 1 view .LVU29
+ 155              		.loc 1 354 35 is_stmt 0 view .LVU30
+ 156 0016 0023     		movs	r3, #0
+ 157 0018 E365     		str	r3, [r4, #92]
+ 158              	.L10:
+ 355:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	}
+ 356:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 357:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	return USBD_OK;
+ 159              		.loc 1 357 2 is_stmt 1 view .LVU31
+ 358:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 10
+
+
+ 160              		.loc 1 358 1 is_stmt 0 view .LVU32
+ 161 001a 0020     		movs	r0, #0
+ 162 001c 10BD     		pop	{r4, pc}
+ 163              		.loc 1 358 1 view .LVU33
+ 164              		.cfi_endproc
+ 165              	.LFE77:
+ 167 001e 00BF     		.section	.text.IK_STM32CUBE_USBD_HID_DataOut,"ax",%progbits
+ 168              		.align	1
+ 169              		.p2align 2,,3
+ 170              		.syntax unified
+ 171              		.thumb
+ 172              		.thumb_func
+ 173              		.fpu softvfp
+ 175              	IK_STM32CUBE_USBD_HID_DataOut:
+ 176              	.LVL10:
+ 177              	.LFB76:
+ 331:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 178              		.loc 1 331 1 is_stmt 1 view -0
+ 179              		.cfi_startproc
+ 180              		@ args = 0, pretend = 0, frame = 0
+ 181              		@ frame_needed = 0, uses_anonymous_args = 0
+ 332:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 182              		.loc 1 332 2 view .LVU35
+ 331:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 183              		.loc 1 331 1 is_stmt 0 view .LVU36
+ 184 0000 38B5     		push	{r3, r4, r5, lr}
+ 185              	.LCFI1:
+ 186              		.cfi_def_cfa_offset 16
+ 187              		.cfi_offset 3, -16
+ 188              		.cfi_offset 4, -12
+ 189              		.cfi_offset 5, -8
+ 190              		.cfi_offset 14, -4
+ 334:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_PrepareReceive(device, IK_HID_EPOUT_ADDR, ikdev_handle->ReportBuffer, IK_HID_OUT_REPORT_BU
+ 191              		.loc 1 334 49 view .LVU37
+ 192 0002 D0E9AE53 		ldrd	r5, r3, [r0, #696]
+ 331:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 193              		.loc 1 331 1 view .LVU38
+ 194 0006 0446     		mov	r4, r0
+ 195              	.LVL11:
+ 334:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_PrepareReceive(device, IK_HID_EPOUT_ADDR, ikdev_handle->ReportBuffer, IK_HID_OUT_REPORT_BU
+ 196              		.loc 1 334 2 is_stmt 1 view .LVU39
+ 334:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_PrepareReceive(device, IK_HID_EPOUT_ADDR, ikdev_handle->ReportBuffer, IK_HID_OUT_REPORT_BU
+ 197              		.loc 1 334 3 is_stmt 0 view .LVU40
+ 198 0008 DB68     		ldr	r3, [r3, #12]
+ 199 000a 2846     		mov	r0, r5
+ 200              	.LVL12:
+ 334:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_PrepareReceive(device, IK_HID_EPOUT_ADDR, ikdev_handle->ReportBuffer, IK_HID_OUT_REPORT_BU
+ 201              		.loc 1 334 3 view .LVU41
+ 202 000c 9847     		blx	r3
+ 203              	.LVL13:
+ 335:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 204              		.loc 1 335 2 is_stmt 1 view .LVU42
+ 205 000e 2A46     		mov	r2, r5
+ 206 0010 2046     		mov	r0, r4
+ 207 0012 5023     		movs	r3, #80
+ 208 0014 0121     		movs	r1, #1
+ 209 0016 FFF7FEFF 		bl	USBD_LL_PrepareReceive
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 11
+
+
+ 210              	.LVL14:
+ 337:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 211              		.loc 1 337 2 view .LVU43
+ 338:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 212              		.loc 1 338 1 is_stmt 0 view .LVU44
+ 213 001a 0020     		movs	r0, #0
+ 214 001c 38BD     		pop	{r3, r4, r5, pc}
+ 338:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 215              		.loc 1 338 1 view .LVU45
+ 216              		.cfi_endproc
+ 217              	.LFE76:
+ 219 001e 00BF     		.section	.text.IK_STM32CUBE_USBD_HID_Setup,"ax",%progbits
+ 220              		.align	1
+ 221              		.p2align 2,,3
+ 222              		.syntax unified
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.fpu softvfp
+ 227              	IK_STM32CUBE_USBD_HID_Setup:
+ 228              	.LVL15:
+ 229              	.LFB72:
+ 186:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 230              		.loc 1 186 1 is_stmt 1 view -0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 8
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 187:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	uint8_t* buffer = NULL;
+ 234              		.loc 1 187 2 view .LVU47
+ 190:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 235              		.loc 1 190 14 is_stmt 0 view .LVU48
+ 236 0000 0023     		movs	r3, #0
+ 186:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 237              		.loc 1 186 1 view .LVU49
+ 238 0002 30B5     		push	{r4, r5, lr}
+ 239              	.LCFI2:
+ 240              		.cfi_def_cfa_offset 12
+ 241              		.cfi_offset 4, -12
+ 242              		.cfi_offset 5, -8
+ 243              		.cfi_offset 14, -4
+ 244 0004 0C78     		ldrb	r4, [r1]	@ zero_extendqisi2
+ 245 0006 83B0     		sub	sp, sp, #12
+ 246              	.LCFI3:
+ 247              		.cfi_def_cfa_offset 24
+ 192:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 248              		.loc 1 192 2 view .LVU50
+ 249 0008 14F06004 		ands	r4, r4, #96
+ 187:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	uint8_t* buffer = NULL;
+ 250              		.loc 1 187 25 view .LVU51
+ 251 000c D0F8B852 		ldr	r5, [r0, #696]
+ 252              	.LVL16:
+ 188:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	uint16_t length = 0;
+ 253              		.loc 1 188 2 is_stmt 1 view .LVU52
+ 189:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     uint16_t status_info = 0;
+ 254              		.loc 1 189 2 view .LVU53
+ 190:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 255              		.loc 1 190 5 view .LVU54
+ 190:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 12
+
+
+ 256              		.loc 1 190 14 is_stmt 0 view .LVU55
+ 257 0010 ADF80630 		strh	r3, [sp, #6]	@ movhi
+ 192:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 258              		.loc 1 192 2 is_stmt 1 view .LVU56
+ 259 0014 16D0     		beq	.L15
+ 260 0016 202C     		cmp	r4, #32
+ 261 0018 0ED1     		bne	.L17
+ 250:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 262              		.loc 1 250 3 view .LVU57
+ 263 001a 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
+ 264 001c 023B     		subs	r3, r3, #2
+ 265 001e 092B     		cmp	r3, #9
+ 266 0020 0AD8     		bhi	.L17
+ 267 0022 DFE803F0 		tbb	[pc, r3]
+ 268              	.L28:
+ 269 0026 49       		.byte	(.L32-.L28)/2
+ 270 0027 50       		.byte	(.L31-.L28)/2
+ 271 0028 09       		.byte	(.L17-.L28)/2
+ 272 0029 09       		.byte	(.L17-.L28)/2
+ 273 002a 09       		.byte	(.L17-.L28)/2
+ 274 002b 09       		.byte	(.L17-.L28)/2
+ 275 002c 09       		.byte	(.L17-.L28)/2
+ 276 002d 57       		.byte	(.L30-.L28)/2
+ 277 002e 5F       		.byte	(.L29-.L28)/2
+ 278 002f 64       		.byte	(.L27-.L28)/2
+ 279              		.p2align 1
+ 280              	.L22:
+ 198:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 281              		.loc 1 198 13 view .LVU58
+ 198:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 282              		.loc 1 198 16 is_stmt 0 view .LVU59
+ 283 0030 90F89C22 		ldrb	r2, [r0, #668]	@ zero_extendqisi2
+ 284 0034 032A     		cmp	r2, #3
+ 285 0036 5ED0     		beq	.L36
+ 286              	.L17:
+ 244:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             return USBD_FAIL;
+ 287              		.loc 1 244 13 is_stmt 1 view .LVU60
+ 288 0038 FFF7FEFF 		bl	USBD_CtlError
+ 289              	.LVL17:
+ 245:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             break;
+ 290              		.loc 1 245 13 view .LVU61
+ 245:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             break;
+ 291              		.loc 1 245 20 is_stmt 0 view .LVU62
+ 292 003c 0224     		movs	r4, #2
+ 293              	.L24:
+ 280:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 294              		.loc 1 280 1 view .LVU63
+ 295 003e 2046     		mov	r0, r4
+ 296 0040 03B0     		add	sp, sp, #12
+ 297              	.LCFI4:
+ 298              		.cfi_remember_state
+ 299              		.cfi_def_cfa_offset 12
+ 300              		@ sp needed
+ 301 0042 30BD     		pop	{r4, r5, pc}
+ 302              	.LVL18:
+ 303              	.L15:
+ 304              	.LCFI5:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 13
+
+
+ 305              		.cfi_restore_state
+ 195:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 306              		.loc 1 195 3 is_stmt 1 view .LVU64
+ 195:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 307              		.loc 1 195 18 is_stmt 0 view .LVU65
+ 308 0044 4B78     		ldrb	r3, [r1, #1]	@ zero_extendqisi2
+ 309 0046 0B2B     		cmp	r3, #11
+ 310 0048 F6D8     		bhi	.L17
+ 311 004a 01A2     		adr	r2, .L19
+ 312 004c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 313              		.p2align 2
+ 314              	.L19:
+ 315 0050 31000000 		.word	.L22+1
+ 316 0054 39000000 		.word	.L17+1
+ 317 0058 39000000 		.word	.L17+1
+ 318 005c 39000000 		.word	.L17+1
+ 319 0060 39000000 		.word	.L17+1
+ 320 0064 39000000 		.word	.L17+1
+ 321 0068 9F000000 		.word	.L21+1
+ 322 006c 39000000 		.word	.L17+1
+ 323 0070 39000000 		.word	.L17+1
+ 324 0074 39000000 		.word	.L17+1
+ 325 0078 8F000000 		.word	.L20+1
+ 326 007c 81000000 		.word	.L18+1
+ 327              		.p2align 1
+ 328              	.L18:
+ 233:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 329              		.loc 1 233 4 is_stmt 1 view .LVU66
+ 233:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 330              		.loc 1 233 7 is_stmt 0 view .LVU67
+ 331 0080 90F89C32 		ldrb	r3, [r0, #668]	@ zero_extendqisi2
+ 332 0084 032B     		cmp	r3, #3
+ 333 0086 D7D1     		bne	.L17
+ 235:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 334              		.loc 1 235 17 is_stmt 1 view .LVU68
+ 235:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 335              		.loc 1 235 44 is_stmt 0 view .LVU69
+ 336 0088 8B78     		ldrb	r3, [r1, #2]	@ zero_extendqisi2
+ 337 008a AB65     		str	r3, [r5, #88]
+ 242:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         default:
+ 338              		.loc 1 242 4 is_stmt 1 view .LVU70
+ 339 008c D7E7     		b	.L24
+ 340              	.L20:
+ 222:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 341              		.loc 1 222 4 view .LVU71
+ 222:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             {
+ 342              		.loc 1 222 7 is_stmt 0 view .LVU72
+ 343 008e 90F89C32 		ldrb	r3, [r0, #668]	@ zero_extendqisi2
+ 344 0092 032B     		cmp	r3, #3
+ 345 0094 D0D1     		bne	.L17
+ 224:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 346              		.loc 1 224 17 is_stmt 1 view .LVU73
+ 347 0096 05F15801 		add	r1, r5, #88
+ 348              	.LVL19:
+ 224:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 349              		.loc 1 224 17 is_stmt 0 view .LVU74
+ 350 009a 0122     		movs	r2, #1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 14
+
+
+ 351 009c 07E0     		b	.L35
+ 352              	.LVL20:
+ 353              	.L21:
+ 209:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			{
+ 354              		.loc 1 209 4 is_stmt 1 view .LVU75
+ 209:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			{
+ 355              		.loc 1 209 31 is_stmt 0 view .LVU76
+ 356 009e 4B88     		ldrh	r3, [r1, #2]
+ 357 00a0 1B0A     		lsrs	r3, r3, #8
+ 209:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			{
+ 358              		.loc 1 209 7 view .LVU77
+ 359 00a2 222B     		cmp	r3, #34
+ 360 00a4 2ED0     		beq	.L37
+ 214:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			{
+ 361              		.loc 1 214 9 is_stmt 1 view .LVU78
+ 214:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			{
+ 362              		.loc 1 214 12 is_stmt 0 view .LVU79
+ 363 00a6 212B     		cmp	r3, #33
+ 364 00a8 34D0     		beq	.L38
+ 189:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     uint16_t status_info = 0;
+ 365              		.loc 1 189 11 view .LVU80
+ 366 00aa 0022     		movs	r2, #0
+ 188:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	uint16_t length = 0;
+ 367              		.loc 1 188 11 view .LVU81
+ 368 00ac 1146     		mov	r1, r2
+ 369              	.LVL21:
+ 219:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 370              		.loc 1 219 4 is_stmt 1 view .LVU82
+ 371              	.L35:
+ 224:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 372              		.loc 1 224 17 is_stmt 0 view .LVU83
+ 373 00ae FFF7FEFF 		bl	USBD_CtlSendData
+ 374              	.LVL22:
+ 231:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case USB_REQ_SET_INTERFACE:
+ 375              		.loc 1 231 4 is_stmt 1 view .LVU84
+ 280:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 376              		.loc 1 280 1 is_stmt 0 view .LVU85
+ 377 00b2 2046     		mov	r0, r4
+ 378 00b4 03B0     		add	sp, sp, #12
+ 379              	.LCFI6:
+ 380              		.cfi_remember_state
+ 381              		.cfi_def_cfa_offset 12
+ 382              		@ sp needed
+ 383 00b6 30BD     		pop	{r4, r5, pc}
+ 384              	.LVL23:
+ 385              	.L32:
+ 386              	.LCFI7:
+ 387              		.cfi_restore_state
+ 262:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 388              		.loc 1 262 4 is_stmt 1 view .LVU86
+ 389 00b8 05F15401 		add	r1, r5, #84
+ 390              	.LVL24:
+ 262:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 391              		.loc 1 262 4 is_stmt 0 view .LVU87
+ 392 00bc 0122     		movs	r2, #1
+ 393 00be FFF7FEFF 		bl	USBD_CtlSendData
+ 394              	.LVL25:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 15
+
+
+ 263:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_SET_REPORT:
+ 395              		.loc 1 263 4 is_stmt 1 view .LVU88
+ 279:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 396              		.loc 1 279 9 is_stmt 0 view .LVU89
+ 397 00c2 0024     		movs	r4, #0
+ 263:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_SET_REPORT:
+ 398              		.loc 1 263 4 view .LVU90
+ 399 00c4 BBE7     		b	.L24
+ 400              	.LVL26:
+ 401              	.L31:
+ 256:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 402              		.loc 1 256 4 is_stmt 1 view .LVU91
+ 403 00c6 05F15001 		add	r1, r5, #80
+ 404              	.LVL27:
+ 256:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 405              		.loc 1 256 4 is_stmt 0 view .LVU92
+ 406 00ca 0122     		movs	r2, #1
+ 407 00cc FFF7FEFF 		bl	USBD_CtlSendData
+ 408              	.LVL28:
+ 257:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_SET_IDLE:
+ 409              		.loc 1 257 4 is_stmt 1 view .LVU93
+ 279:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 410              		.loc 1 279 9 is_stmt 0 view .LVU94
+ 411 00d0 0024     		movs	r4, #0
+ 257:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_SET_IDLE:
+ 412              		.loc 1 257 4 view .LVU95
+ 413 00d2 B4E7     		b	.L24
+ 414              	.LVL29:
+ 415              	.L30:
+ 265:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlPrepareRx(device, ikdev_handle->ReportBuffer, (uint8_t)(request->wLength));
+ 416              		.loc 1 265 4 is_stmt 1 view .LVU96
+ 265:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlPrepareRx(device, ikdev_handle->ReportBuffer, (uint8_t)(request->wLength));
+ 417              		.loc 1 265 36 is_stmt 0 view .LVU97
+ 418 00d4 0123     		movs	r3, #1
+ 266:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 419              		.loc 1 266 4 view .LVU98
+ 420 00d6 8A79     		ldrb	r2, [r1, #6]	@ zero_extendqisi2
+ 265:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_CtlPrepareRx(device, ikdev_handle->ReportBuffer, (uint8_t)(request->wLength));
+ 421              		.loc 1 265 36 view .LVU99
+ 422 00d8 EB65     		str	r3, [r5, #92]
+ 266:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 423              		.loc 1 266 4 is_stmt 1 view .LVU100
+ 424 00da 2946     		mov	r1, r5
+ 425              	.LVL30:
+ 266:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 426              		.loc 1 266 4 is_stmt 0 view .LVU101
+ 427 00dc FFF7FEFF 		bl	USBD_CtlPrepareRx
+ 428              	.LVL31:
+ 267:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		default:
+ 429              		.loc 1 267 4 is_stmt 1 view .LVU102
+ 279:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 430              		.loc 1 279 9 is_stmt 0 view .LVU103
+ 431 00e0 0024     		movs	r4, #0
+ 267:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		default:
+ 432              		.loc 1 267 4 view .LVU104
+ 433 00e2 ACE7     		b	.L24
+ 434              	.LVL32:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 16
+
+
+ 435              	.L29:
+ 259:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 436              		.loc 1 259 4 is_stmt 1 view .LVU105
+ 259:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 437              		.loc 1 259 30 is_stmt 0 view .LVU106
+ 438 00e4 4B88     		ldrh	r3, [r1, #2]
+ 279:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 439              		.loc 1 279 9 view .LVU107
+ 440 00e6 0024     		movs	r4, #0
+ 259:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 441              		.loc 1 259 30 view .LVU108
+ 442 00e8 1B0A     		lsrs	r3, r3, #8
+ 443 00ea 6B65     		str	r3, [r5, #84]
+ 260:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_GET_IDLE:
+ 444              		.loc 1 260 4 is_stmt 1 view .LVU109
+ 445 00ec A7E7     		b	.L24
+ 446              	.L27:
+ 253:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 447              		.loc 1 253 4 view .LVU110
+ 253:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 448              		.loc 1 253 29 is_stmt 0 view .LVU111
+ 449 00ee 8B78     		ldrb	r3, [r1, #2]	@ zero_extendqisi2
+ 279:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 450              		.loc 1 279 9 view .LVU112
+ 451 00f0 0024     		movs	r4, #0
+ 253:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			break;
+ 452              		.loc 1 253 29 view .LVU113
+ 453 00f2 2B65     		str	r3, [r5, #80]
+ 254:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case IK_HID_REQUEST_GET_PROTOCOL:
+ 454              		.loc 1 254 4 is_stmt 1 view .LVU114
+ 455 00f4 A3E7     		b	.L24
+ 456              	.L36:
+ 200:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 457              		.loc 1 200 17 view .LVU115
+ 458 00f6 0222     		movs	r2, #2
+ 459 00f8 0DF10601 		add	r1, sp, #6
+ 460              	.LVL33:
+ 279:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 461              		.loc 1 279 9 is_stmt 0 view .LVU116
+ 462 00fc 1C46     		mov	r4, r3
+ 200:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****             }
+ 463              		.loc 1 200 17 view .LVU117
+ 464 00fe FFF7FEFF 		bl	USBD_CtlSendData
+ 465              	.LVL34:
+ 207:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		case USB_REQ_GET_DESCRIPTOR:
+ 466              		.loc 1 207 13 is_stmt 1 view .LVU118
+ 467 0102 9CE7     		b	.L24
+ 468              	.LVL35:
+ 469              	.L37:
+ 211:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				buffer = ((IK_HID_DeviceInterface_t*) device->pUserData)->Report;
+ 470              		.loc 1 211 5 view .LVU119
+ 211:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				buffer = ((IK_HID_DeviceInterface_t*) device->pUserData)->Report;
+ 471              		.loc 1 211 12 is_stmt 0 view .LVU120
+ 472 0104 CA88     		ldrh	r2, [r1, #6]
+ 212:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 473              		.loc 1 212 12 view .LVU121
+ 474 0106 D0F8BC32 		ldr	r3, [r0, #700]
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 17
+
+
+ 211:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				buffer = ((IK_HID_DeviceInterface_t*) device->pUserData)->Report;
+ 475              		.loc 1 211 12 view .LVU122
+ 476 010a 5B2A     		cmp	r2, #91
+ 477 010c 28BF     		it	cs
+ 478 010e 5B22     		movcs	r2, #91
+ 479              	.LVL36:
+ 212:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 480              		.loc 1 212 5 is_stmt 1 view .LVU123
+ 212:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 481              		.loc 1 212 12 is_stmt 0 view .LVU124
+ 482 0110 1968     		ldr	r1, [r3]
+ 483              	.LVL37:
+ 212:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 484              		.loc 1 212 12 view .LVU125
+ 485 0112 CCE7     		b	.L35
+ 486              	.LVL38:
+ 487              	.L38:
+ 216:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				length = MIN(IK_HID_DESC_SIZE, request->wLength);
+ 488              		.loc 1 216 5 is_stmt 1 view .LVU126
+ 217:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 489              		.loc 1 217 5 view .LVU127
+ 217:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 490              		.loc 1 217 12 is_stmt 0 view .LVU128
+ 491 0114 CA88     		ldrh	r2, [r1, #6]
+ 216:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 				length = MIN(IK_HID_DESC_SIZE, request->wLength);
+ 492              		.loc 1 216 12 view .LVU129
+ 493 0116 0249     		ldr	r1, .L39
+ 494              	.LVL39:
+ 217:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 495              		.loc 1 217 12 view .LVU130
+ 496 0118 092A     		cmp	r2, #9
+ 497 011a 28BF     		it	cs
+ 498 011c 0922     		movcs	r2, #9
+ 499              	.LVL40:
+ 217:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			}
+ 500              		.loc 1 217 12 view .LVU131
+ 501 011e C6E7     		b	.L35
+ 502              	.L40:
+ 503              		.align	2
+ 504              	.L39:
+ 505 0120 00000000 		.word	IK_USB_HIDDescriptor
+ 506              		.cfi_endproc
+ 507              	.LFE72:
+ 509              		.section	.text.IK_STM32CUBE_USBD_HID_DeInit,"ax",%progbits
+ 510              		.align	1
+ 511              		.p2align 2,,3
+ 512              		.syntax unified
+ 513              		.thumb
+ 514              		.thumb_func
+ 515              		.fpu softvfp
+ 517              	IK_STM32CUBE_USBD_HID_DeInit:
+ 518              	.LVL41:
+ 519              	.LFB71:
+ 160:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_CloseEP(device, IK_HID_EPIN_ADDR);
+ 520              		.loc 1 160 1 is_stmt 1 view -0
+ 521              		.cfi_startproc
+ 522              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 18
+
+
+ 523              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 0;
+ 524              		.loc 1 161 2 view .LVU133
+ 160:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_CloseEP(device, IK_HID_EPIN_ADDR);
+ 525              		.loc 1 160 1 is_stmt 0 view .LVU134
+ 526 0000 38B5     		push	{r3, r4, r5, lr}
+ 527              	.LCFI8:
+ 528              		.cfi_def_cfa_offset 16
+ 529              		.cfi_offset 3, -16
+ 530              		.cfi_offset 4, -12
+ 531              		.cfi_offset 5, -8
+ 532              		.cfi_offset 14, -4
+ 160:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	USBD_LL_CloseEP(device, IK_HID_EPIN_ADDR);
+ 533              		.loc 1 160 1 view .LVU135
+ 534 0002 0446     		mov	r4, r0
+ 162:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 535              		.loc 1 162 51 view .LVU136
+ 536 0004 0025     		movs	r5, #0
+ 161:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 0;
+ 537              		.loc 1 161 2 view .LVU137
+ 538 0006 8121     		movs	r1, #129
+ 539              	.LVL42:
+ 161:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 0;
+ 540              		.loc 1 161 2 view .LVU138
+ 541 0008 FFF7FEFF 		bl	USBD_LL_CloseEP
+ 542              	.LVL43:
+ 162:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 543              		.loc 1 162 5 is_stmt 1 view .LVU139
+ 162:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 544              		.loc 1 162 51 is_stmt 0 view .LVU140
+ 545 000c E562     		str	r5, [r4, #44]
+ 164:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_out[IK_HID_EPOUT_ADDR & 0xF].is_used = 0;
+ 546              		.loc 1 164 2 is_stmt 1 view .LVU141
+ 547 000e 2046     		mov	r0, r4
+ 548 0010 0121     		movs	r1, #1
+ 549 0012 FFF7FEFF 		bl	USBD_LL_CloseEP
+ 550              	.LVL44:
+ 165:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 551              		.loc 1 165 5 view .LVU142
+ 167:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 552              		.loc 1 167 5 is_stmt 0 view .LVU143
+ 553 0016 D4F8B832 		ldr	r3, [r4, #696]
+ 165:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 554              		.loc 1 165 53 view .LVU144
+ 555 001a C4F86C51 		str	r5, [r4, #364]
+ 167:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 556              		.loc 1 167 2 is_stmt 1 view .LVU145
+ 167:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 557              		.loc 1 167 5 is_stmt 0 view .LVU146
+ 558 001e 4BB1     		cbz	r3, .L42
+ 169:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		USBD_free(device->pClassData);
+ 559              		.loc 1 169 3 is_stmt 1 view .LVU147
+ 169:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		USBD_free(device->pClassData);
+ 560              		.loc 1 169 50 is_stmt 0 view .LVU148
+ 561 0020 D4F8BC32 		ldr	r3, [r4, #700]
+ 169:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		USBD_free(device->pClassData);
+ 562              		.loc 1 169 4 view .LVU149
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 19
+
+
+ 563 0024 9B68     		ldr	r3, [r3, #8]
+ 564 0026 9847     		blx	r3
+ 565              	.LVL45:
+ 170:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		device->pClassData = NULL;
+ 566              		.loc 1 170 3 is_stmt 1 view .LVU150
+ 567 0028 D4F8B802 		ldr	r0, [r4, #696]
+ 568 002c FFF7FEFF 		bl	USBD_static_free
+ 569              	.LVL46:
+ 171:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	}
+ 570              		.loc 1 171 3 view .LVU151
+ 171:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	}
+ 571              		.loc 1 171 22 is_stmt 0 view .LVU152
+ 572 0030 C4F8B852 		str	r5, [r4, #696]
+ 573              	.L42:
+ 174:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 574              		.loc 1 174 2 is_stmt 1 view .LVU153
+ 175:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 575              		.loc 1 175 1 is_stmt 0 view .LVU154
+ 576 0034 0020     		movs	r0, #0
+ 577 0036 38BD     		pop	{r3, r4, r5, pc}
+ 175:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 578              		.loc 1 175 1 view .LVU155
+ 579              		.cfi_endproc
+ 580              	.LFE71:
+ 582              		.section	.text.IK_STM32CUBE_USBD_HID_Init,"ax",%progbits
+ 583              		.align	1
+ 584              		.p2align 2,,3
+ 585              		.syntax unified
+ 586              		.thumb
+ 587              		.thumb_func
+ 588              		.fpu softvfp
+ 590              	IK_STM32CUBE_USBD_HID_Init:
+ 591              	.LVL47:
+ 592              	.LFB70:
+ 128:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle;
+ 593              		.loc 1 128 1 is_stmt 1 view -0
+ 594              		.cfi_startproc
+ 595              		@ args = 0, pretend = 0, frame = 0
+ 596              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 597              		.loc 1 129 2 view .LVU157
+ 131:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 1;
+ 598              		.loc 1 131 2 view .LVU158
+ 128:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle;
+ 599              		.loc 1 128 1 is_stmt 0 view .LVU159
+ 600 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 601              	.LCFI9:
+ 602              		.cfi_def_cfa_offset 24
+ 603              		.cfi_offset 3, -24
+ 604              		.cfi_offset 4, -20
+ 605              		.cfi_offset 5, -16
+ 606              		.cfi_offset 6, -12
+ 607              		.cfi_offset 7, -8
+ 608              		.cfi_offset 14, -4
+ 128:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle;
+ 609              		.loc 1 128 1 view .LVU160
+ 610 0002 0446     		mov	r4, r0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 20
+
+
+ 132:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 611              		.loc 1 132 51 view .LVU161
+ 612 0004 0125     		movs	r5, #1
+ 131:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 1;
+ 613              		.loc 1 131 2 view .LVU162
+ 614 0006 0A23     		movs	r3, #10
+ 615 0008 0322     		movs	r2, #3
+ 616 000a 8121     		movs	r1, #129
+ 617              	.LVL48:
+ 131:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_in[IK_HID_EPIN_ADDR & 0xF].is_used = 1;
+ 618              		.loc 1 131 2 view .LVU163
+ 619 000c FFF7FEFF 		bl	USBD_LL_OpenEP
+ 620              	.LVL49:
+ 132:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 621              		.loc 1 132 5 is_stmt 1 view .LVU164
+ 134:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_out[IK_HID_EPOUT_ADDR & 0xF].is_used = 1;
+ 622              		.loc 1 134 2 is_stmt 0 view .LVU165
+ 623 0010 2946     		mov	r1, r5
+ 624 0012 0A23     		movs	r3, #10
+ 625 0014 0322     		movs	r2, #3
+ 132:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 626              		.loc 1 132 51 view .LVU166
+ 627 0016 E562     		str	r5, [r4, #44]
+ 134:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****     device->ep_out[IK_HID_EPOUT_ADDR & 0xF].is_used = 1;
+ 628              		.loc 1 134 2 is_stmt 1 view .LVU167
+ 629 0018 2046     		mov	r0, r4
+ 630 001a FFF7FEFF 		bl	USBD_LL_OpenEP
+ 631              	.LVL50:
+ 135:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 632              		.loc 1 135 5 view .LVU168
+ 135:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 633              		.loc 1 135 53 is_stmt 0 view .LVU169
+ 634 001e C4F86C51 		str	r5, [r4, #364]
+ 137:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 635              		.loc 1 137 2 is_stmt 1 view .LVU170
+ 137:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 636              		.loc 1 137 23 is_stmt 0 view .LVU171
+ 637 0022 6420     		movs	r0, #100
+ 638 0024 FFF7FEFF 		bl	USBD_static_malloc
+ 639              	.LVL51:
+ 137:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 640              		.loc 1 137 21 view .LVU172
+ 641 0028 C4F8B802 		str	r0, [r4, #696]
+ 139:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		return USBD_FAIL;
+ 642              		.loc 1 139 2 is_stmt 1 view .LVU173
+ 139:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		return USBD_FAIL;
+ 643              		.loc 1 139 5 is_stmt 0 view .LVU174
+ 644 002c 78B1     		cbz	r0, .L49
+ 143:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	((IK_HID_DeviceInterface_t*) device->pUserData)->Init();
+ 645              		.loc 1 143 22 view .LVU175
+ 646 002e 0027     		movs	r7, #0
+ 647 0030 0646     		mov	r6, r0
+ 142:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	ikdev_handle->State = IK_HID_IDLE;
+ 648              		.loc 1 142 2 is_stmt 1 view .LVU176
+ 649              	.LVL52:
+ 143:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	((IK_HID_DeviceInterface_t*) device->pUserData)->Init();
+ 650              		.loc 1 143 2 view .LVU177
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 21
+
+
+ 144:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 651              		.loc 1 144 49 is_stmt 0 view .LVU178
+ 652 0032 D4F8BC32 		ldr	r3, [r4, #700]
+ 143:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	((IK_HID_DeviceInterface_t*) device->pUserData)->Init();
+ 653              		.loc 1 143 22 view .LVU179
+ 654 0036 80F86070 		strb	r7, [r0, #96]
+ 144:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 655              		.loc 1 144 2 is_stmt 1 view .LVU180
+ 144:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 656              		.loc 1 144 3 is_stmt 0 view .LVU181
+ 657 003a 5B68     		ldr	r3, [r3, #4]
+ 658 003c 9847     		blx	r3
+ 659              	.LVL53:
+ 146:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 660              		.loc 1 146 2 is_stmt 1 view .LVU182
+ 661 003e 3246     		mov	r2, r6
+ 662 0040 2946     		mov	r1, r5
+ 663 0042 2046     		mov	r0, r4
+ 664 0044 5023     		movs	r3, #80
+ 665 0046 FFF7FEFF 		bl	USBD_LL_PrepareReceive
+ 666              	.LVL54:
+ 148:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 667              		.loc 1 148 2 view .LVU183
+ 148:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 668              		.loc 1 148 9 is_stmt 0 view .LVU184
+ 669 004a 3846     		mov	r0, r7
+ 149:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 670              		.loc 1 149 1 view .LVU185
+ 671 004c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 672              	.LVL55:
+ 673              	.L49:
+ 140:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 674              		.loc 1 140 10 view .LVU186
+ 675 004e 0220     		movs	r0, #2
+ 149:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 676              		.loc 1 149 1 view .LVU187
+ 677 0050 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 149:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 678              		.loc 1 149 1 view .LVU188
+ 679              		.cfi_endproc
+ 680              	.LFE70:
+ 682 0052 00BF     		.section	.text.IK_STM32CUBE_USBD_HID_SendReport,"ax",%progbits
+ 683              		.align	1
+ 684              		.p2align 2,,3
+ 685              		.global	IK_STM32CUBE_USBD_HID_SendReport
+ 686              		.syntax unified
+ 687              		.thumb
+ 688              		.thumb_func
+ 689              		.fpu softvfp
+ 691              	IK_STM32CUBE_USBD_HID_SendReport:
+ 692              	.LVL56:
+ 693              	.LFB68:
+  78:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 694              		.loc 1 78 1 is_stmt 1 view -0
+ 695              		.cfi_startproc
+ 696              		@ args = 0, pretend = 0, frame = 0
+ 697              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 22
+
+
+  79:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 698              		.loc 1 79 2 view .LVU190
+  81:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 699              		.loc 1 81 2 view .LVU191
+  78:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	IK_HID_DeviceHandle_t* ikdev_handle = (IK_HID_DeviceHandle_t*) device->pClassData;
+ 700              		.loc 1 78 1 is_stmt 0 view .LVU192
+ 701 0000 38B5     		push	{r3, r4, r5, lr}
+ 702              	.LCFI10:
+ 703              		.cfi_def_cfa_offset 16
+ 704              		.cfi_offset 3, -16
+ 705              		.cfi_offset 4, -12
+ 706              		.cfi_offset 5, -8
+ 707              		.cfi_offset 14, -4
+  81:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	{
+ 708              		.loc 1 81 5 view .LVU193
+ 709 0002 90F89C52 		ldrb	r5, [r0, #668]	@ zero_extendqisi2
+ 710 0006 032D     		cmp	r5, #3
+ 711 0008 02D0     		beq	.L56
+  94:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 712              		.loc 1 94 9 view .LVU194
+ 713 000a 0024     		movs	r4, #0
+  95:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 714              		.loc 1 95 1 view .LVU195
+ 715 000c 2046     		mov	r0, r4
+ 716              	.LVL57:
+  95:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 717              		.loc 1 95 1 view .LVU196
+ 718 000e 38BD     		pop	{r3, r4, r5, pc}
+ 719              	.LVL58:
+ 720              	.L56:
+  79:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 721              		.loc 1 79 25 view .LVU197
+ 722 0010 D0F8B852 		ldr	r5, [r0, #696]
+  83:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 723              		.loc 1 83 3 is_stmt 1 view .LVU198
+  83:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 724              		.loc 1 83 19 is_stmt 0 view .LVU199
+ 725 0014 95F86040 		ldrb	r4, [r5, #96]	@ zero_extendqisi2
+  83:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		{
+ 726              		.loc 1 83 6 view .LVU200
+ 727 0018 14B1     		cbz	r4, .L57
+  90:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c ****         }
+ 728              		.loc 1 90 20 view .LVU201
+ 729 001a 0124     		movs	r4, #1
+  95:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 730              		.loc 1 95 1 view .LVU202
+ 731 001c 2046     		mov	r0, r4
+ 732              	.LVL59:
+  95:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 733              		.loc 1 95 1 view .LVU203
+ 734 001e 38BD     		pop	{r3, r4, r5, pc}
+ 735              	.LVL60:
+ 736              	.L57:
+  95:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 737              		.loc 1 95 1 view .LVU204
+ 738 0020 1346     		mov	r3, r2
+ 739 0022 0A46     		mov	r2, r1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 23
+
+
+ 740              	.LVL61:
+  85:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_LL_Transmit(device, IK_HID_EPIN_ADDR, report, report_length);
+ 741              		.loc 1 85 4 is_stmt 1 view .LVU205
+  85:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_LL_Transmit(device, IK_HID_EPIN_ADDR, report, report_length);
+ 742              		.loc 1 85 24 is_stmt 0 view .LVU206
+ 743 0024 0121     		movs	r1, #1
+ 744              	.LVL62:
+  85:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 			USBD_LL_Transmit(device, IK_HID_EPIN_ADDR, report, report_length);
+ 745              		.loc 1 85 24 view .LVU207
+ 746 0026 85F86010 		strb	r1, [r5, #96]
+  86:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		}
+ 747              		.loc 1 86 4 is_stmt 1 view .LVU208
+ 748 002a 8121     		movs	r1, #129
+ 749 002c FFF7FEFF 		bl	USBD_LL_Transmit
+ 750              	.LVL63:
+  95:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 751              		.loc 1 95 1 is_stmt 0 view .LVU209
+ 752 0030 2046     		mov	r0, r4
+ 753 0032 38BD     		pop	{r3, r4, r5, pc}
+ 754              		.cfi_endproc
+ 755              	.LFE68:
+ 757              		.section	.text.IK_STM32CUBE_USBD_HID_RegisterInterface,"ax",%progbits
+ 758              		.align	1
+ 759              		.p2align 2,,3
+ 760              		.global	IK_STM32CUBE_USBD_HID_RegisterInterface
+ 761              		.syntax unified
+ 762              		.thumb
+ 763              		.thumb_func
+ 764              		.fpu softvfp
+ 766              	IK_STM32CUBE_USBD_HID_RegisterInterface:
+ 767              	.LVL64:
+ 768              	.LFB69:
+ 106:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 	if (interface == NULL)
+ 769              		.loc 1 106 1 is_stmt 1 view -0
+ 770              		.cfi_startproc
+ 771              		@ args = 0, pretend = 0, frame = 0
+ 772              		@ frame_needed = 0, uses_anonymous_args = 0
+ 773              		@ link register save eliminated.
+ 107:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		return USBD_FAIL;
+ 774              		.loc 1 107 2 view .LVU211
+ 107:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 		return USBD_FAIL;
+ 775              		.loc 1 107 5 is_stmt 0 view .LVU212
+ 776 0000 19B1     		cbz	r1, .L60
+ 110:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 777              		.loc 1 110 2 is_stmt 1 view .LVU213
+ 110:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 778              		.loc 1 110 20 is_stmt 0 view .LVU214
+ 779 0002 C0F8BC12 		str	r1, [r0, #700]
+ 112:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 780              		.loc 1 112 2 is_stmt 1 view .LVU215
+ 112:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 781              		.loc 1 112 9 is_stmt 0 view .LVU216
+ 782 0006 0020     		movs	r0, #0
+ 783              	.LVL65:
+ 112:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** }
+ 784              		.loc 1 112 9 view .LVU217
+ 785 0008 7047     		bx	lr
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 24
+
+
+ 786              	.LVL66:
+ 787              	.L60:
+ 108:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 788              		.loc 1 108 10 view .LVU218
+ 789 000a 0220     		movs	r0, #2
+ 790              	.LVL67:
+ 113:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.c **** 
+ 791              		.loc 1 113 1 view .LVU219
+ 792 000c 7047     		bx	lr
+ 793              		.cfi_endproc
+ 794              	.LFE69:
+ 796              		.global	IK_HID_Class
+ 797 000e 00BF     		.section	.data.IK_HID_Class,"aw"
+ 798              		.align	2
+ 801              	IK_HID_Class:
+ 802 0000 00000000 		.word	IK_STM32CUBE_USBD_HID_Init
+ 803 0004 00000000 		.word	IK_STM32CUBE_USBD_HID_DeInit
+ 804 0008 00000000 		.word	IK_STM32CUBE_USBD_HID_Setup
+ 805 000c 00000000 		.word	0
+ 806 0010 00000000 		.word	IK_STM32CUBE_USBD_HID_EP0RecieveReady
+ 807 0014 00000000 		.word	IK_STM32CUBE_USBD_HID_DataIn
+ 808 0018 00000000 		.word	IK_STM32CUBE_USBD_HID_DataOut
+ 809 001c 00000000 		.word	0
+ 810 0020 00000000 		.word	0
+ 811 0024 00000000 		.word	0
+ 812 0028 00000000 		.word	IK_STM32CUBE_USBD_HID_GetConfigDescriptor
+ 813 002c 00000000 		.word	IK_STM32CUBE_USBD_HID_GetConfigDescriptor
+ 814 0030 00000000 		.word	IK_STM32CUBE_USBD_HID_GetConfigDescriptor
+ 815 0034 00000000 		.word	IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor
+ 816              		.text
+ 817              	.Letext0:
+ 818              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 819              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 820              		.file 4 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
+ 821              		.file 5 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 822              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 823              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 824              		.file 8 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\stdlib.h"
+ 825              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ 826              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 827              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 828              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 829              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 830              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 831              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 832              		.file 16 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+ 833              		.file 17 "Inc/main.h"
+ 834              		.file 18 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 835              		.file 19 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+ 836              		.file 20 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_descriptors.h"
+ 837              		.file 21 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h"
+ 838              		.file 22 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h"
+ 839              		.file 23 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h"
+ 840              		.file 24 "Inc/usbd_conf.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_stm32cube_usb_hid.c
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:16     .text.IK_STM32CUBE_USBD_HID_GetConfigDescriptor:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:24     .text.IK_STM32CUBE_USBD_HID_GetConfigDescriptor:00000000 IK_STM32CUBE_USBD_HID_GetConfigDescriptor
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:46     .text.IK_STM32CUBE_USBD_HID_GetConfigDescriptor:00000008 $d
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:51     .text.IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:58     .text.IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor:00000000 IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:79     .text.IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor:00000008 $d
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:84     .text.IK_STM32CUBE_USBD_HID_DataIn:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:91     .text.IK_STM32CUBE_USBD_HID_DataIn:00000000 IK_STM32CUBE_USBD_HID_DataIn
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:115    .text.IK_STM32CUBE_USBD_HID_EP0RecieveReady:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:122    .text.IK_STM32CUBE_USBD_HID_EP0RecieveReady:00000000 IK_STM32CUBE_USBD_HID_EP0RecieveReady
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:168    .text.IK_STM32CUBE_USBD_HID_DataOut:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:175    .text.IK_STM32CUBE_USBD_HID_DataOut:00000000 IK_STM32CUBE_USBD_HID_DataOut
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:220    .text.IK_STM32CUBE_USBD_HID_Setup:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:227    .text.IK_STM32CUBE_USBD_HID_Setup:00000000 IK_STM32CUBE_USBD_HID_Setup
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:269    .text.IK_STM32CUBE_USBD_HID_Setup:00000026 $d
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:279    .text.IK_STM32CUBE_USBD_HID_Setup:00000030 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:315    .text.IK_STM32CUBE_USBD_HID_Setup:00000050 $d
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:327    .text.IK_STM32CUBE_USBD_HID_Setup:00000080 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:505    .text.IK_STM32CUBE_USBD_HID_Setup:00000120 $d
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:510    .text.IK_STM32CUBE_USBD_HID_DeInit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:517    .text.IK_STM32CUBE_USBD_HID_DeInit:00000000 IK_STM32CUBE_USBD_HID_DeInit
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:583    .text.IK_STM32CUBE_USBD_HID_Init:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:590    .text.IK_STM32CUBE_USBD_HID_Init:00000000 IK_STM32CUBE_USBD_HID_Init
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:683    .text.IK_STM32CUBE_USBD_HID_SendReport:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:691    .text.IK_STM32CUBE_USBD_HID_SendReport:00000000 IK_STM32CUBE_USBD_HID_SendReport
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:758    .text.IK_STM32CUBE_USBD_HID_RegisterInterface:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:766    .text.IK_STM32CUBE_USBD_HID_RegisterInterface:00000000 IK_STM32CUBE_USBD_HID_RegisterInterface
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:801    .data.IK_HID_Class:00000000 IK_HID_Class
+C:\Users\Johannes\AppData\Local\Temp\cccaAS0U.s:798    .data.IK_HID_Class:00000000 $d
+
+UNDEFINED SYMBOLS
+IK_USB_ConfigurationDescriptor
+IK_USB_DeviceQualifierDescriptor
+USBD_LL_PrepareReceive
+USBD_CtlError
+USBD_CtlSendData
+USBD_CtlPrepareRx
+IK_USB_HIDDescriptor
+USBD_LL_CloseEP
+USBD_static_free
+USBD_LL_OpenEP
+USBD_static_malloc
+USBD_LL_Transmit

@@ -1,0 +1,231 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_stm32cube_usb_descriptors.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.global	IK_USB_HIDReportDescriptor
+  16              		.global	IK_USB_DeviceQualifierDescriptor
+  17              		.global	IK_USB_HIDDescriptor
+  18              		.global	IK_USB_ConfigurationDescriptor
+  19              		.section	.data.IK_USB_ConfigurationDescriptor,"aw"
+  20              		.align	2
+  23              	IK_USB_ConfigurationDescriptor:
+  24 0000 09       		.byte	9
+  25 0001 02       		.byte	2
+  26 0002 29       		.byte	41
+  27 0003 00       		.byte	0
+  28 0004 01       		.byte	1
+  29 0005 01       		.byte	1
+  30 0006 00       		.byte	0
+  31 0007 C0       		.byte	-64
+  32 0008 C8       		.byte	-56
+  33 0009 09       		.byte	9
+  34 000a 04       		.byte	4
+  35 000b 00       		.byte	0
+  36 000c 00       		.byte	0
+  37 000d 02       		.byte	2
+  38 000e 03       		.byte	3
+  39 000f 00       		.byte	0
+  40 0010 00       		.byte	0
+  41 0011 00       		.byte	0
+  42 0012 09       		.byte	9
+  43 0013 21       		.byte	33
+  44 0014 11       		.byte	17
+  45 0015 01       		.byte	1
+  46 0016 00       		.byte	0
+  47 0017 01       		.byte	1
+  48 0018 22       		.byte	34
+  49 0019 5B       		.byte	91
+  50 001a 00       		.byte	0
+  51 001b 07       		.byte	7
+  52 001c 05       		.byte	5
+  53 001d 81       		.byte	-127
+  54 001e 03       		.byte	3
+  55 001f 0A       		.byte	10
+  56 0020 00       		.byte	0
+  57 0021 05       		.byte	5
+  58 0022 07       		.byte	7
+  59 0023 05       		.byte	5
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s 			page 2
+
+
+  60 0024 01       		.byte	1
+  61 0025 03       		.byte	3
+  62 0026 0A       		.byte	10
+  63 0027 00       		.byte	0
+  64 0028 05       		.byte	5
+  65              		.section	.data.IK_USB_DeviceQualifierDescriptor,"aw"
+  66              		.align	2
+  69              	IK_USB_DeviceQualifierDescriptor:
+  70 0000 0A       		.byte	10
+  71 0001 06       		.byte	6
+  72 0002 00       		.byte	0
+  73 0003 02       		.byte	2
+  74 0004 00       		.byte	0
+  75 0005 00       		.byte	0
+  76 0006 00       		.byte	0
+  77 0007 40       		.byte	64
+  78 0008 01       		.byte	1
+  79 0009 00       		.byte	0
+  80              		.section	.data.IK_USB_HIDDescriptor,"aw"
+  81              		.align	2
+  84              	IK_USB_HIDDescriptor:
+  85 0000 09       		.byte	9
+  86 0001 21       		.byte	33
+  87 0002 11       		.byte	17
+  88 0003 01       		.byte	1
+  89 0004 00       		.byte	0
+  90 0005 01       		.byte	1
+  91 0006 22       		.byte	34
+  92 0007 5B       		.byte	91
+  93 0008 00       		.byte	0
+  94              		.section	.data.IK_USB_HIDReportDescriptor,"aw"
+  95              		.align	2
+  98              	IK_USB_HIDReportDescriptor:
+  99 0000 05       		.byte	5
+ 100 0001 01       		.byte	1
+ 101 0002 09       		.byte	9
+ 102 0003 06       		.byte	6
+ 103 0004 A1       		.byte	-95
+ 104 0005 01       		.byte	1
+ 105 0006 85       		.byte	-123
+ 106 0007 01       		.byte	1
+ 107 0008 05       		.byte	5
+ 108 0009 07       		.byte	7
+ 109 000a 19       		.byte	25
+ 110 000b E0       		.byte	-32
+ 111 000c 29       		.byte	41
+ 112 000d E7       		.byte	-25
+ 113 000e 15       		.byte	21
+ 114 000f 00       		.byte	0
+ 115 0010 25       		.byte	37
+ 116 0011 01       		.byte	1
+ 117 0012 75       		.byte	117
+ 118 0013 01       		.byte	1
+ 119 0014 95       		.byte	-107
+ 120 0015 08       		.byte	8
+ 121 0016 81       		.byte	-127
+ 122 0017 02       		.byte	2
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s 			page 3
+
+
+ 123 0018 95       		.byte	-107
+ 124 0019 01       		.byte	1
+ 125 001a 75       		.byte	117
+ 126 001b 08       		.byte	8
+ 127 001c 81       		.byte	-127
+ 128 001d 03       		.byte	3
+ 129 001e 95       		.byte	-107
+ 130 001f 05       		.byte	5
+ 131 0020 75       		.byte	117
+ 132 0021 01       		.byte	1
+ 133 0022 05       		.byte	5
+ 134 0023 08       		.byte	8
+ 135 0024 19       		.byte	25
+ 136 0025 01       		.byte	1
+ 137 0026 29       		.byte	41
+ 138 0027 05       		.byte	5
+ 139 0028 91       		.byte	-111
+ 140 0029 02       		.byte	2
+ 141 002a 95       		.byte	-107
+ 142 002b 01       		.byte	1
+ 143 002c 75       		.byte	117
+ 144 002d 03       		.byte	3
+ 145 002e 91       		.byte	-111
+ 146 002f 03       		.byte	3
+ 147 0030 95       		.byte	-107
+ 148 0031 05       		.byte	5
+ 149 0032 75       		.byte	117
+ 150 0033 08       		.byte	8
+ 151 0034 15       		.byte	21
+ 152 0035 00       		.byte	0
+ 153 0036 25       		.byte	37
+ 154 0037 65       		.byte	101
+ 155 0038 05       		.byte	5
+ 156 0039 07       		.byte	7
+ 157 003a 19       		.byte	25
+ 158 003b 00       		.byte	0
+ 159 003c 29       		.byte	41
+ 160 003d 65       		.byte	101
+ 161 003e 81       		.byte	-127
+ 162 003f 00       		.byte	0
+ 163 0040 C0       		.byte	-64
+ 164 0041 06       		.byte	6
+ 165 0042 00       		.byte	0
+ 166 0043 FF       		.byte	-1
+ 167 0044 09       		.byte	9
+ 168 0045 01       		.byte	1
+ 169 0046 A1       		.byte	-95
+ 170 0047 01       		.byte	1
+ 171 0048 85       		.byte	-123
+ 172 0049 02       		.byte	2
+ 173 004a 06       		.byte	6
+ 174 004b 00       		.byte	0
+ 175 004c FF       		.byte	-1
+ 176 004d 09       		.byte	9
+ 177 004e 01       		.byte	1
+ 178 004f 15       		.byte	21
+ 179 0050 00       		.byte	0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s 			page 4
+
+
+ 180 0051 26       		.byte	38
+ 181 0052 FF       		.byte	-1
+ 182 0053 00       		.byte	0
+ 183 0054 75       		.byte	117
+ 184 0055 08       		.byte	8
+ 185 0056 95       		.byte	-107
+ 186 0057 40       		.byte	64
+ 187 0058 91       		.byte	-111
+ 188 0059 02       		.byte	2
+ 189 005a C0       		.byte	-64
+ 190              		.text
+ 191              	.Letext0:
+ 192              		.file 1 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 193              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 194              		.file 3 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
+ 195              		.file 4 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 196              		.file 5 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 197              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 198              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\stdlib.h"
+ 199              		.file 8 "Drivers/CMSIS/Include/core_cm3.h"
+ 200              		.file 9 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 201              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 202              		.file 11 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 203              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 204              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 205              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 206              		.file 15 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+ 207              		.file 16 "Inc/main.h"
+ 208              		.file 17 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 209              		.file 18 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+ 210              		.file 19 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_descriptors.h"
+ 211              		.file 20 "Inc/usbd_desc.h"
+ 212              		.file 21 "../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_descriptors.c"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_stm32cube_usb_descriptors.c
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:98     .data.IK_USB_HIDReportDescriptor:00000000 IK_USB_HIDReportDescriptor
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:69     .data.IK_USB_DeviceQualifierDescriptor:00000000 IK_USB_DeviceQualifierDescriptor
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:84     .data.IK_USB_HIDDescriptor:00000000 IK_USB_HIDDescriptor
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:23     .data.IK_USB_ConfigurationDescriptor:00000000 IK_USB_ConfigurationDescriptor
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:20     .data.IK_USB_ConfigurationDescriptor:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:66     .data.IK_USB_DeviceQualifierDescriptor:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:81     .data.IK_USB_HIDDescriptor:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccWRvdIR.s:95     .data.IK_USB_HIDReportDescriptor:00000000 $d
+
+NO UNDEFINED SYMBOLS

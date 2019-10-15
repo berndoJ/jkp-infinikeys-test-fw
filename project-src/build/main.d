@@ -45,7 +45,11 @@ build/main.o: Src/main.c Inc/main.h \
  Middlewares/Third_Party/FreeRTOS/Source/include/timers.h \
  Inc/usb_device.h \
  Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- Inc/usbd_conf.h Inc/main.h Inc/fwtasks.h
+ Inc/usbd_conf.h Inc/main.h Inc/fwtasks.h \
+ ../../infinikeys-arm32/inc/infinikeys.h \
+ ../../infinikeys-arm32/inc/infinikeys_common.h \
+ ../../infinikeys-arm32/inc/infinikeys_def.h Inc/infinikeys_cfg.h \
+ Inc/infinikeys_cfg_stm32cube.h
 
 Inc/main.h:
 
@@ -150,3 +154,13 @@ Inc/usbd_conf.h:
 Inc/main.h:
 
 Inc/fwtasks.h:
+
+../../infinikeys-arm32/inc/infinikeys.h:
+
+../../infinikeys-arm32/inc/infinikeys_common.h:
+
+../../infinikeys-arm32/inc/infinikeys_def.h:
+
+Inc/infinikeys_cfg.h:
+
+Inc/infinikeys_cfg_stm32cube.h:

@@ -36,7 +36,12 @@ build/usb_device.o: Src/usb_device.c Inc/usb_device.h \
  Inc/usbd_desc.h \
  Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h \
  Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
- Inc/usbd_custom_hid_if.h
+ Inc/usbd_custom_hid_if.h \
+ ../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h \
+ ../../infinikeys-arm32/inc/infinikeys_common.h \
+ ../../infinikeys-arm32/inc/infinikeys_def.h Inc/infinikeys_cfg.h \
+ Inc/infinikeys_cfg_stm32cube.h \
+ ../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h
 
 Inc/usb_device.h:
 
@@ -121,3 +126,15 @@ Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h:
 Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 
 Inc/usbd_custom_hid_if.h:
+
+../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h:
+
+../../infinikeys-arm32/inc/infinikeys_common.h:
+
+../../infinikeys-arm32/inc/infinikeys_def.h:
+
+Inc/infinikeys_cfg.h:
+
+Inc/infinikeys_cfg_stm32cube.h:
+
+../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h:

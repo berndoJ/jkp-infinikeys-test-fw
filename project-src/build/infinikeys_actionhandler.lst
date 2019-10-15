@@ -1,0 +1,78 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc0H6Cb7.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_actionhandler.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IK_ACT_ExecuteRaw,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.global	IK_ACT_ExecuteRaw
+  19              		.arch armv7-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu softvfp
+  25              	IK_ACT_ExecuteRaw:
+  26              	.LVL0:
+  27              	.LFB0:
+  28              		.file 1 "../../infinikeys-arm32/src/infinikeys_actionhandler.c"
+   1:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * FILENAME :		infinikeys_actionhandler.c
+   3:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * BREIF :			Handler for Keyboard Actions.
+   6:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * DATE CREATED :	18.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * 		Handles keyboard actions, similar to macros.
+  14:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  * 
+  15:../../infinikeys-arm32/src/infinikeys_actionhandler.c ****  *--------------------------------------------------------------*/
+  16:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** 
+  17:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** 
+  18:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** #include "infinikeys_actionhandler.h"
+  19:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** 
+  20:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** void IK_ACT_ExecuteRaw(uint8_t* raw_data, uint16_t raw_data_size)
+  21:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** {
+  29              		.loc 1 21 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  22:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** 
+  23:../../infinikeys-arm32/src/infinikeys_actionhandler.c **** }
+  34              		.loc 1 23 1 view .LVU1
+  35 0000 7047     		bx	lr
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc0H6Cb7.s 			page 2
+
+
+  36              		.cfi_endproc
+  37              	.LFE0:
+  39 0002 00BF     		.text
+  40              	.Letext0:
+  41              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+  42              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc0H6Cb7.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_actionhandler.c
+C:\Users\Johannes\AppData\Local\Temp\cc0H6Cb7.s:16     .text.IK_ACT_ExecuteRaw:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc0H6Cb7.s:25     .text.IK_ACT_ExecuteRaw:00000000 IK_ACT_ExecuteRaw
+
+NO UNDEFINED SYMBOLS

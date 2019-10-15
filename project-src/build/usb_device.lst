@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -57,190 +57,208 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 1
   28:Src/usb_device.c **** #include "usbd_custom_hid_if.h"
   29:Src/usb_device.c **** 
   30:Src/usb_device.c **** /* USER CODE BEGIN Includes */
-  31:Src/usb_device.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 2
+  31:Src/usb_device.c **** #include "infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s 			page 2
 
 
-  32:Src/usb_device.c **** /* USER CODE END Includes */
-  33:Src/usb_device.c **** 
-  34:Src/usb_device.c **** /* USER CODE BEGIN PV */
-  35:Src/usb_device.c **** /* Private variables ---------------------------------------------------------*/
-  36:Src/usb_device.c **** 
-  37:Src/usb_device.c **** /* USER CODE END PV */
-  38:Src/usb_device.c **** 
-  39:Src/usb_device.c **** /* USER CODE BEGIN PFP */
-  40:Src/usb_device.c **** /* Private function prototypes -----------------------------------------------*/
-  41:Src/usb_device.c **** 
-  42:Src/usb_device.c **** /* USER CODE END PFP */
-  43:Src/usb_device.c **** 
-  44:Src/usb_device.c **** /* USB Device Core handle declaration. */
-  45:Src/usb_device.c **** USBD_HandleTypeDef hUsbDeviceFS;
-  46:Src/usb_device.c **** 
-  47:Src/usb_device.c **** /*
-  48:Src/usb_device.c ****  * -- Insert your variables declaration here --
-  49:Src/usb_device.c ****  */
-  50:Src/usb_device.c **** /* USER CODE BEGIN 0 */
-  51:Src/usb_device.c **** 
-  52:Src/usb_device.c **** /* USER CODE END 0 */
-  53:Src/usb_device.c **** 
-  54:Src/usb_device.c **** /*
-  55:Src/usb_device.c ****  * -- Insert your external function declaration here --
-  56:Src/usb_device.c ****  */
-  57:Src/usb_device.c **** /* USER CODE BEGIN 1 */
-  58:Src/usb_device.c **** 
-  59:Src/usb_device.c **** /* USER CODE END 1 */
-  60:Src/usb_device.c **** 
-  61:Src/usb_device.c **** /**
-  62:Src/usb_device.c ****   * Init USB device Library, add supported class and start the library
-  63:Src/usb_device.c ****   * @retval None
-  64:Src/usb_device.c ****   */
-  65:Src/usb_device.c **** void MX_USB_DEVICE_Init(void)
-  66:Src/usb_device.c **** {
-  28              		.loc 1 66 1 view -0
+  32:Src/usb_device.c **** #include "infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h"
+  33:Src/usb_device.c **** /* USER CODE END Includes */
+  34:Src/usb_device.c **** 
+  35:Src/usb_device.c **** /* USER CODE BEGIN PV */
+  36:Src/usb_device.c **** /* Private variables ---------------------------------------------------------*/
+  37:Src/usb_device.c **** 
+  38:Src/usb_device.c **** /* USER CODE END PV */
+  39:Src/usb_device.c **** 
+  40:Src/usb_device.c **** /* USER CODE BEGIN PFP */
+  41:Src/usb_device.c **** /* Private function prototypes -----------------------------------------------*/
+  42:Src/usb_device.c **** 
+  43:Src/usb_device.c **** /* USER CODE END PFP */
+  44:Src/usb_device.c **** 
+  45:Src/usb_device.c **** /* USB Device Core handle declaration. */
+  46:Src/usb_device.c **** USBD_HandleTypeDef hUsbDeviceFS;
+  47:Src/usb_device.c **** 
+  48:Src/usb_device.c **** /*
+  49:Src/usb_device.c ****  * -- Insert your variables declaration here --
+  50:Src/usb_device.c ****  */
+  51:Src/usb_device.c **** /* USER CODE BEGIN 0 */
+  52:Src/usb_device.c **** 
+  53:Src/usb_device.c **** /* USER CODE END 0 */
+  54:Src/usb_device.c **** 
+  55:Src/usb_device.c **** /*
+  56:Src/usb_device.c ****  * -- Insert your external function declaration here --
+  57:Src/usb_device.c ****  */
+  58:Src/usb_device.c **** /* USER CODE BEGIN 1 */
+  59:Src/usb_device.c **** 
+  60:Src/usb_device.c **** /* USER CODE END 1 */
+  61:Src/usb_device.c **** 
+  62:Src/usb_device.c **** /**
+  63:Src/usb_device.c ****   * Init USB device Library, add supported class and start the library
+  64:Src/usb_device.c ****   * @retval None
+  65:Src/usb_device.c ****   */
+  66:Src/usb_device.c **** void MX_USB_DEVICE_Init(void)
+  67:Src/usb_device.c **** {
+  28              		.loc 1 67 1 view -0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
   31              		@ frame_needed = 0, uses_anonymous_args = 0
+  68:Src/usb_device.c ****   /* USER CODE BEGIN USB_DEVICE_Init_PreTreatment */
+  69:Src/usb_device.c ****   #if 1 //* Replaces the old (automatically generated) code from STM32CUBE with the new code which 
+  70:Src/usb_device.c ****   /* USER CODE END USB_DEVICE_Init_PreTreatment */
+  71:Src/usb_device.c ****   
+  72:Src/usb_device.c ****   /* Init Device Library, add supported class and start the library. */
+  73:Src/usb_device.c ****   if (USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS) != USBD_OK)
+  32              		.loc 1 73 3 view .LVU1
   67:Src/usb_device.c ****   /* USER CODE BEGIN USB_DEVICE_Init_PreTreatment */
-  68:Src/usb_device.c ****   
-  69:Src/usb_device.c ****   /* USER CODE END USB_DEVICE_Init_PreTreatment */
-  70:Src/usb_device.c ****   
-  71:Src/usb_device.c ****   /* Init Device Library, add supported class and start the library. */
-  72:Src/usb_device.c ****   if (USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS) != USBD_OK)
-  32              		.loc 1 72 3 view .LVU1
-  66:Src/usb_device.c ****   /* USER CODE BEGIN USB_DEVICE_Init_PreTreatment */
-  33              		.loc 1 66 1 is_stmt 0 view .LVU2
+  33              		.loc 1 67 1 is_stmt 0 view .LVU2
   34 0000 08B5     		push	{r3, lr}
   35              	.LCFI0:
   36              		.cfi_def_cfa_offset 8
   37              		.cfi_offset 3, -8
   38              		.cfi_offset 14, -4
-  39              		.loc 1 72 7 view .LVU3
+  39              		.loc 1 73 7 view .LVU3
   40 0002 0022     		movs	r2, #0
   41 0004 1749     		ldr	r1, .L21
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s 			page 3
+
+
   42 0006 1848     		ldr	r0, .L21+4
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 3
-
-
   43 0008 FFF7FEFF 		bl	USBD_Init
   44              	.LVL0:
-  45              		.loc 1 72 6 view .LVU4
+  45              		.loc 1 73 6 view .LVU4
   46 000c 70B9     		cbnz	r0, .L17
-  73:Src/usb_device.c ****   {
-  74:Src/usb_device.c ****     Error_Handler();
-  75:Src/usb_device.c ****   }
-  76:Src/usb_device.c ****   if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_CUSTOM_HID) != USBD_OK)
-  47              		.loc 1 76 3 is_stmt 1 view .LVU5
-  48              		.loc 1 76 7 is_stmt 0 view .LVU6
+  74:Src/usb_device.c ****   {
+  75:Src/usb_device.c ****     Error_Handler();
+  76:Src/usb_device.c ****   }
+  77:Src/usb_device.c ****   if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_CUSTOM_HID) != USBD_OK)
+  47              		.loc 1 77 3 is_stmt 1 view .LVU5
+  48              		.loc 1 77 7 is_stmt 0 view .LVU6
   49 000e 1749     		ldr	r1, .L21+8
   50 0010 1548     		ldr	r0, .L21+4
   51 0012 FFF7FEFF 		bl	USBD_RegisterClass
   52              	.LVL1:
-  53              		.loc 1 76 6 view .LVU7
+  53              		.loc 1 77 6 view .LVU7
   54 0016 88B9     		cbnz	r0, .L18
   55              	.L3:
-  77:Src/usb_device.c ****   {
-  78:Src/usb_device.c ****     Error_Handler();
-  79:Src/usb_device.c ****   }
-  80:Src/usb_device.c ****   if (USBD_CUSTOM_HID_RegisterInterface(&hUsbDeviceFS, &USBD_CustomHID_fops_FS) != USBD_OK)
-  56              		.loc 1 80 3 is_stmt 1 view .LVU8
-  57              		.loc 1 80 7 is_stmt 0 view .LVU9
+  78:Src/usb_device.c ****   {
+  79:Src/usb_device.c ****     Error_Handler();
+  80:Src/usb_device.c ****   }
+  81:Src/usb_device.c ****   if (USBD_CUSTOM_HID_RegisterInterface(&hUsbDeviceFS, &USBD_CustomHID_fops_FS) != USBD_OK)
+  56              		.loc 1 81 3 is_stmt 1 view .LVU8
+  57              		.loc 1 81 7 is_stmt 0 view .LVU9
   58 0018 1549     		ldr	r1, .L21+12
   59 001a 1348     		ldr	r0, .L21+4
   60 001c FFF7FEFF 		bl	USBD_CUSTOM_HID_RegisterInterface
   61              	.LVL2:
-  62              		.loc 1 80 6 view .LVU10
+  62              		.loc 1 81 6 view .LVU10
   63 0020 A0B9     		cbnz	r0, .L19
   64              	.L4:
-  81:Src/usb_device.c ****   {
-  82:Src/usb_device.c ****     Error_Handler();
-  83:Src/usb_device.c ****   }
-  84:Src/usb_device.c ****   if (USBD_Start(&hUsbDeviceFS) != USBD_OK)
-  65              		.loc 1 84 3 is_stmt 1 view .LVU11
-  66              		.loc 1 84 7 is_stmt 0 view .LVU12
+  82:Src/usb_device.c ****   {
+  83:Src/usb_device.c ****     Error_Handler();
+  84:Src/usb_device.c ****   }
+  85:Src/usb_device.c ****   if (USBD_Start(&hUsbDeviceFS) != USBD_OK)
+  65              		.loc 1 85 3 is_stmt 1 view .LVU11
+  66              		.loc 1 85 7 is_stmt 0 view .LVU12
   67 0022 1148     		ldr	r0, .L21+4
   68 0024 FFF7FEFF 		bl	USBD_Start
   69              	.LVL3:
-  70              		.loc 1 84 6 view .LVU13
+  70              		.loc 1 85 6 view .LVU13
   71 0028 B8B9     		cbnz	r0, .L20
   72              	.L1:
-  85:Src/usb_device.c ****   {
-  86:Src/usb_device.c ****     Error_Handler();
-  87:Src/usb_device.c ****   }
-  88:Src/usb_device.c **** 
-  89:Src/usb_device.c ****   /* USER CODE BEGIN USB_DEVICE_Init_PostTreatment */
-  90:Src/usb_device.c ****   
-  91:Src/usb_device.c ****   /* USER CODE END USB_DEVICE_Init_PostTreatment */
-  92:Src/usb_device.c **** }
-  73              		.loc 1 92 1 view .LVU14
+  86:Src/usb_device.c ****   {
+  87:Src/usb_device.c ****     Error_Handler();
+  88:Src/usb_device.c ****   }
+  89:Src/usb_device.c **** 
+  90:Src/usb_device.c ****   /* USER CODE BEGIN USB_DEVICE_Init_PostTreatment */
+  91:Src/usb_device.c ****   #else
+  92:Src/usb_device.c ****     if (USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS) != USBD_OK)
+  93:Src/usb_device.c ****     {
+  94:Src/usb_device.c ****         Error_Handler();
+  95:Src/usb_device.c ****     }
+  96:Src/usb_device.c ****     if (USBD_RegisterClass(&hUsbDeviceFS, &IK_HID_Class) != USBD_OK)
+  97:Src/usb_device.c ****     {
+  98:Src/usb_device.c ****         Error_Handler();
+  99:Src/usb_device.c ****     }
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s 			page 4
+
+
+ 100:Src/usb_device.c ****     if (IK_STM32CUBE_USBD_HID_RegisterInterface(&hUsbDeviceFS, &IK_USBD_HID_Itf) != USBD_OK)
+ 101:Src/usb_device.c ****     {
+ 102:Src/usb_device.c ****         Error_Handler();
+ 103:Src/usb_device.c ****     }
+ 104:Src/usb_device.c ****     if (USBD_Start(&hUsbDeviceFS) != USBD_OK)
+ 105:Src/usb_device.c ****     {
+ 106:Src/usb_device.c ****         Error_Handler();
+ 107:Src/usb_device.c ****     }
+ 108:Src/usb_device.c ****   #endif
+ 109:Src/usb_device.c ****   /* USER CODE END USB_DEVICE_Init_PostTreatment */
+ 110:Src/usb_device.c **** }
+  73              		.loc 1 110 1 view .LVU14
   74 002a 08BD     		pop	{r3, pc}
   75              	.L17:
-  74:Src/usb_device.c ****   }
-  76              		.loc 1 74 5 is_stmt 1 view .LVU15
+  75:Src/usb_device.c ****   }
+  76              		.loc 1 75 5 is_stmt 1 view .LVU15
   77 002c FFF7FEFF 		bl	Error_Handler
   78              	.LVL4:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 4
-
-
-  76:Src/usb_device.c ****   {
-  79              		.loc 1 76 3 view .LVU16
-  76:Src/usb_device.c ****   {
-  80              		.loc 1 76 7 is_stmt 0 view .LVU17
+  77:Src/usb_device.c ****   {
+  79              		.loc 1 77 3 view .LVU16
+  77:Src/usb_device.c ****   {
+  80              		.loc 1 77 7 is_stmt 0 view .LVU17
   81 0030 0E49     		ldr	r1, .L21+8
   82 0032 0D48     		ldr	r0, .L21+4
   83 0034 FFF7FEFF 		bl	USBD_RegisterClass
   84              	.LVL5:
-  76:Src/usb_device.c ****   {
-  85              		.loc 1 76 6 view .LVU18
+  77:Src/usb_device.c ****   {
+  85              		.loc 1 77 6 view .LVU18
   86 0038 0028     		cmp	r0, #0
   87 003a EDD0     		beq	.L3
   88              	.L18:
-  78:Src/usb_device.c ****   }
-  89              		.loc 1 78 5 is_stmt 1 view .LVU19
+  79:Src/usb_device.c ****   }
+  89              		.loc 1 79 5 is_stmt 1 view .LVU19
   90 003c FFF7FEFF 		bl	Error_Handler
   91              	.LVL6:
-  80:Src/usb_device.c ****   {
-  92              		.loc 1 80 3 view .LVU20
-  80:Src/usb_device.c ****   {
-  93              		.loc 1 80 7 is_stmt 0 view .LVU21
+  81:Src/usb_device.c ****   {
+  92              		.loc 1 81 3 view .LVU20
+  81:Src/usb_device.c ****   {
+  93              		.loc 1 81 7 is_stmt 0 view .LVU21
   94 0040 0B49     		ldr	r1, .L21+12
   95 0042 0948     		ldr	r0, .L21+4
   96 0044 FFF7FEFF 		bl	USBD_CUSTOM_HID_RegisterInterface
   97              	.LVL7:
-  80:Src/usb_device.c ****   {
-  98              		.loc 1 80 6 view .LVU22
+  81:Src/usb_device.c ****   {
+  98              		.loc 1 81 6 view .LVU22
   99 0048 0028     		cmp	r0, #0
  100 004a EAD0     		beq	.L4
  101              	.L19:
-  82:Src/usb_device.c ****   }
- 102              		.loc 1 82 5 is_stmt 1 view .LVU23
+  83:Src/usb_device.c ****   }
+ 102              		.loc 1 83 5 is_stmt 1 view .LVU23
  103 004c FFF7FEFF 		bl	Error_Handler
  104              	.LVL8:
-  84:Src/usb_device.c ****   {
- 105              		.loc 1 84 3 view .LVU24
-  84:Src/usb_device.c ****   {
- 106              		.loc 1 84 7 is_stmt 0 view .LVU25
+  85:Src/usb_device.c ****   {
+ 105              		.loc 1 85 3 view .LVU24
+  85:Src/usb_device.c ****   {
+ 106              		.loc 1 85 7 is_stmt 0 view .LVU25
  107 0050 0548     		ldr	r0, .L21+4
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s 			page 5
+
+
  108 0052 FFF7FEFF 		bl	USBD_Start
  109              	.LVL9:
-  84:Src/usb_device.c ****   {
- 110              		.loc 1 84 6 view .LVU26
+  85:Src/usb_device.c ****   {
+ 110              		.loc 1 85 6 view .LVU26
  111 0056 0028     		cmp	r0, #0
  112 0058 E7D0     		beq	.L1
  113              	.L20:
-  86:Src/usb_device.c ****   }
- 114              		.loc 1 86 5 is_stmt 1 view .LVU27
- 115              		.loc 1 92 1 is_stmt 0 view .LVU28
+  87:Src/usb_device.c ****   }
+ 114              		.loc 1 87 5 is_stmt 1 view .LVU27
+ 115              		.loc 1 110 1 is_stmt 0 view .LVU28
  116 005a BDE80840 		pop	{r3, lr}
  117              	.LCFI1:
  118              		.cfi_restore 14
  119              		.cfi_restore 3
  120              		.cfi_def_cfa_offset 0
-  86:Src/usb_device.c ****   }
- 121              		.loc 1 86 5 view .LVU29
+  87:Src/usb_device.c ****   }
+ 121              		.loc 1 87 5 view .LVU29
  122 005e FFF7FEBF 		b	Error_Handler
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 5
-
-
  123              	.LVL10:
  124              	.L22:
  125 0062 00BF     		.align	2
@@ -271,18 +289,21 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 1
  151              		.file 16 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
  152              		.file 17 "Inc/main.h"
  153              		.file 18 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
- 154              		.file 19 "Inc/usbd_desc.h"
- 155              		.file 20 "Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h"
- 156              		.file 21 "Inc/usbd_custom_hid_if.h"
- 157              		.file 22 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h"
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s 			page 6
+ 154              		.file 19 "Inc/usb_device.h"
+ 155              		.file 20 "Inc/usbd_desc.h"
+ 156              		.file 21 "Middlewares/ST/STM32_USB_Device_Library/Class/CustomHID/Inc/usbd_customhid.h"
+ 157              		.file 22 "Inc/usbd_custom_hid_if.h"
+ 158              		.file 23 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+ 159              		.file 24 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h"
+ 160              		.file 25 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 usb_device.c
-C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s:16     .text.MX_USB_DEVICE_Init:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s:25     .text.MX_USB_DEVICE_Init:00000000 MX_USB_DEVICE_Init
-C:\Users\Johannes\AppData\Local\Temp\ccgSiclK.s:127    .text.MX_USB_DEVICE_Init:00000064 $d
+C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s:16     .text.MX_USB_DEVICE_Init:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s:25     .text.MX_USB_DEVICE_Init:00000000 MX_USB_DEVICE_Init
+C:\Users\Johannes\AppData\Local\Temp\ccrrnVX8.s:127    .text.MX_USB_DEVICE_Init:00000064 $d
                             *COM*:000002c4 hUsbDeviceFS
 
 UNDEFINED SYMBOLS

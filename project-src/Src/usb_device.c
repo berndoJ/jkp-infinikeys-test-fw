@@ -28,7 +28,8 @@
 #include "usbd_custom_hid_if.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+#include "infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h"
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN PV */
@@ -65,7 +66,7 @@ USBD_HandleTypeDef hUsbDeviceFS;
 void MX_USB_DEVICE_Init(void)
 {
   /* USER CODE BEGIN USB_DEVICE_Init_PreTreatment */
-  
+  #if 1 //* Replaces the old (automatically generated) code from STM32CUBE with the new code which initialises the InfiniKeys USB interface.
   /* USER CODE END USB_DEVICE_Init_PreTreatment */
   
   /* Init Device Library, add supported class and start the library. */
@@ -87,7 +88,24 @@ void MX_USB_DEVICE_Init(void)
   }
 
   /* USER CODE BEGIN USB_DEVICE_Init_PostTreatment */
-  
+  #else
+    if (USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS) != USBD_OK)
+    {
+        Error_Handler();
+    }
+    if (USBD_RegisterClass(&hUsbDeviceFS, &IK_HID_Class) != USBD_OK)
+    {
+        Error_Handler();
+    }
+    if (IK_STM32CUBE_USBD_HID_RegisterInterface(&hUsbDeviceFS, &IK_USBD_HID_Itf) != USBD_OK)
+    {
+        Error_Handler();
+    }
+    if (USBD_Start(&hUsbDeviceFS) != USBD_OK)
+    {
+        Error_Handler();
+    }
+  #endif
   /* USER CODE END USB_DEVICE_Init_PostTreatment */
 }
 

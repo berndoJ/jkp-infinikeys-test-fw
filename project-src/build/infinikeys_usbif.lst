@@ -1,0 +1,919 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_usbif.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IK_USBIF_SendHIDReport,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.global	IK_USBIF_SendHIDReport
+  19              		.arch armv7-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu softvfp
+  25              	IK_USBIF_SendHIDReport:
+  26              	.LFB68:
+  27              		.file 1 "../../infinikeys-arm32/src/infinikeys_usbif.c"
+   1:../../infinikeys-arm32/src/infinikeys_usbif.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * FILENAME :		infinikeys_usbif.c
+   3:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * BREIF :			USB Interface Module
+   6:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * DATE CREATED :	18.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * 		This module connects InfiniKeys to the USB bus.
+  14:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * 
+  15:../../infinikeys-arm32/src/infinikeys_usbif.c ****  *--------------------------------------------------------------*/
+  16:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  17:../../infinikeys-arm32/src/infinikeys_usbif.c **** #include "infinikeys_usbif.h"
+  18:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  19:../../infinikeys-arm32/src/infinikeys_usbif.c **** #include <stdlib.h>
+  20:../../infinikeys-arm32/src/infinikeys_usbif.c **** #include "infinikeys_kbcfg.h"
+  21:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  22:../../infinikeys-arm32/src/infinikeys_usbif.c **** #if defined(IK_PLATFORM_STM32_CUBE)
+  23:../../infinikeys-arm32/src/infinikeys_usbif.c **** #include "usb_device.h"
+  24:../../infinikeys-arm32/src/infinikeys_usbif.c **** #include "infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h"
+  25:../../infinikeys-arm32/src/infinikeys_usbif.c **** #endif
+  26:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  27:../../infinikeys-arm32/src/infinikeys_usbif.c **** /* --------------------------------------------------------------
+  28:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * VARIABLE DEFINITIONS
+  29:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * ------------------------------------------------------------*/
+  30:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  31:../../infinikeys-arm32/src/infinikeys_usbif.c **** uint8_t IK_HID_PressedKeys_Buffer[IK_KEY_ROLLOVER];
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 2
+
+
+  32:../../infinikeys-arm32/src/infinikeys_usbif.c **** uint8_t IK_HID_ModifierKeys[8];
+  33:../../infinikeys-arm32/src/infinikeys_usbif.c **** uint8_t IK_HID_OEMReservedReportByte = 0x00;
+  34:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  35:../../infinikeys-arm32/src/infinikeys_usbif.c **** /* --------------------------------------------------------------
+  36:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * FUNCTION DEFINITIONS
+  37:../../infinikeys-arm32/src/infinikeys_usbif.c ****  * ------------------------------------------------------------*/
+  38:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  39:../../infinikeys-arm32/src/infinikeys_usbif.c **** void IK_USBIF_SendHIDReport(void)
+  40:../../infinikeys-arm32/src/infinikeys_usbif.c **** {
+  28              		.loc 1 40 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  41:../../infinikeys-arm32/src/infinikeys_usbif.c **** #if defined(IK_PLATFORM_STM32_CUBE)
+  42:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	uint8_t hid_report_length = IK_KEY_ROLLOVER + 3;
+  32              		.loc 1 42 2 view .LVU1
+  33              	.LVL0:
+  43:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	uint8_t hid_report_buffer[hid_report_length];
+  34              		.loc 1 43 2 view .LVU2
+  40:../../infinikeys-arm32/src/infinikeys_usbif.c **** #if defined(IK_PLATFORM_STM32_CUBE)
+  35              		.loc 1 40 1 is_stmt 0 view .LVU3
+  36 0000 70B5     		push	{r4, r5, r6, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 16
+  39              		.cfi_offset 4, -16
+  40              		.cfi_offset 5, -12
+  41              		.cfi_offset 6, -8
+  42              		.cfi_offset 14, -4
+  44:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  45:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	hid_report_buffer[0] = 0x01; // Report ID: 1
+  43              		.loc 1 45 23 view .LVU4
+  44 0002 0124     		movs	r4, #1
+  46:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	hid_report_buffer[1] =
+  47:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_CTRL) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_CTRL]) |
+  48:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_SHIFT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_SHIFT]) |
+  45              		.loc 1 48 62 view .LVU5
+  46 0004 1B4A     		ldr	r2, .L4
+  49:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_ALT]) |
+  50:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_GUI) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_GUI]) |
+  51:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_CTRL) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_CTRL]) |
+  52:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_SHIFT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_SHIFT]) |
+  53:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_ALT]) |
+  54:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_GUI) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_GUI]);
+  55:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	hid_report_buffer[2] = IK_HID_OEMReservedReportByte; // Second byte: OEMReserved
+  47              		.loc 1 55 23 view .LVU6
+  48 0006 1C4D     		ldr	r5, .L4+4
+  48:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_ALT]) |
+  49              		.loc 1 48 89 view .LVU7
+  50 0008 9378     		ldrb	r3, [r2, #2]	@ zero_extendqisi2
+  47:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_SHIFT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_SHIFT]) |
+  51              		.loc 1 47 87 view .LVU8
+  52 000a 5178     		ldrb	r1, [r2, #1]	@ zero_extendqisi2
+  48:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_ALT]) |
+  53              		.loc 1 48 89 view .LVU9
+  54 000c 1078     		ldrb	r0, [r2]	@ zero_extendqisi2
+  55 000e 9B00     		lsls	r3, r3, #2
+  56 0010 43EA4103 		orr	r3, r3, r1, lsl #1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 3
+
+
+  49:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_ALT]) |
+  57              		.loc 1 49 85 view .LVU10
+  58 0014 D178     		ldrb	r1, [r2, #3]	@ zero_extendqisi2
+  48:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_ALT]) |
+  59              		.loc 1 48 89 view .LVU11
+  60 0016 0343     		orrs	r3, r3, r0
+  50:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_CTRL) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_CTRL]) |
+  61              		.loc 1 50 85 view .LVU12
+  62 0018 1079     		ldrb	r0, [r2, #4]	@ zero_extendqisi2
+  49:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_GUI) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_GUI]) |
+  63              		.loc 1 49 85 view .LVU13
+  64 001a 43EAC103 		orr	r3, r3, r1, lsl #3
+  51:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_SHIFT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_SHIFT]) |
+  65              		.loc 1 51 87 view .LVU14
+  66 001e 5179     		ldrb	r1, [r2, #5]	@ zero_extendqisi2
+  52:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_ALT]) |
+  67              		.loc 1 52 89 view .LVU15
+  68 0020 9679     		ldrb	r6, [r2, #6]	@ zero_extendqisi2
+  50:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_CTRL) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_CTRL]) |
+  69              		.loc 1 50 85 view .LVU16
+  70 0022 43EA0013 		orr	r3, r3, r0, lsl #4
+  51:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_SHIFT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_SHIFT]) |
+  71              		.loc 1 51 87 view .LVU17
+  72 0026 43EA4113 		orr	r3, r3, r1, lsl #5
+  53:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_GUI) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_GUI]);
+  73              		.loc 1 53 85 view .LVU18
+  74 002a D079     		ldrb	r0, [r2, #7]	@ zero_extendqisi2
+  75              	.LBB2:
+  56:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  57:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	for (uint8_t i = 0; i < IK_KEY_ROLLOVER; i++)
+  58:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	{
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 		hid_report_buffer[3 + i] = IK_HID_PressedKeys_Buffer[i]; // Remaining bytes: Pressed keys
+  76              		.loc 1 59 55 view .LVU19
+  77 002c 1349     		ldr	r1, .L4+8
+  78              	.LBE2:
+  55:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  79              		.loc 1 55 23 view .LVU20
+  80 002e 2D78     		ldrb	r5, [r5]	@ zero_extendqisi2
+  52:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_ALT) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_ALT]) |
+  81              		.loc 1 52 89 view .LVU21
+  82 0030 43EA8613 		orr	r3, r3, r6, lsl #6
+  40:../../infinikeys-arm32/src/infinikeys_usbif.c **** #if defined(IK_PLATFORM_STM32_CUBE)
+  83              		.loc 1 40 1 view .LVU22
+  84 0034 82B0     		sub	sp, sp, #8
+  85              	.LCFI1:
+  86              		.cfi_def_cfa_offset 24
+  87              	.LVL1:
+  45:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	hid_report_buffer[1] =
+  88              		.loc 1 45 2 is_stmt 1 view .LVU23
+  89              	.LBB3:
+  90              		.loc 1 59 28 is_stmt 0 view .LVU24
+  91 0036 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+  92              	.LBE3:
+  53:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_R_GUI) * IK_HID_ModifierKeys[IK_HID_MODIFIER_R_GUI]);
+  93              		.loc 1 53 85 view .LVU25
+  94 0038 43EAC013 		orr	r3, r3, r0, lsl #7
+  95              	.LBB4:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 4
+
+
+  96              		.loc 1 59 28 view .LVU26
+  97 003c 8878     		ldrb	r0, [r1, #2]	@ zero_extendqisi2
+  98 003e 4E78     		ldrb	r6, [r1, #1]	@ zero_extendqisi2
+  99              	.LBE4:
+  46:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_CTRL) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_CTRL]) |
+ 100              		.loc 1 46 23 view .LVU27
+ 101 0040 8DF80130 		strb	r3, [sp, #1]
+  55:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 102              		.loc 1 55 23 view .LVU28
+ 103 0044 8DF80250 		strb	r5, [sp, #2]
+ 104              	.LBB5:
+ 105              		.loc 1 59 28 view .LVU29
+ 106 0048 0B79     		ldrb	r3, [r1, #4]	@ zero_extendqisi2
+ 107 004a CD78     		ldrb	r5, [r1, #3]	@ zero_extendqisi2
+ 108 004c 8DF80320 		strb	r2, [sp, #3]
+ 109 0050 8DF80500 		strb	r0, [sp, #5]
+ 110              	.LBE5:
+  60:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+  61:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  62:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	// Send the HID report.
+  63:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	IK_STM32CUBE_USBD_HID_SendReport(&hUsbDeviceFS, hid_report_buffer, hid_report_length);
+ 111              		.loc 1 63 2 view .LVU30
+ 112 0054 0822     		movs	r2, #8
+ 113 0056 6946     		mov	r1, sp
+ 114 0058 0948     		ldr	r0, .L4+12
+ 115              	.LBB6:
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 116              		.loc 1 59 28 view .LVU31
+ 117 005a 8DF80460 		strb	r6, [sp, #4]
+ 118 005e 8DF80650 		strb	r5, [sp, #6]
+ 119 0062 8DF80730 		strb	r3, [sp, #7]
+ 120              	.LBE6:
+  45:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	hid_report_buffer[1] =
+ 121              		.loc 1 45 23 view .LVU32
+ 122 0066 8DF80040 		strb	r4, [sp]
+  46:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			(IK_NTH_BIT(IK_HID_MODIFIER_L_CTRL) * IK_HID_ModifierKeys[IK_HID_MODIFIER_L_CTRL]) |
+ 123              		.loc 1 46 2 is_stmt 1 view .LVU33
+  55:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 124              		.loc 1 55 2 view .LVU34
+  57:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	{
+ 125              		.loc 1 57 2 view .LVU35
+ 126              	.LBB7:
+  57:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	{
+ 127              		.loc 1 57 7 view .LVU36
+ 128              	.LVL2:
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 129              		.loc 1 59 3 view .LVU37
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 130              		.loc 1 59 3 view .LVU38
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 131              		.loc 1 59 3 view .LVU39
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 132              		.loc 1 59 3 view .LVU40
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 133              		.loc 1 59 3 view .LVU41
+  59:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 134              		.loc 1 59 3 is_stmt 0 view .LVU42
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 5
+
+
+ 135              	.LBE7:
+ 136              		.loc 1 63 2 is_stmt 1 view .LVU43
+ 137 006a FFF7FEFF 		bl	IK_STM32CUBE_USBD_HID_SendReport
+ 138              	.LVL3:
+  64:../../infinikeys-arm32/src/infinikeys_usbif.c **** #endif
+  65:../../infinikeys-arm32/src/infinikeys_usbif.c **** }
+ 139              		.loc 1 65 1 is_stmt 0 view .LVU44
+ 140 006e 02B0     		add	sp, sp, #8
+ 141              	.LCFI2:
+ 142              		.cfi_def_cfa_offset 16
+ 143              	.LVL4:
+ 144              		.loc 1 65 1 view .LVU45
+ 145              		@ sp needed
+ 146 0070 70BD     		pop	{r4, r5, r6, pc}
+ 147              	.LVL5:
+ 148              	.L5:
+ 149              		.loc 1 65 1 view .LVU46
+ 150 0072 00BF     		.align	2
+ 151              	.L4:
+ 152 0074 00000000 		.word	IK_HID_ModifierKeys
+ 153 0078 00000000 		.word	.LANCHOR0
+ 154 007c 00000000 		.word	IK_HID_PressedKeys_Buffer
+ 155 0080 00000000 		.word	hUsbDeviceFS
+ 156              		.cfi_endproc
+ 157              	.LFE68:
+ 159              		.section	.text.IK_USBIF_RecieveHIDReportCB,"ax",%progbits
+ 160              		.align	1
+ 161              		.p2align 2,,3
+ 162              		.global	IK_USBIF_RecieveHIDReportCB
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu softvfp
+ 168              	IK_USBIF_RecieveHIDReportCB:
+ 169              	.LVL6:
+ 170              	.LFB69:
+  66:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  67:../../infinikeys-arm32/src/infinikeys_usbif.c **** void IK_USBIF_RecieveHIDReportCB(uint8_t* report_buf, uint16_t report_buf_size)
+  68:../../infinikeys-arm32/src/infinikeys_usbif.c **** {
+ 171              		.loc 1 68 1 is_stmt 1 view -0
+ 172              		.cfi_startproc
+ 173              		@ args = 0, pretend = 0, frame = 8
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+  69:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	if (report_buf_size > 0)
+ 175              		.loc 1 69 2 view .LVU48
+ 176              		.loc 1 69 5 is_stmt 0 view .LVU49
+ 177 0000 11B1     		cbz	r1, .L42
+  70:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	{
+  71:../../infinikeys-arm32/src/infinikeys_usbif.c **** 		switch (report_buf[0])
+ 178              		.loc 1 71 3 is_stmt 1 view .LVU50
+ 179 0002 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+ 180 0004 022B     		cmp	r3, #2
+ 181 0006 00D0     		beq	.L46
+ 182              	.L42:
+ 183 0008 7047     		bx	lr
+ 184              	.L46:
+  72:../../infinikeys-arm32/src/infinikeys_usbif.c **** 		{
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 6
+
+
+  73:../../infinikeys-arm32/src/infinikeys_usbif.c **** 		case IK_CFG_HID_REPORT_ID:
+  74:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			// Config update report. (Data transfer report)
+  75:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			if (report_buf_size > 1)
+ 185              		.loc 1 75 4 view .LVU51
+ 186              		.loc 1 75 7 is_stmt 0 view .LVU52
+ 187 000a 0129     		cmp	r1, #1
+ 188 000c FCD9     		bls	.L42
+ 189              	.LBB8:
+  76:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			{
+  77:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				uint8_t cmd = report_buf[1];
+ 190              		.loc 1 77 5 is_stmt 1 view .LVU53
+ 191              		.loc 1 77 13 is_stmt 0 view .LVU54
+ 192 000e 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+ 193              	.LVL7:
+  78:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				switch (cmd)
+ 194              		.loc 1 78 5 is_stmt 1 view .LVU55
+ 195 0010 802B     		cmp	r3, #128
+ 196 0012 07D0     		beq	.L10
+ 197 0014 812B     		cmp	r3, #129
+ 198 0016 04D1     		bne	.L47
+  79:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				{
+  80:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				case IK_CFG_CMD_TEST:
+  81:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					// Test command.
+  82:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					break;
+  83:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				case IK_CFG_CMD_SET_KEYMAP:
+  84:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					/*
+  85:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 * SET_KEYMAP command data: (Starting at report index 1)
+  86:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 * [0] - Key Layer (0x00 - 0xff)
+  87:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 * [1] - Matrix ID LOWBYTE (0x00 - 0xff)
+  88:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 * [2] - Matrix ID HIBYTE (0x00 - 0xff)
+  89:../../infinikeys-arm32/src/infinikeys_usbif.c ****                      * [3] - Key Map Type (see enum values)
+  90:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 */
+  91:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					if (report_buf_size > 5)
+  92:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					{
+  93:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						uint8_t map_key_layer = report_buf[2];
+  94:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						uint16_t map_matrix_id = report_buf[3] + (report_buf[4] << 8);
+  95:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+  96:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						if (map_key_layer < IK_CFG_GetKeyLayerCount() && map_matrix_id < IK_KEY_MAP_TABLE_MATRIX_SIZE
+  97:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						{
+  98:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							IK_KeyMap_t map;
+  99:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 100:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							map.Type = report_buf[5];
+ 101:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							map.Metadata = NULL;
+ 102:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 103:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							switch (map.Type)
+ 104:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							{
+ 105:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_MODIFIER:
+ 106:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								/*
+ 107:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								 * [4] - Modifier key type (enum IK_ModifierType_t)
+ 108:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								 */
+ 109:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								if (report_buf_size <= 7)
+ 110:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                     break;
+ 111:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 112:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								IK_ModifierMapMetadata_t* mod_metadata = (IK_ModifierMapMetadata_t*)malloc(sizeof(IK_Modifi
+ 113:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 114:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								if (mod_metadata == NULL)
+ 115:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 7
+
+
+ 116:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 117:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								mod_metadata->ModifierType = report_buf[6];
+ 118:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								mod_metadata->ModifierMetadata = NULL;
+ 119:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 120:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								switch (mod_metadata->ModifierType)
+ 121:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								{
+ 122:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								case MODIFIER_TYPE_HID:
+ 123:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									/*
+ 124:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									 * [5] - HID modifier key. (enum IK_HIDModifier_t)
+ 125:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									 */
+ 126:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									;
+ 127:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									IK_HIDModifierMapMetadata_t* hid_mod_metadata = (IK_HIDModifierMapMetadata_t*)malloc(sizeo
+ 128:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 129:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									if (hid_mod_metadata == NULL)
+ 130:../../infinikeys-arm32/src/infinikeys_usbif.c **** 										break;
+ 131:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 132:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									hid_mod_metadata->HIDModifierCode = report_buf[7];
+ 133:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									mod_metadata->ModifierMetadata = hid_mod_metadata;
+ 134:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 135:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								case MODIFIER_TYPE_KEY_LAYER:
+ 136:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									/*
+ 137:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									 * [5] - Key layer the modifier key switches to (0x00 - 0xff)
+ 138:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									 */
+ 139:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									;
+ 140:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									IK_KeyLayerModifierMetadata_t* kl_mod_metadata = (IK_KeyLayerModifierMetadata_t*)malloc(si
+ 141:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 142:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									if (kl_mod_metadata == NULL)
+ 143:../../infinikeys-arm32/src/infinikeys_usbif.c **** 										break;
+ 144:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 145:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									kl_mod_metadata->KeyLayer = report_buf[7];
+ 146:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									mod_metadata->ModifierMetadata = kl_mod_metadata;
+ 147:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 148:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								default:
+ 149:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 150:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								}
+ 151:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 152:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								map.Metadata = mod_metadata;
+ 153:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 154:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_STATIC:
+ 155:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								/*
+ 156:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								 * [4] - HID keycode (0x00 - 0xff)
+ 157:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								 */
+ 158:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								
+ 159:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                 if (report_buf_size <= 6)
+ 160:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                     break;
+ 161:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                 
+ 162:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								IK_StaticMapMetadata_t* s_metadata = (IK_StaticMapMetadata_t*)malloc(sizeof(IK_StaticMapMet
+ 163:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 164:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								if (s_metadata == NULL)
+ 165:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 166:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 167:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								s_metadata->Keycode = report_buf[6];
+ 168:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 169:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								map.Metadata = s_metadata;
+ 170:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 171:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_ACTION:
+ 172:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								/*
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 8
+
+
+ 173:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								 * TODO: Implement action mapping transfer.
+ 174:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								 */
+ 175:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								;
+ 176:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								IK_ActionMapMetadata_t* act_metadata = (IK_ActionMapMetadata_t*)malloc(sizeof(IK_ActionMapM
+ 177:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 178:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								if (act_metadata == NULL)
+ 179:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 180:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 181:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								map.Metadata = act_metadata;
+ 182:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 183:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_NONE:
+ 184:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 185:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							default:
+ 186:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 187:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							}
+ 188:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 189:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							// Load the new keymap to the keymap table.
+ 190:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							IK_CFG_LoadKeyMapToTable(map_key_layer, map_matrix_id, map);
+ 191:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						}
+ 192:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					}
+ 193:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					/* OLD IMPLEMENTATION
+ 194:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					if (report_buf_size > 6)
+ 195:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					{
+ 196:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						uint8_t key_layer = report_buf[2];
+ 197:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						uint16_t matrix_id = report_buf[3] + (report_buf[4] << 8);
+ 198:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						if (key_layer < IK_CFG_GetKeyLayerCount() && matrix_id < IK_KEY_MAP_TABLE_MATRIX_SIZE)
+ 199:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						{
+ 200:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							IK_KeyMap_t new_key_map;
+ 201:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 202:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							// Set up basic struct variables.
+ 203:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							new_key_map.Type = report_buf[5];
+ 204:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							new_key_map.DataSize = report_buf[6];
+ 205:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 206:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							// Create data array, add the recieved data to it and add it to the key map struct.
+ 207:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							if (report_buf_size > 6 + new_key_map.DataSize && new_key_map.DataSize > 0)
+ 208:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							{
+ 209:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								uint8_t* new_key_map_data = malloc(new_key_map.DataSize);
+ 210:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 211:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								if (new_key_map_data != NULL)
+ 212:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								{
+ 213:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									for (uint8_t i = 0; i < new_key_map.DataSize; i++)
+ 214:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									{
+ 215:../../infinikeys-arm32/src/infinikeys_usbif.c **** 										new_key_map_data[i] = report_buf[7 + i];
+ 216:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									}
+ 217:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 218:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									new_key_map.Data = new_key_map_data;
+ 219:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								}
+ 220:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							}
+ 221:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 222:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							// Load in the new key map to the key map table.
+ 223:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							IK_CFG_LoadKeyMapToTable(key_layer, matrix_id, new_key_map);
+ 224:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						}
+ 225:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					}
+ 226:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					*/
+ 227:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					break;
+ 228:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				case IK_CFG_CMD_REINIT_KEYMAP:
+ 229:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					/*
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 9
+
+
+ 230:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 * REINIT_KEYMAP command:
+ 231:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 * Reinits the key map table with the given parameters.
+ 232:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 * [0] - Key Layer Count (0x00 - IK_MATRIX_MAX_KEY_LAYERS)
+ 233:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					 */
+ 234:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					if (report_buf_size > 2)
+ 199              		.loc 1 234 6 view .LVU56
+ 200              		.loc 1 234 9 is_stmt 0 view .LVU57
+ 201 0018 0229     		cmp	r1, #2
+ 202 001a F5D0     		beq	.L42
+ 203              	.LBB9:
+ 235:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					{
+ 236:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						uint8_t klc = report_buf[2];
+ 204              		.loc 1 236 7 is_stmt 1 view .LVU58
+ 205              	.LVL8:
+ 237:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						IK_CFG_ReInitKeyMap(klc);
+ 206              		.loc 1 237 7 view .LVU59
+ 207 001c 8078     		ldrb	r0, [r0, #2]	@ zero_extendqisi2
+ 208              	.LVL9:
+ 209              		.loc 1 237 7 is_stmt 0 view .LVU60
+ 210 001e FFF7FEBF 		b	IK_CFG_ReInitKeyMap
+ 211              	.LVL10:
+ 212              	.L47:
+ 213              		.loc 1 237 7 view .LVU61
+ 214 0022 7047     		bx	lr
+ 215              	.L10:
+ 216              	.LBE9:
+  91:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					{
+ 217              		.loc 1 91 6 is_stmt 1 view .LVU62
+  91:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					{
+ 218              		.loc 1 91 9 is_stmt 0 view .LVU63
+ 219 0024 0529     		cmp	r1, #5
+ 220 0026 EFD9     		bls	.L42
+ 221              	.LBB10:
+  93:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						uint16_t map_matrix_id = report_buf[3] + (report_buf[4] << 8);
+ 222              		.loc 1 93 7 is_stmt 1 view .LVU64
+ 223              	.LBE10:
+ 224              	.LBE8:
+  68:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	if (report_buf_size > 0)
+ 225              		.loc 1 68 1 is_stmt 0 view .LVU65
+ 226 0028 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 227              	.LCFI3:
+ 228              		.cfi_def_cfa_offset 24
+ 229              		.cfi_offset 4, -24
+ 230              		.cfi_offset 5, -20
+ 231              		.cfi_offset 6, -16
+ 232              		.cfi_offset 7, -12
+ 233              		.cfi_offset 8, -8
+ 234              		.cfi_offset 14, -4
+ 235 002c 82B0     		sub	sp, sp, #8
+ 236              	.LCFI4:
+ 237              		.cfi_def_cfa_offset 32
+ 238              	.LBB21:
+ 239              	.LBB18:
+  93:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						uint16_t map_matrix_id = report_buf[3] + (report_buf[4] << 8);
+ 240              		.loc 1 93 15 view .LVU66
+ 241 002e 8778     		ldrb	r7, [r0, #2]	@ zero_extendqisi2
+ 242              	.LVL11:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 10
+
+
+  94:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 243              		.loc 1 94 7 is_stmt 1 view .LVU67
+ 244 0030 0C46     		mov	r4, r1
+ 245 0032 0546     		mov	r5, r0
+  94:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 246              		.loc 1 94 42 is_stmt 0 view .LVU68
+ 247 0034 C678     		ldrb	r6, [r0, #3]	@ zero_extendqisi2
+  94:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 248              		.loc 1 94 59 view .LVU69
+ 249 0036 90F80480 		ldrb	r8, [r0, #4]	@ zero_extendqisi2
+ 250              	.LVL12:
+  96:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						{
+ 251              		.loc 1 96 7 is_stmt 1 view .LVU70
+  96:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						{
+ 252              		.loc 1 96 27 is_stmt 0 view .LVU71
+ 253 003a FFF7FEFF 		bl	IK_CFG_GetKeyLayerCount
+ 254              	.LVL13:
+  96:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						{
+ 255              		.loc 1 96 10 view .LVU72
+ 256 003e B842     		cmp	r0, r7
+ 257 0040 22D9     		bls	.L6
+  94:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 258              		.loc 1 94 16 discriminator 1 view .LVU73
+ 259 0042 06EB0826 		add	r6, r6, r8, lsl #8
+ 260              	.LVL14:
+  94:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 261              		.loc 1 94 16 discriminator 1 view .LVU74
+ 262 0046 B6B2     		uxth	r6, r6
+  96:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						{
+ 263              		.loc 1 96 53 discriminator 1 view .LVU75
+ 264 0048 9A2E     		cmp	r6, #154
+ 265 004a 1DD8     		bhi	.L6
+ 266              	.LBB11:
+  98:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 267              		.loc 1 98 8 is_stmt 1 view .LVU76
+ 100:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							map.Metadata = NULL;
+ 268              		.loc 1 100 8 view .LVU77
+ 101:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 269              		.loc 1 101 21 is_stmt 0 view .LVU78
+ 270 004c 0023     		movs	r3, #0
+ 100:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							map.Metadata = NULL;
+ 271              		.loc 1 100 29 view .LVU79
+ 272 004e 95F80580 		ldrb	r8, [r5, #5]	@ zero_extendqisi2
+ 273              	.LVL15:
+ 101:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 274              		.loc 1 101 8 is_stmt 1 view .LVU80
+ 101:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 275              		.loc 1 101 21 is_stmt 0 view .LVU81
+ 276 0052 0193     		str	r3, [sp, #4]
+ 103:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							{
+ 277              		.loc 1 103 8 is_stmt 1 view .LVU82
+ 278 0054 B8F1010F 		cmp	r8, #1
+ 279 0058 30D0     		beq	.L12
+ 280 005a B8F1000F 		cmp	r8, #0
+ 281 005e 16D0     		beq	.L13
+ 282 0060 B8F1020F 		cmp	r8, #2
+ 283 0064 04D1     		bne	.L15
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 11
+
+
+ 284              	.LBB12:
+ 175:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								IK_ActionMapMetadata_t* act_metadata = (IK_ActionMapMetadata_t*)malloc(sizeof(IK_ActionMapM
+ 285              		.loc 1 175 9 view .LVU83
+ 176:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 286              		.loc 1 176 9 view .LVU84
+ 176:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 287              		.loc 1 176 73 is_stmt 0 view .LVU85
+ 288 0066 0020     		movs	r0, #0
+ 289 0068 FFF7FEFF 		bl	malloc
+ 290              	.LVL16:
+ 178:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 291              		.loc 1 178 9 is_stmt 1 view .LVU86
+ 178:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 292              		.loc 1 178 12 is_stmt 0 view .LVU87
+ 293 006c 00B1     		cbz	r0, .L15
+ 181:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 294              		.loc 1 181 9 is_stmt 1 view .LVU88
+ 181:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 295              		.loc 1 181 22 is_stmt 0 view .LVU89
+ 296 006e 0190     		str	r0, [sp, #4]
+ 182:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_NONE:
+ 297              		.loc 1 182 9 is_stmt 1 view .LVU90
+ 298              	.LVL17:
+ 299              	.L15:
+ 182:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_NONE:
+ 300              		.loc 1 182 9 is_stmt 0 view .LVU91
+ 301              	.LBE12:
+ 190:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						}
+ 302              		.loc 1 190 8 is_stmt 1 view .LVU92
+ 303 0070 3146     		mov	r1, r6
+ 304 0072 3846     		mov	r0, r7
+ 305 0074 8DF80080 		strb	r8, [sp]
+ 306 0078 02AB     		add	r3, sp, #8
+ 307 007a 13E90C00 		ldmdb	r3, {r2, r3}
+ 308              	.LBE11:
+ 309              	.LBE18:
+ 310              	.LBE21:
+ 238:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					}
+ 239:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					break;
+ 240:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				default:
+ 241:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					// Invalid command.
+ 242:../../infinikeys-arm32/src/infinikeys_usbif.c **** 					break;
+ 243:../../infinikeys-arm32/src/infinikeys_usbif.c **** 				}
+ 244:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			}
+ 245:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			break;
+ 246:../../infinikeys-arm32/src/infinikeys_usbif.c **** 		case IK_KEYBOARD_HID_REPORT_ID:
+ 247:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			// Keyboard Report. (States of lock LEDs, ...)
+ 248:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			break;
+ 249:../../infinikeys-arm32/src/infinikeys_usbif.c **** 		default:
+ 250:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			// Non-registered keyboard HID report id.
+ 251:../../infinikeys-arm32/src/infinikeys_usbif.c **** 			break;
+ 252:../../infinikeys-arm32/src/infinikeys_usbif.c **** 		}
+ 253:../../infinikeys-arm32/src/infinikeys_usbif.c **** 	}
+ 254:../../infinikeys-arm32/src/infinikeys_usbif.c **** }
+ 311              		.loc 1 254 1 is_stmt 0 view .LVU93
+ 312 007e 02B0     		add	sp, sp, #8
+ 313              	.LCFI5:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 12
+
+
+ 314              		.cfi_remember_state
+ 315              		.cfi_def_cfa_offset 24
+ 316              		@ sp needed
+ 317 0080 BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ 318              	.LCFI6:
+ 319              		.cfi_restore 14
+ 320              		.cfi_restore 8
+ 321              		.cfi_restore 7
+ 322              		.cfi_restore 6
+ 323              		.cfi_restore 5
+ 324              		.cfi_restore 4
+ 325              		.cfi_def_cfa_offset 0
+ 326              	.LVL18:
+ 327              	.LBB22:
+ 328              	.LBB19:
+ 329              	.LBB16:
+ 190:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						}
+ 330              		.loc 1 190 8 view .LVU94
+ 331 0084 FFF7FEBF 		b	IK_CFG_LoadKeyMapToTable
+ 332              	.LVL19:
+ 333              	.L6:
+ 334              	.LCFI7:
+ 335              		.cfi_restore_state
+ 190:../../infinikeys-arm32/src/infinikeys_usbif.c **** 						}
+ 336              		.loc 1 190 8 view .LVU95
+ 337              	.LBE16:
+ 338              	.LBE19:
+ 339              	.LBE22:
+ 340              		.loc 1 254 1 view .LVU96
+ 341 0088 02B0     		add	sp, sp, #8
+ 342              	.LCFI8:
+ 343              		.cfi_remember_state
+ 344              		.cfi_def_cfa_offset 24
+ 345              		@ sp needed
+ 346 008a BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 347              	.LVL20:
+ 348              	.L13:
+ 349              	.LCFI9:
+ 350              		.cfi_restore_state
+ 351              	.LBB23:
+ 352              	.LBB20:
+ 353              	.LBB17:
+ 354              	.LBB15:
+ 109:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                     break;
+ 355              		.loc 1 109 9 is_stmt 1 view .LVU97
+ 109:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                     break;
+ 356              		.loc 1 109 12 is_stmt 0 view .LVU98
+ 357 008e 072C     		cmp	r4, #7
+ 358 0090 EED9     		bls	.L15
+ 112:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 359              		.loc 1 112 9 is_stmt 1 view .LVU99
+ 112:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 360              		.loc 1 112 77 is_stmt 0 view .LVU100
+ 361 0092 0820     		movs	r0, #8
+ 362 0094 FFF7FEFF 		bl	malloc
+ 363              	.LVL21:
+ 114:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 13
+
+
+ 364              		.loc 1 114 9 is_stmt 1 view .LVU101
+ 114:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 365              		.loc 1 114 12 is_stmt 0 view .LVU102
+ 366 0098 0446     		mov	r4, r0
+ 367 009a 0028     		cmp	r0, #0
+ 368 009c E8D0     		beq	.L15
+ 117:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								mod_metadata->ModifierMetadata = NULL;
+ 369              		.loc 1 117 9 is_stmt 1 view .LVU103
+ 118:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 370              		.loc 1 118 40 is_stmt 0 view .LVU104
+ 371 009e 0023     		movs	r3, #0
+ 117:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								mod_metadata->ModifierMetadata = NULL;
+ 372              		.loc 1 117 48 view .LVU105
+ 373 00a0 A879     		ldrb	r0, [r5, #6]	@ zero_extendqisi2
+ 374              	.LVL22:
+ 118:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 375              		.loc 1 118 40 view .LVU106
+ 376 00a2 6360     		str	r3, [r4, #4]
+ 117:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								mod_metadata->ModifierMetadata = NULL;
+ 377              		.loc 1 117 36 view .LVU107
+ 378 00a4 2070     		strb	r0, [r4]
+ 118:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 379              		.loc 1 118 9 is_stmt 1 view .LVU108
+ 120:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								{
+ 380              		.loc 1 120 9 view .LVU109
+ 381 00a6 A0B1     		cbz	r0, .L18
+ 382 00a8 0128     		cmp	r0, #1
+ 383 00aa 05D1     		bne	.L20
+ 384              	.LBB13:
+ 139:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									IK_KeyLayerModifierMetadata_t* kl_mod_metadata = (IK_KeyLayerModifierMetadata_t*)malloc(si
+ 385              		.loc 1 139 10 view .LVU110
+ 140:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 386              		.loc 1 140 10 view .LVU111
+ 140:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 387              		.loc 1 140 91 is_stmt 0 view .LVU112
+ 388 00ac FFF7FEFF 		bl	malloc
+ 389              	.LVL23:
+ 142:../../infinikeys-arm32/src/infinikeys_usbif.c **** 										break;
+ 390              		.loc 1 142 10 is_stmt 1 view .LVU113
+ 142:../../infinikeys-arm32/src/infinikeys_usbif.c **** 										break;
+ 391              		.loc 1 142 13 is_stmt 0 view .LVU114
+ 392 00b0 10B1     		cbz	r0, .L20
+ 393              	.LVL24:
+ 394              	.L45:
+ 145:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									mod_metadata->ModifierMetadata = kl_mod_metadata;
+ 395              		.loc 1 145 10 is_stmt 1 view .LVU115
+ 145:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									mod_metadata->ModifierMetadata = kl_mod_metadata;
+ 396              		.loc 1 145 36 is_stmt 0 view .LVU116
+ 397 00b2 EB79     		ldrb	r3, [r5, #7]	@ zero_extendqisi2
+ 146:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 398              		.loc 1 146 41 view .LVU117
+ 399 00b4 6060     		str	r0, [r4, #4]
+ 145:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									mod_metadata->ModifierMetadata = kl_mod_metadata;
+ 400              		.loc 1 145 36 view .LVU118
+ 401 00b6 0370     		strb	r3, [r0]
+ 146:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 402              		.loc 1 146 10 is_stmt 1 view .LVU119
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 14
+
+
+ 147:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								default:
+ 403              		.loc 1 147 10 view .LVU120
+ 404              	.L20:
+ 147:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								default:
+ 405              		.loc 1 147 10 is_stmt 0 view .LVU121
+ 406              	.LBE13:
+ 152:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 407              		.loc 1 152 9 is_stmt 1 view .LVU122
+ 152:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 408              		.loc 1 152 22 is_stmt 0 view .LVU123
+ 409 00b8 0194     		str	r4, [sp, #4]
+ 153:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_STATIC:
+ 410              		.loc 1 153 9 is_stmt 1 view .LVU124
+ 411 00ba D9E7     		b	.L15
+ 412              	.LVL25:
+ 413              	.L12:
+ 159:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                     break;
+ 414              		.loc 1 159 33 view .LVU125
+ 159:../../infinikeys-arm32/src/infinikeys_usbif.c ****                                     break;
+ 415              		.loc 1 159 36 is_stmt 0 view .LVU126
+ 416 00bc 062C     		cmp	r4, #6
+ 417 00be D7D0     		beq	.L15
+ 162:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 418              		.loc 1 162 9 is_stmt 1 view .LVU127
+ 162:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 419              		.loc 1 162 71 is_stmt 0 view .LVU128
+ 420 00c0 4046     		mov	r0, r8
+ 421 00c2 FFF7FEFF 		bl	malloc
+ 422              	.LVL26:
+ 164:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 423              		.loc 1 164 9 is_stmt 1 view .LVU129
+ 164:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									break;
+ 424              		.loc 1 164 12 is_stmt 0 view .LVU130
+ 425 00c6 0028     		cmp	r0, #0
+ 426 00c8 D2D0     		beq	.L15
+ 167:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 427              		.loc 1 167 9 is_stmt 1 view .LVU131
+ 167:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 428              		.loc 1 167 29 is_stmt 0 view .LVU132
+ 429 00ca AB79     		ldrb	r3, [r5, #6]	@ zero_extendqisi2
+ 169:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 430              		.loc 1 169 22 view .LVU133
+ 431 00cc 0190     		str	r0, [sp, #4]
+ 167:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 432              		.loc 1 167 29 view .LVU134
+ 433 00ce 0370     		strb	r3, [r0]
+ 169:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 434              		.loc 1 169 9 is_stmt 1 view .LVU135
+ 170:../../infinikeys-arm32/src/infinikeys_usbif.c **** 							case KEYMAP_ACTION:
+ 435              		.loc 1 170 9 view .LVU136
+ 436 00d0 CEE7     		b	.L15
+ 437              	.LVL27:
+ 438              	.L18:
+ 439              	.LBB14:
+ 126:../../infinikeys-arm32/src/infinikeys_usbif.c **** 									IK_HIDModifierMapMetadata_t* hid_mod_metadata = (IK_HIDModifierMapMetadata_t*)malloc(sizeo
+ 440              		.loc 1 126 10 view .LVU137
+ 127:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 15
+
+
+ 441              		.loc 1 127 10 view .LVU138
+ 127:../../infinikeys-arm32/src/infinikeys_usbif.c **** 
+ 442              		.loc 1 127 88 is_stmt 0 view .LVU139
+ 443 00d2 0120     		movs	r0, #1
+ 444 00d4 FFF7FEFF 		bl	malloc
+ 445              	.LVL28:
+ 129:../../infinikeys-arm32/src/infinikeys_usbif.c **** 										break;
+ 446              		.loc 1 129 10 is_stmt 1 view .LVU140
+ 129:../../infinikeys-arm32/src/infinikeys_usbif.c **** 										break;
+ 447              		.loc 1 129 13 is_stmt 0 view .LVU141
+ 448 00d8 0028     		cmp	r0, #0
+ 449 00da EAD1     		bne	.L45
+ 450              	.LBE14:
+ 152:../../infinikeys-arm32/src/infinikeys_usbif.c **** 								break;
+ 451              		.loc 1 152 9 view .LVU142
+ 452 00dc ECE7     		b	.L20
+ 453              	.LBE15:
+ 454              	.LBE17:
+ 455              	.LBE20:
+ 456              	.LBE23:
+ 457              		.cfi_endproc
+ 458              	.LFE69:
+ 460              		.global	IK_HID_OEMReservedReportByte
+ 461              		.comm	IK_HID_ModifierKeys,8,4
+ 462              		.comm	IK_HID_PressedKeys_Buffer,5,4
+ 463 00de 00BF     		.section	.bss.IK_HID_OEMReservedReportByte,"aw",%nobits
+ 464              		.set	.LANCHOR0,. + 0
+ 467              	IK_HID_OEMReservedReportByte:
+ 468 0000 00       		.space	1
+ 469              		.text
+ 470              	.Letext0:
+ 471              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 472              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 473              		.file 4 "../../infinikeys-arm32/inc/infinikeys_usbif.h"
+ 474              		.file 5 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
+ 475              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 476              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 477              		.file 8 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 478              		.file 9 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\stdlib.h"
+ 479              		.file 10 "../../infinikeys-arm32/inc/infinikeys_actionhandler.h"
+ 480              		.file 11 "../../infinikeys-arm32/inc/infinikeys_kbcfg.h"
+ 481              		.file 12 "Drivers/CMSIS/Include/core_cm3.h"
+ 482              		.file 13 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 483              		.file 14 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 484              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 485              		.file 16 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 486              		.file 17 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 487              		.file 18 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 488              		.file 19 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+ 489              		.file 20 "Inc/main.h"
+ 490              		.file 21 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 491              		.file 22 "Inc/usb_device.h"
+ 492              		.file 23 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+ 493              		.file 24 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_usbif.c
+C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s:16     .text.IK_USBIF_SendHIDReport:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s:25     .text.IK_USBIF_SendHIDReport:00000000 IK_USBIF_SendHIDReport
+C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s:152    .text.IK_USBIF_SendHIDReport:00000074 $d
+                            *COM*:00000008 IK_HID_ModifierKeys
+                            *COM*:00000005 IK_HID_PressedKeys_Buffer
+C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s:160    .text.IK_USBIF_RecieveHIDReportCB:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s:168    .text.IK_USBIF_RecieveHIDReportCB:00000000 IK_USBIF_RecieveHIDReportCB
+C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s:467    .bss.IK_HID_OEMReservedReportByte:00000000 IK_HID_OEMReservedReportByte
+C:\Users\Johannes\AppData\Local\Temp\cc6myMgN.s:468    .bss.IK_HID_OEMReservedReportByte:00000000 $d
+
+UNDEFINED SYMBOLS
+IK_STM32CUBE_USBD_HID_SendReport
+hUsbDeviceFS
+IK_CFG_ReInitKeyMap
+IK_CFG_GetKeyLayerCount
+malloc
+IK_CFG_LoadKeyMapToTable

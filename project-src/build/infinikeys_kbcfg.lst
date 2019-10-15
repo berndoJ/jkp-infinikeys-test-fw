@@ -1,0 +1,1179 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_kbcfg.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._IK_CFG_FreeKeyMapTableMemory.isra.0.part.1,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	_IK_CFG_FreeKeyMapTableMemory.isra.0.part.1:
+  25              	.LVL0:
+  26              	.LFB11:
+  27              		.file 1 "../../infinikeys-arm32/src/infinikeys_kbcfg.c"
+   1:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * FILENAME :		infinikeys_kbcfg.c
+   3:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * BREIF :			Dynamic Keyboard Configuration Module
+   6:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * DATE CREATED :	17.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * 		This module is used to manage the local dynamic
+  14:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * 		configuration of the keyboard. This configuration can be
+  15:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * 		updated dynamically over USB without flashing a new
+  16:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * 		firmware to the device.
+  17:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * 
+  18:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  *--------------------------------------------------------------*/
+  19:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  20:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** #include "infinikeys_kbcfg.h"
+  21:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  22:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** #include <stdlib.h>
+  23:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  24:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /* --------------------------------------------------------------
+  25:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * VARIABLE DEFINITIONS
+  26:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * ------------------------------------------------------------*/
+  27:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  28:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** IK_KeyMap_t** IK_CFG_KeyMapTable;
+  29:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  30:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** uint8_t IK_CFG_CurrentKeyLayer = 0;
+  31:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 2
+
+
+  32:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /* --------------------------------------------------------------
+  33:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * PRIVATE VARIABLE DEFINITIONS
+  34:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * ------------------------------------------------------------*/
+  35:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  36:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /*
+  37:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * Holds the fallback key layer configuration setting.
+  38:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  */
+  39:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** static uint8_t IK_CFG_FallbackKeyLayer = 0;
+  40:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  41:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /*
+  42:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * The key layer count available in the current key map table.
+  43:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  */
+  44:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** static uint8_t IK_CFG_KeyLayerCount = 0;
+  45:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  46:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /*
+  47:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * "Empty" keymap. Used for disabled keys or matrix ids which are not defined.
+  48:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  */
+  49:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** static IK_KeyMap_t _IK_KeyMap_None =
+  50:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+  51:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	KEYMAP_NONE,
+  52:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	NULL
+  53:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** };
+  54:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  55:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /* --------------------------------------------------------------
+  56:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * PRIVATE FUNCTION DECLARATIONS
+  57:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * ------------------------------------------------------------*/
+  58:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  59:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** static uint8_t _IK_CFG_AllocKeyMapTable(uint8_t key_layer_size, uint16_t key_matrix_size);
+  60:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** static void _IK_CFG_FreeKeyMapTableMemory(uint8_t key_layer_size, uint16_t key_matrix_size);
+  61:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  62:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /* --------------------------------------------------------------
+  63:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * FUNCTION DEFINITIONS
+  64:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * ------------------------------------------------------------*/
+  65:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  66:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** uint8_t IK_CFG_Init(void)
+  67:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+  68:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Generate a standard key map table (key map table filled with maps of type NONE)
+  69:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (_IK_CFG_AllocKeyMapTable(1, IK_KEY_MAP_TABLE_MATRIX_SIZE) != 0)
+  70:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return 1;
+  71:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  72:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	for (uint16_t i = 0; i < IK_KEY_MAP_TABLE_MATRIX_SIZE; i++)
+  73:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+  74:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		IK_CFG_KeyMapTable[0][i] = _IK_KeyMap_None;
+  75:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	}
+  76:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  77:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	return 0;
+  78:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+  79:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  80:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** void IK_CFG_DeInit(void)
+  81:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+  82:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	_IK_CFG_FreeKeyMapTableMemory(IK_CFG_KeyLayerCount, IK_KEY_MAP_TABLE_MATRIX_SIZE);
+  83:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+  84:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  85:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** uint8_t IK_CFG_GetFallbackKeyLayer(void)
+  86:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+  87:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	return IK_CFG_FallbackKeyLayer;
+  88:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 3
+
+
+  89:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  90:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** void IK_CFG_SetFallbackKeyLayer(uint8_t new_fb_key_layer)
+  91:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+  92:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (new_fb_key_layer >= IK_CFG_KeyLayerCount)
+  93:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_FallbackKeyLayer = new_fb_key_layer;
+  95:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+  96:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  97:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** uint8_t IK_CFG_GetKeyLayerCount(void)
+  98:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+  99:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	return IK_CFG_KeyLayerCount;
+ 100:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 101:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 102:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** IK_KeyMap_t* IK_CFG_GetKeyMap(uint8_t key_layer, uint16_t matrix_id)
+ 103:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 104:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (key_layer >= IK_CFG_KeyLayerCount)
+ 105:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		key_layer = IK_CFG_FallbackKeyLayer;
+ 106:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 107:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (matrix_id >= IK_KEY_MAP_TABLE_MATRIX_SIZE)
+ 108:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		matrix_id = 0;
+ 109:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 110:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (matrix_id == 0 || IK_CFG_KeyMapTable == NULL)
+ 111:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 112:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 113:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_KeyMap_t* kl_map_table = IK_CFG_KeyMapTable[key_layer];
+ 114:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 115:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (kl_map_table == NULL)
+ 116:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 117:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 118:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	return &kl_map_table[matrix_id];
+ 119:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 120:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 121:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** void IK_CFG_LoadKeyMapToTable(uint8_t key_layer, uint16_t matrix_id, IK_KeyMap_t key_map)
+ 122:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 123:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if ((key_layer >= IK_CFG_KeyLayerCount) || (matrix_id >= IK_KEY_MAP_TABLE_MATRIX_SIZE))
+ 124:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 125:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 126:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_KeyMapTable[key_layer][matrix_id] = key_map;
+ 127:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 128:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 129:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** void IK_CFG_ReInitKeyMap(uint8_t layer_count)
+ 130:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 131:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Free the old's key map memory.
+ 132:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	_IK_CFG_FreeKeyMapTableMemory(IK_CFG_KeyLayerCount, IK_KEY_MAP_TABLE_MATRIX_SIZE);
+ 133:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 134:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Allocate new memory.
+ 135:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (_IK_CFG_AllocKeyMapTable(1, IK_KEY_MAP_TABLE_MATRIX_SIZE) != 0)
+ 136:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 137:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 138:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Fill the new key map with empty maps.
+ 139:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	for (uint8_t i = 0; i < layer_count; i++)
+ 140:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 141:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		for (uint16_t j = 0; j < IK_KEY_MAP_TABLE_MATRIX_SIZE; j++)
+ 142:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		{
+ 143:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			IK_CFG_KeyMapTable[i][j] = _IK_KeyMap_None;
+ 144:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		}
+ 145:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	}
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 4
+
+
+ 146:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 147:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 148:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** /* --------------------------------------------------------------
+ 149:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * PRIVATE FUNCTION DEFINITIONS
+ 150:../../infinikeys-arm32/src/infinikeys_kbcfg.c ****  * ------------------------------------------------------------*/
+ 151:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 152:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** static uint8_t _IK_CFG_AllocKeyMapTable(uint8_t key_layer_size, uint16_t key_matrix_size)
+ 153:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 154:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Allocate the outer arrays.
+ 155:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_KeyMapTable = (IK_KeyMap_t**)malloc(sizeof(IK_KeyMap_t*) * key_layer_size);
+ 156:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 157:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Check if the allocation was successful.
+ 158:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (IK_CFG_KeyMapTable == NULL || key_layer_size < 1)
+ 159:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return 1;
+ 160:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 161:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Allocate the inner arrays.
+ 162:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	for (uint8_t i = 0; i < key_layer_size; i++)
+ 163:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 164:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		IK_CFG_KeyMapTable[i] = (IK_KeyMap_t*)malloc(sizeof(IK_KeyMap_t) * key_matrix_size);
+ 165:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 166:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		// Check if the allocation was successful.
+ 167:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		if (IK_CFG_KeyMapTable[i] == NULL)
+ 168:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			return 1;
+ 169:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	}
+ 170:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 171:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Adjust the key layer count and set the fallback and current layer to the first layer.
+ 172:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_KeyLayerCount = key_layer_size;
+ 173:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_SetFallbackKeyLayer(0);
+ 174:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_CurrentKeyLayer = 0;
+ 175:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 176:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	return 0;
+ 177:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 178:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 179:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** static void _IK_CFG_FreeKeyMapTableMemory(uint8_t key_layer_size, uint16_t key_matrix_size)
+  28              		.loc 1 179 13 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		.loc 1 179 13 is_stmt 0 view .LVU1
+  33 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 24
+  36              		.cfi_offset 3, -24
+  37              		.cfi_offset 4, -20
+  38              		.cfi_offset 5, -16
+  39              		.cfi_offset 6, -12
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 104F     		ldr	r7, .L18
+  43 0004 3B68     		ldr	r3, [r7]
+  44              	.LBB20:
+ 180:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 181:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Check for NULL pointer.
+ 182:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (IK_CFG_KeyMapTable == NULL)
+ 183:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 184:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 185:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Free all inner arrays.
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 5
+
+
+ 186:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	for (uint8_t i = 0; i < key_layer_size; i++)
+  45              		.loc 1 186 2 view .LVU2
+  46 0006 B8B1     		cbz	r0, .L2
+  47 0008 0025     		movs	r5, #0
+  48 000a 461E     		subs	r6, r0, #1
+  49 000c F6B2     		uxtb	r6, r6
+  50 000e 0136     		adds	r6, r6, #1
+  51 0010 B600     		lsls	r6, r6, #2
+  52              	.LVL1:
+  53              	.L5:
+  54              	.LBB21:
+ 187:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 188:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		IK_KeyMap_t* current_ptr = IK_CFG_KeyMapTable[i];
+  55              		.loc 1 188 3 is_stmt 1 view .LVU3
+ 189:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 190:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		// Check for NULL pointer.
+ 191:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		if (current_ptr == NULL)
+ 192:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			continue;
+ 193:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 194:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		// Free sub-metadata if possible.
+ 195:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		switch (current_ptr->Type)
+  56              		.loc 1 195 3 view .LVU4
+ 196:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		{
+ 197:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		case KEYMAP_MODIFIER:
+ 198:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			// Check for NULL because we are accessing a sub-metadata. Otherwise (free function) no NULL-che
+ 199:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			if (current_ptr->Metadata != NULL)
+  57              		.loc 1 199 4 view .LVU5
+ 188:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+  58              		.loc 1 188 16 is_stmt 0 view .LVU6
+  59 0012 5C59     		ldr	r4, [r3, r5]
+  60              	.LVL2:
+ 191:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			continue;
+  61              		.loc 1 191 3 is_stmt 1 view .LVU7
+  62 0014 0435     		adds	r5, r5, #4
+ 191:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			continue;
+  63              		.loc 1 191 6 is_stmt 0 view .LVU8
+  64 0016 6CB1     		cbz	r4, .L3
+ 195:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		{
+  65              		.loc 1 195 3 view .LVU9
+  66 0018 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+  67 001a 6068     		ldr	r0, [r4, #4]
+  68 001c 23B9     		cbnz	r3, .L4
+ 200:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			{
+ 201:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 				free(((IK_ModifierMapMetadata_t*)current_ptr->Metadata)->ModifierMetadata);
+  69              		.loc 1 201 5 is_stmt 1 view .LVU10
+ 199:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			{
+  70              		.loc 1 199 7 is_stmt 0 view .LVU11
+  71 001e 18B1     		cbz	r0, .L4
+  72              		.loc 1 201 5 view .LVU12
+  73 0020 4068     		ldr	r0, [r0, #4]
+  74 0022 FFF7FEFF 		bl	free
+  75              	.LVL3:
+  76 0026 6068     		ldr	r0, [r4, #4]
+  77              	.L4:
+ 202:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			}
+ 203:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			break;
+ 204:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		default:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 6
+
+
+ 205:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			break;
+ 206:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		}
+ 207:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 208:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		// Free the metadata pointer if metadata is present.
+ 209:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		free(current_ptr->Metadata);
+  78              		.loc 1 209 3 is_stmt 1 view .LVU13
+  79 0028 FFF7FEFF 		bl	free
+  80              	.LVL4:
+ 210:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 211:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		free(current_ptr);
+  81              		.loc 1 211 3 view .LVU14
+  82 002c 2046     		mov	r0, r4
+  83 002e FFF7FEFF 		bl	free
+  84              	.LVL5:
+  85 0032 3B68     		ldr	r3, [r7]
+  86              	.L3:
+  87              		.loc 1 211 3 is_stmt 0 view .LVU15
+  88              	.LBE21:
+ 186:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+  89              		.loc 1 186 2 view .LVU16
+  90 0034 B542     		cmp	r5, r6
+  91 0036 ECD1     		bne	.L5
+  92              	.LVL6:
+  93              	.L2:
+ 186:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+  94              		.loc 1 186 2 view .LVU17
+  95              	.LBE20:
+ 212:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	}
+ 213:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 214:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Free the 2D-array itself.
+ 215:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	free(IK_CFG_KeyMapTable);
+  96              		.loc 1 215 2 is_stmt 1 view .LVU18
+  97 0038 1846     		mov	r0, r3
+ 216:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+  98              		.loc 1 216 1 is_stmt 0 view .LVU19
+  99 003a BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
+ 100              	.LCFI1:
+ 101              		.cfi_restore 14
+ 102              		.cfi_restore 7
+ 103              		.cfi_restore 6
+ 104              		.cfi_restore 5
+ 105              		.cfi_restore 4
+ 106              		.cfi_restore 3
+ 107              		.cfi_def_cfa_offset 0
+ 215:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 108              		.loc 1 215 2 view .LVU20
+ 109 003e FFF7FEBF 		b	free
+ 110              	.LVL7:
+ 111              	.L19:
+ 112 0042 00BF     		.align	2
+ 113              	.L18:
+ 114 0044 00000000 		.word	IK_CFG_KeyMapTable
+ 115              		.cfi_endproc
+ 116              	.LFE11:
+ 118              		.section	.text._IK_CFG_AllocKeyMapTable.constprop.2,"ax",%progbits
+ 119              		.align	1
+ 120              		.p2align 2,,3
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 7
+
+
+ 121              		.syntax unified
+ 122              		.thumb
+ 123              		.thumb_func
+ 124              		.fpu softvfp
+ 126              	_IK_CFG_AllocKeyMapTable.constprop.2:
+ 127              	.LFB12:
+ 152:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 128              		.loc 1 152 16 is_stmt 1 view -0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132              	.LVL8:
+ 155:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 133              		.loc 1 155 2 view .LVU22
+ 152:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 134              		.loc 1 152 16 is_stmt 0 view .LVU23
+ 135 0000 38B5     		push	{r3, r4, r5, lr}
+ 136              	.LCFI2:
+ 137              		.cfi_def_cfa_offset 16
+ 138              		.cfi_offset 3, -16
+ 139              		.cfi_offset 4, -12
+ 140              		.cfi_offset 5, -8
+ 141              		.cfi_offset 14, -4
+ 155:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 142              		.loc 1 155 38 view .LVU24
+ 143 0002 0420     		movs	r0, #4
+ 144 0004 FFF7FEFF 		bl	malloc
+ 145              	.LVL9:
+ 155:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 146              		.loc 1 155 21 view .LVU25
+ 147 0008 0A4B     		ldr	r3, .L28
+ 148 000a 1860     		str	r0, [r3]
+ 158:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return 1;
+ 149              		.loc 1 158 2 is_stmt 1 view .LVU26
+ 158:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return 1;
+ 150              		.loc 1 158 5 is_stmt 0 view .LVU27
+ 151 000c 80B1     		cbz	r0, .L23
+ 152              	.LVL10:
+ 153              	.LBB22:
+ 164:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 154              		.loc 1 164 3 is_stmt 1 view .LVU28
+ 155 000e 0446     		mov	r4, r0
+ 164:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 156              		.loc 1 164 41 is_stmt 0 view .LVU29
+ 157 0010 4FF49B60 		mov	r0, #1240
+ 158 0014 FFF7FEFF 		bl	malloc
+ 159              	.LVL11:
+ 164:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 160              		.loc 1 164 25 view .LVU30
+ 161 0018 2060     		str	r0, [r4]
+ 167:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			return 1;
+ 162              		.loc 1 167 3 is_stmt 1 view .LVU31
+ 167:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			return 1;
+ 163              		.loc 1 167 6 is_stmt 0 view .LVU32
+ 164 001a 48B1     		cbz	r0, .L23
+ 165              	.LVL12:
+ 167:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 			return 1;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 8
+
+
+ 166              		.loc 1 167 6 view .LVU33
+ 167              	.LBE22:
+ 172:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_SetFallbackKeyLayer(0);
+ 168              		.loc 1 172 2 is_stmt 1 view .LVU34
+ 169              	.LBB23:
+ 170              	.LBB24:
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 171              		.loc 1 94 26 is_stmt 0 view .LVU35
+ 172 001c 0023     		movs	r3, #0
+ 173              	.LBE24:
+ 174              	.LBE23:
+ 172:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_SetFallbackKeyLayer(0);
+ 175              		.loc 1 172 23 view .LVU36
+ 176 001e 0121     		movs	r1, #1
+ 174:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 177              		.loc 1 174 25 view .LVU37
+ 178 0020 054C     		ldr	r4, .L28+4
+ 172:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_SetFallbackKeyLayer(0);
+ 179              		.loc 1 172 23 view .LVU38
+ 180 0022 064A     		ldr	r2, .L28+8
+ 181              	.LBB28:
+ 182              	.LBB25:
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 183              		.loc 1 94 26 view .LVU39
+ 184 0024 064D     		ldr	r5, .L28+12
+ 185              	.LBE25:
+ 186              	.LBE28:
+ 174:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 187              		.loc 1 174 25 view .LVU40
+ 188 0026 2370     		strb	r3, [r4]
+ 172:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_SetFallbackKeyLayer(0);
+ 189              		.loc 1 172 23 view .LVU41
+ 190 0028 1170     		strb	r1, [r2]
+ 173:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	IK_CFG_CurrentKeyLayer = 0;
+ 191              		.loc 1 173 2 is_stmt 1 view .LVU42
+ 192              	.LVL13:
+ 193              	.LBB29:
+ 194              	.LBI23:
+  90:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 195              		.loc 1 90 6 view .LVU43
+ 196              	.LBB26:
+  92:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 197              		.loc 1 92 2 view .LVU44
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 198              		.loc 1 94 2 view .LVU45
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 199              		.loc 1 94 2 is_stmt 0 view .LVU46
+ 200              	.LBE26:
+ 201              	.LBE29:
+ 174:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 202              		.loc 1 174 2 is_stmt 1 view .LVU47
+ 176:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 203              		.loc 1 176 2 view .LVU48
+ 176:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 204              		.loc 1 176 9 is_stmt 0 view .LVU49
+ 205 002a 1846     		mov	r0, r3
+ 206              	.LBB30:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 9
+
+
+ 207              	.LBB27:
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 208              		.loc 1 94 26 view .LVU50
+ 209 002c 2B70     		strb	r3, [r5]
+ 210              	.LBE27:
+ 211              	.LBE30:
+ 177:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 212              		.loc 1 177 1 view .LVU51
+ 213 002e 38BD     		pop	{r3, r4, r5, pc}
+ 214              	.LVL14:
+ 215              	.L23:
+ 159:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 216              		.loc 1 159 10 view .LVU52
+ 217 0030 0120     		movs	r0, #1
+ 177:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 218              		.loc 1 177 1 view .LVU53
+ 219 0032 38BD     		pop	{r3, r4, r5, pc}
+ 220              	.L29:
+ 221              		.align	2
+ 222              	.L28:
+ 223 0034 00000000 		.word	IK_CFG_KeyMapTable
+ 224 0038 00000000 		.word	.LANCHOR2
+ 225 003c 00000000 		.word	.LANCHOR0
+ 226 0040 00000000 		.word	.LANCHOR1
+ 227              		.cfi_endproc
+ 228              	.LFE12:
+ 230              		.section	.text.IK_CFG_Init,"ax",%progbits
+ 231              		.align	1
+ 232              		.p2align 2,,3
+ 233              		.global	IK_CFG_Init
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu softvfp
+ 239              	IK_CFG_Init:
+ 240              	.LFB0:
+  67:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Generate a standard key map table (key map table filled with maps of type NONE)
+ 241              		.loc 1 67 1 is_stmt 1 view -0
+ 242              		.cfi_startproc
+ 243              		@ args = 0, pretend = 0, frame = 0
+ 244              		@ frame_needed = 0, uses_anonymous_args = 0
+  69:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return 1;
+ 245              		.loc 1 69 2 view .LVU55
+  67:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Generate a standard key map table (key map table filled with maps of type NONE)
+ 246              		.loc 1 67 1 is_stmt 0 view .LVU56
+ 247 0000 70B5     		push	{r4, r5, r6, lr}
+ 248              	.LCFI3:
+ 249              		.cfi_def_cfa_offset 16
+ 250              		.cfi_offset 4, -16
+ 251              		.cfi_offset 5, -12
+ 252              		.cfi_offset 6, -8
+ 253              		.cfi_offset 14, -4
+  69:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return 1;
+ 254              		.loc 1 69 6 view .LVU57
+ 255 0002 FFF7FEFF 		bl	_IK_CFG_AllocKeyMapTable.constprop.2
+ 256              	.LVL15:
+  69:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return 1;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 10
+
+
+ 257              		.loc 1 69 5 view .LVU58
+ 258 0006 80B9     		cbnz	r0, .L33
+ 259 0008 0646     		mov	r6, r0
+ 260 000a 0246     		mov	r2, r0
+ 261 000c 084B     		ldr	r3, .L36
+ 262 000e 094C     		ldr	r4, .L36+4
+ 263 0010 1D68     		ldr	r5, [r3]
+ 264              	.L32:
+ 265              	.LBB31:
+  74:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	}
+ 266              		.loc 1 74 3 is_stmt 1 discriminator 3 view .LVU59
+  74:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	}
+ 267              		.loc 1 74 28 is_stmt 0 discriminator 3 view .LVU60
+ 268 0012 2B68     		ldr	r3, [r5]
+ 269 0014 94E80300 		ldm	r4, {r0, r1}
+ 270 0018 1344     		add	r3, r3, r2
+ 271 001a 0832     		adds	r2, r2, #8
+  72:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 272              		.loc 1 72 2 discriminator 3 view .LVU61
+ 273 001c B2F59B6F 		cmp	r2, #1240
+  74:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	}
+ 274              		.loc 1 74 28 discriminator 3 view .LVU62
+ 275 0020 83E80300 		stm	r3, {r0, r1}
+ 276              	.LVL16:
+  72:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 277              		.loc 1 72 2 discriminator 3 view .LVU63
+ 278 0024 F5D1     		bne	.L32
+ 279              	.LBE31:
+  78:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 280              		.loc 1 78 1 view .LVU64
+ 281 0026 3046     		mov	r0, r6
+ 282 0028 70BD     		pop	{r4, r5, r6, pc}
+ 283              	.L33:
+  70:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 284              		.loc 1 70 10 view .LVU65
+ 285 002a 0126     		movs	r6, #1
+  78:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 286              		.loc 1 78 1 view .LVU66
+ 287 002c 3046     		mov	r0, r6
+ 288 002e 70BD     		pop	{r4, r5, r6, pc}
+ 289              	.L37:
+ 290              		.align	2
+ 291              	.L36:
+ 292 0030 00000000 		.word	IK_CFG_KeyMapTable
+ 293 0034 00000000 		.word	.LANCHOR3
+ 294              		.cfi_endproc
+ 295              	.LFE0:
+ 297              		.section	.text.IK_CFG_DeInit,"ax",%progbits
+ 298              		.align	1
+ 299              		.p2align 2,,3
+ 300              		.global	IK_CFG_DeInit
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 304              		.fpu softvfp
+ 306              	IK_CFG_DeInit:
+ 307              	.LFB1:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 11
+
+
+  81:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	_IK_CFG_FreeKeyMapTableMemory(IK_CFG_KeyLayerCount, IK_KEY_MAP_TABLE_MATRIX_SIZE);
+ 308              		.loc 1 81 1 is_stmt 1 view -0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		@ link register save eliminated.
+  82:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 313              		.loc 1 82 2 view .LVU68
+ 314              	.LVL17:
+ 315              	.LBB32:
+ 316              	.LBI32:
+ 179:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 317              		.loc 1 179 13 view .LVU69
+ 318              	.LBB33:
+ 182:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 319              		.loc 1 182 2 view .LVU70
+ 182:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 320              		.loc 1 182 25 is_stmt 0 view .LVU71
+ 321 0000 034B     		ldr	r3, .L40
+ 182:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 322              		.loc 1 182 5 view .LVU72
+ 323 0002 1B68     		ldr	r3, [r3]
+ 324 0004 1BB1     		cbz	r3, .L38
+ 325              	.LBE33:
+ 326              	.LBE32:
+  82:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 327              		.loc 1 82 2 view .LVU73
+ 328 0006 034B     		ldr	r3, .L40+4
+ 329              	.LBB35:
+ 330              	.LBB34:
+ 331 0008 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 332 000a FFF7FEBF 		b	_IK_CFG_FreeKeyMapTableMemory.isra.0.part.1
+ 333              	.LVL18:
+ 334              	.L38:
+  82:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 335              		.loc 1 82 2 view .LVU74
+ 336              	.LBE34:
+ 337              	.LBE35:
+  83:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 338              		.loc 1 83 1 view .LVU75
+ 339 000e 7047     		bx	lr
+ 340              	.L41:
+ 341              		.align	2
+ 342              	.L40:
+ 343 0010 00000000 		.word	IK_CFG_KeyMapTable
+ 344 0014 00000000 		.word	.LANCHOR0
+ 345              		.cfi_endproc
+ 346              	.LFE1:
+ 348              		.section	.text.IK_CFG_GetFallbackKeyLayer,"ax",%progbits
+ 349              		.align	1
+ 350              		.p2align 2,,3
+ 351              		.global	IK_CFG_GetFallbackKeyLayer
+ 352              		.syntax unified
+ 353              		.thumb
+ 354              		.thumb_func
+ 355              		.fpu softvfp
+ 357              	IK_CFG_GetFallbackKeyLayer:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 12
+
+
+ 358              	.LFB2:
+  86:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	return IK_CFG_FallbackKeyLayer;
+ 359              		.loc 1 86 1 is_stmt 1 view -0
+ 360              		.cfi_startproc
+ 361              		@ args = 0, pretend = 0, frame = 0
+ 362              		@ frame_needed = 0, uses_anonymous_args = 0
+ 363              		@ link register save eliminated.
+  87:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 364              		.loc 1 87 2 view .LVU77
+  87:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 365              		.loc 1 87 9 is_stmt 0 view .LVU78
+ 366 0000 014B     		ldr	r3, .L43
+  88:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 367              		.loc 1 88 1 view .LVU79
+ 368 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 369 0004 7047     		bx	lr
+ 370              	.L44:
+ 371 0006 00BF     		.align	2
+ 372              	.L43:
+ 373 0008 00000000 		.word	.LANCHOR1
+ 374              		.cfi_endproc
+ 375              	.LFE2:
+ 377              		.section	.text.IK_CFG_SetFallbackKeyLayer,"ax",%progbits
+ 378              		.align	1
+ 379              		.p2align 2,,3
+ 380              		.global	IK_CFG_SetFallbackKeyLayer
+ 381              		.syntax unified
+ 382              		.thumb
+ 383              		.thumb_func
+ 384              		.fpu softvfp
+ 386              	IK_CFG_SetFallbackKeyLayer:
+ 387              	.LVL19:
+ 388              	.LFB3:
+  91:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (new_fb_key_layer >= IK_CFG_KeyLayerCount)
+ 389              		.loc 1 91 1 is_stmt 1 view -0
+ 390              		.cfi_startproc
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393              		@ link register save eliminated.
+  92:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 394              		.loc 1 92 2 view .LVU81
+  92:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 395              		.loc 1 92 23 is_stmt 0 view .LVU82
+ 396 0000 034B     		ldr	r3, .L47
+  92:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 397              		.loc 1 92 5 view .LVU83
+ 398 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 399 0004 8342     		cmp	r3, r0
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 400              		.loc 1 94 2 is_stmt 1 view .LVU84
+  94:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 401              		.loc 1 94 26 is_stmt 0 view .LVU85
+ 402 0006 84BF     		itt	hi
+ 403 0008 024B     		ldrhi	r3, .L47+4
+ 404 000a 1870     		strbhi	r0, [r3]
+  95:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 405              		.loc 1 95 1 view .LVU86
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 13
+
+
+ 406 000c 7047     		bx	lr
+ 407              	.L48:
+ 408 000e 00BF     		.align	2
+ 409              	.L47:
+ 410 0010 00000000 		.word	.LANCHOR0
+ 411 0014 00000000 		.word	.LANCHOR1
+ 412              		.cfi_endproc
+ 413              	.LFE3:
+ 415              		.section	.text.IK_CFG_GetKeyLayerCount,"ax",%progbits
+ 416              		.align	1
+ 417              		.p2align 2,,3
+ 418              		.global	IK_CFG_GetKeyLayerCount
+ 419              		.syntax unified
+ 420              		.thumb
+ 421              		.thumb_func
+ 422              		.fpu softvfp
+ 424              	IK_CFG_GetKeyLayerCount:
+ 425              	.LFB4:
+  98:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	return IK_CFG_KeyLayerCount;
+ 426              		.loc 1 98 1 is_stmt 1 view -0
+ 427              		.cfi_startproc
+ 428              		@ args = 0, pretend = 0, frame = 0
+ 429              		@ frame_needed = 0, uses_anonymous_args = 0
+ 430              		@ link register save eliminated.
+  99:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 431              		.loc 1 99 2 view .LVU88
+  99:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 432              		.loc 1 99 9 is_stmt 0 view .LVU89
+ 433 0000 014B     		ldr	r3, .L50
+ 100:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 434              		.loc 1 100 1 view .LVU90
+ 435 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 436 0004 7047     		bx	lr
+ 437              	.L51:
+ 438 0006 00BF     		.align	2
+ 439              	.L50:
+ 440 0008 00000000 		.word	.LANCHOR0
+ 441              		.cfi_endproc
+ 442              	.LFE4:
+ 444              		.section	.text.IK_CFG_GetKeyMap,"ax",%progbits
+ 445              		.align	1
+ 446              		.p2align 2,,3
+ 447              		.global	IK_CFG_GetKeyMap
+ 448              		.syntax unified
+ 449              		.thumb
+ 450              		.thumb_func
+ 451              		.fpu softvfp
+ 453              	IK_CFG_GetKeyMap:
+ 454              	.LVL20:
+ 455              	.LFB5:
+ 103:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if (key_layer >= IK_CFG_KeyLayerCount)
+ 456              		.loc 1 103 1 is_stmt 1 view -0
+ 457              		.cfi_startproc
+ 458              		@ args = 0, pretend = 0, frame = 0
+ 459              		@ frame_needed = 0, uses_anonymous_args = 0
+ 460              		@ link register save eliminated.
+ 104:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		key_layer = IK_CFG_FallbackKeyLayer;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 14
+
+
+ 461              		.loc 1 104 2 view .LVU92
+ 104:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		key_layer = IK_CFG_FallbackKeyLayer;
+ 462              		.loc 1 104 16 is_stmt 0 view .LVU93
+ 463 0000 094B     		ldr	r3, .L58
+ 104:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		key_layer = IK_CFG_FallbackKeyLayer;
+ 464              		.loc 1 104 5 view .LVU94
+ 465 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 466 0004 8342     		cmp	r3, r0
+ 105:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 467              		.loc 1 105 3 is_stmt 1 view .LVU95
+ 105:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 468              		.loc 1 105 13 is_stmt 0 view .LVU96
+ 469 0006 9CBF     		itt	ls
+ 470 0008 084B     		ldrls	r3, .L58+4
+ 471 000a 1878     		ldrbls	r0, [r3]	@ zero_extendqisi2
+ 472              	.LVL21:
+ 107:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		matrix_id = 0;
+ 473              		.loc 1 107 2 is_stmt 1 view .LVU97
+ 110:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 474              		.loc 1 110 2 view .LVU98
+ 110:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 475              		.loc 1 110 5 is_stmt 0 view .LVU99
+ 476 000c 4B1E     		subs	r3, r1, #1
+ 477 000e 992B     		cmp	r3, #153
+ 478 0010 08D8     		bhi	.L57
+ 110:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 479              		.loc 1 110 43 discriminator 1 view .LVU100
+ 480 0012 074B     		ldr	r3, .L58+8
+ 481 0014 1B68     		ldr	r3, [r3]
+ 110:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 482              		.loc 1 110 21 discriminator 1 view .LVU101
+ 483 0016 2BB1     		cbz	r3, .L57
+ 113:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 484              		.loc 1 113 2 is_stmt 1 view .LVU102
+ 113:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 485              		.loc 1 113 15 is_stmt 0 view .LVU103
+ 486 0018 53F82000 		ldr	r0, [r3, r0, lsl #2]
+ 487              	.LVL22:
+ 115:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 488              		.loc 1 115 2 is_stmt 1 view .LVU104
+ 115:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return &_IK_KeyMap_None;
+ 489              		.loc 1 115 5 is_stmt 0 view .LVU105
+ 490 001c 10B1     		cbz	r0, .L57
+ 118:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 491              		.loc 1 118 2 is_stmt 1 view .LVU106
+ 118:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 492              		.loc 1 118 9 is_stmt 0 view .LVU107
+ 493 001e 00EBC100 		add	r0, r0, r1, lsl #3
+ 494              	.LVL23:
+ 118:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 495              		.loc 1 118 9 view .LVU108
+ 496 0022 7047     		bx	lr
+ 497              	.L57:
+ 111:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 498              		.loc 1 111 10 view .LVU109
+ 499 0024 0348     		ldr	r0, .L58+12
+ 119:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 15
+
+
+ 500              		.loc 1 119 1 view .LVU110
+ 501 0026 7047     		bx	lr
+ 502              	.L59:
+ 503              		.align	2
+ 504              	.L58:
+ 505 0028 00000000 		.word	.LANCHOR0
+ 506 002c 00000000 		.word	.LANCHOR1
+ 507 0030 00000000 		.word	IK_CFG_KeyMapTable
+ 508 0034 00000000 		.word	.LANCHOR3
+ 509              		.cfi_endproc
+ 510              	.LFE5:
+ 512              		.section	.text.IK_CFG_LoadKeyMapToTable,"ax",%progbits
+ 513              		.align	1
+ 514              		.p2align 2,,3
+ 515              		.global	IK_CFG_LoadKeyMapToTable
+ 516              		.syntax unified
+ 517              		.thumb
+ 518              		.thumb_func
+ 519              		.fpu softvfp
+ 521              	IK_CFG_LoadKeyMapToTable:
+ 522              	.LVL24:
+ 523              	.LFB6:
+ 122:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if ((key_layer >= IK_CFG_KeyLayerCount) || (matrix_id >= IK_KEY_MAP_TABLE_MATRIX_SIZE))
+ 524              		.loc 1 122 1 is_stmt 1 view -0
+ 525              		.cfi_startproc
+ 526              		@ args = 0, pretend = 0, frame = 8
+ 527              		@ frame_needed = 0, uses_anonymous_args = 0
+ 528              		@ link register save eliminated.
+ 123:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 529              		.loc 1 123 2 view .LVU112
+ 122:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if ((key_layer >= IK_CFG_KeyLayerCount) || (matrix_id >= IK_KEY_MAP_TABLE_MATRIX_SIZE))
+ 530              		.loc 1 122 1 is_stmt 0 view .LVU113
+ 531 0000 10B4     		push	{r4}
+ 532              	.LCFI4:
+ 533              		.cfi_def_cfa_offset 4
+ 534              		.cfi_offset 4, -4
+ 123:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 535              		.loc 1 123 17 view .LVU114
+ 536 0002 0B4C     		ldr	r4, .L63
+ 122:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if ((key_layer >= IK_CFG_KeyLayerCount) || (matrix_id >= IK_KEY_MAP_TABLE_MATRIX_SIZE))
+ 537              		.loc 1 122 1 view .LVU115
+ 538 0004 83B0     		sub	sp, sp, #12
+ 539              	.LCFI5:
+ 540              		.cfi_def_cfa_offset 16
+ 123:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 541              		.loc 1 123 5 view .LVU116
+ 542 0006 2478     		ldrb	r4, [r4]	@ zero_extendqisi2
+ 122:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if ((key_layer >= IK_CFG_KeyLayerCount) || (matrix_id >= IK_KEY_MAP_TABLE_MATRIX_SIZE))
+ 543              		.loc 1 122 1 view .LVU117
+ 544 0008 0DF1080C 		add	ip, sp, #8
+ 123:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 545              		.loc 1 123 5 view .LVU118
+ 546 000c 8442     		cmp	r4, r0
+ 122:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	if ((key_layer >= IK_CFG_KeyLayerCount) || (matrix_id >= IK_KEY_MAP_TABLE_MATRIX_SIZE))
+ 547              		.loc 1 122 1 view .LVU119
+ 548 000e 0CE90C00 		stmdb	ip, {r2, r3}
+ 123:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 16
+
+
+ 549              		.loc 1 123 5 view .LVU120
+ 550 0012 09D9     		bls	.L60
+ 123:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 551              		.loc 1 123 42 discriminator 1 view .LVU121
+ 552 0014 9A29     		cmp	r1, #154
+ 553 0016 07D8     		bhi	.L60
+ 126:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 554              		.loc 1 126 2 is_stmt 1 view .LVU122
+ 126:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 555              		.loc 1 126 20 is_stmt 0 view .LVU123
+ 556 0018 064C     		ldr	r4, .L63+4
+ 557 001a 2468     		ldr	r4, [r4]
+ 126:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 558              		.loc 1 126 43 view .LVU124
+ 559 001c 54F82000 		ldr	r0, [r4, r0, lsl #2]
+ 560              	.LVL25:
+ 126:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 561              		.loc 1 126 43 view .LVU125
+ 562 0020 00EBC101 		add	r1, r0, r1, lsl #3
+ 563              	.LVL26:
+ 126:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** }
+ 564              		.loc 1 126 43 view .LVU126
+ 565 0024 81E80C00 		stm	r1, {r2, r3}
+ 566              	.L60:
+ 127:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 567              		.loc 1 127 1 view .LVU127
+ 568 0028 03B0     		add	sp, sp, #12
+ 569              	.LCFI6:
+ 570              		.cfi_def_cfa_offset 4
+ 571              		@ sp needed
+ 572 002a 10BC     		pop	{r4}
+ 573              	.LCFI7:
+ 574              		.cfi_restore 4
+ 575              		.cfi_def_cfa_offset 0
+ 576 002c 7047     		bx	lr
+ 577              	.L64:
+ 578 002e 00BF     		.align	2
+ 579              	.L63:
+ 580 0030 00000000 		.word	.LANCHOR0
+ 581 0034 00000000 		.word	IK_CFG_KeyMapTable
+ 582              		.cfi_endproc
+ 583              	.LFE6:
+ 585              		.section	.text.IK_CFG_ReInitKeyMap,"ax",%progbits
+ 586              		.align	1
+ 587              		.p2align 2,,3
+ 588              		.global	IK_CFG_ReInitKeyMap
+ 589              		.syntax unified
+ 590              		.thumb
+ 591              		.thumb_func
+ 592              		.fpu softvfp
+ 594              	IK_CFG_ReInitKeyMap:
+ 595              	.LVL27:
+ 596              	.LFB7:
+ 130:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Free the old's key map memory.
+ 597              		.loc 1 130 1 is_stmt 1 view -0
+ 598              		.cfi_startproc
+ 599              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 17
+
+
+ 600              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 601              		.loc 1 132 2 view .LVU129
+ 602              	.LBB36:
+ 603              	.LBI36:
+ 179:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** {
+ 604              		.loc 1 179 13 view .LVU130
+ 605              	.LBB37:
+ 182:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 606              		.loc 1 182 2 view .LVU131
+ 607              	.LBE37:
+ 608              	.LBE36:
+ 130:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Free the old's key map memory.
+ 609              		.loc 1 130 1 is_stmt 0 view .LVU132
+ 610 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 611              	.LCFI8:
+ 612              		.cfi_def_cfa_offset 24
+ 613              		.cfi_offset 3, -24
+ 614              		.cfi_offset 4, -20
+ 615              		.cfi_offset 5, -16
+ 616              		.cfi_offset 6, -12
+ 617              		.cfi_offset 7, -8
+ 618              		.cfi_offset 14, -4
+ 619              	.LBB41:
+ 620              	.LBB38:
+ 182:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 621              		.loc 1 182 25 view .LVU133
+ 622 0002 124D     		ldr	r5, .L80
+ 623              	.LBE38:
+ 624              	.LBE41:
+ 130:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Free the old's key map memory.
+ 625              		.loc 1 130 1 view .LVU134
+ 626 0004 0746     		mov	r7, r0
+ 627              	.LBB42:
+ 628              	.LBB39:
+ 182:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 629              		.loc 1 182 5 view .LVU135
+ 630 0006 2B68     		ldr	r3, [r5]
+ 631 0008 1BB1     		cbz	r3, .L66
+ 632              	.LBE39:
+ 633              	.LBE42:
+ 132:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 634              		.loc 1 132 2 view .LVU136
+ 635 000a 114B     		ldr	r3, .L80+4
+ 636              	.LBB43:
+ 637              	.LBB40:
+ 638 000c 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 639              	.LVL28:
+ 132:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 640              		.loc 1 132 2 view .LVU137
+ 641 000e FFF7FEFF 		bl	_IK_CFG_FreeKeyMapTableMemory.isra.0.part.1
+ 642              	.LVL29:
+ 643              	.L66:
+ 132:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 644              		.loc 1 132 2 view .LVU138
+ 645              	.LBE40:
+ 646              	.LBE43:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 18
+
+
+ 135:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 647              		.loc 1 135 2 is_stmt 1 view .LVU139
+ 135:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 648              		.loc 1 135 6 is_stmt 0 view .LVU140
+ 649 0012 FFF7FEFF 		bl	_IK_CFG_AllocKeyMapTable.constprop.2
+ 650              	.LVL30:
+ 135:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		return;
+ 651              		.loc 1 135 5 view .LVU141
+ 652 0016 B8B9     		cbnz	r0, .L65
+ 653              	.LVL31:
+ 654              	.LBB44:
+ 139:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 655              		.loc 1 139 2 view .LVU142
+ 656 0018 B7B1     		cbz	r7, .L65
+ 657 001a 2D68     		ldr	r5, [r5]
+ 658 001c 013F     		subs	r7, r7, #1
+ 659 001e FFB2     		uxtb	r7, r7
+ 660 0020 2E1D     		adds	r6, r5, #4
+ 661 0022 0C4C     		ldr	r4, .L80+8
+ 662 0024 06EB8707 		add	r7, r6, r7, lsl #2
+ 663              	.LVL32:
+ 664              	.L70:
+ 139:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 665              		.loc 1 139 2 view .LVU143
+ 666              	.LBE44:
+ 130:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	// Free the old's key map memory.
+ 667              		.loc 1 130 1 view .LVU144
+ 668 0028 0022     		movs	r2, #0
+ 669              	.L69:
+ 670              	.LBB46:
+ 671              	.LBB45:
+ 143:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		}
+ 672              		.loc 1 143 4 is_stmt 1 discriminator 3 view .LVU145
+ 143:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		}
+ 673              		.loc 1 143 29 is_stmt 0 discriminator 3 view .LVU146
+ 674 002a 94E80300 		ldm	r4, {r0, r1}
+ 675 002e 2B68     		ldr	r3, [r5]
+ 676 0030 1344     		add	r3, r3, r2
+ 677 0032 0832     		adds	r2, r2, #8
+ 141:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		{
+ 678              		.loc 1 141 3 discriminator 3 view .LVU147
+ 679 0034 B2F59B6F 		cmp	r2, #1240
+ 143:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		}
+ 680              		.loc 1 143 29 discriminator 3 view .LVU148
+ 681 0038 83E80300 		stm	r3, {r0, r1}
+ 682              	.LVL33:
+ 141:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		{
+ 683              		.loc 1 141 3 discriminator 3 view .LVU149
+ 684 003c F5D1     		bne	.L69
+ 141:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 		{
+ 685              		.loc 1 141 3 discriminator 3 view .LVU150
+ 686              	.LBE45:
+ 139:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 687              		.loc 1 139 2 discriminator 2 view .LVU151
+ 688 003e BE42     		cmp	r6, r7
+ 689 0040 3546     		mov	r5, r6
+ 690 0042 01D0     		beq	.L65
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 19
+
+
+ 691 0044 0436     		adds	r6, r6, #4
+ 692 0046 EFE7     		b	.L70
+ 693              	.L65:
+ 139:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 	{
+ 694              		.loc 1 139 2 discriminator 2 view .LVU152
+ 695              	.LBE46:
+ 146:../../infinikeys-arm32/src/infinikeys_kbcfg.c **** 
+ 696              		.loc 1 146 1 view .LVU153
+ 697 0048 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 698              	.L81:
+ 699 004a 00BF     		.align	2
+ 700              	.L80:
+ 701 004c 00000000 		.word	IK_CFG_KeyMapTable
+ 702 0050 00000000 		.word	.LANCHOR0
+ 703 0054 00000000 		.word	.LANCHOR3
+ 704              		.cfi_endproc
+ 705              	.LFE7:
+ 707              		.global	IK_CFG_CurrentKeyLayer
+ 708              		.comm	IK_CFG_KeyMapTable,4,4
+ 709              		.section	.bss.IK_CFG_CurrentKeyLayer,"aw",%nobits
+ 710              		.set	.LANCHOR2,. + 0
+ 713              	IK_CFG_CurrentKeyLayer:
+ 714 0000 00       		.space	1
+ 715              		.section	.bss.IK_CFG_FallbackKeyLayer,"aw",%nobits
+ 716              		.set	.LANCHOR1,. + 0
+ 719              	IK_CFG_FallbackKeyLayer:
+ 720 0000 00       		.space	1
+ 721              		.section	.bss.IK_CFG_KeyLayerCount,"aw",%nobits
+ 722              		.set	.LANCHOR0,. + 0
+ 725              	IK_CFG_KeyLayerCount:
+ 726 0000 00       		.space	1
+ 727              		.section	.data._IK_KeyMap_None,"aw"
+ 728              		.align	2
+ 729              		.set	.LANCHOR3,. + 0
+ 732              	_IK_KeyMap_None:
+ 733 0000 03       		.byte	3
+ 734 0001 000000   		.space	3
+ 735 0004 00000000 		.word	0
+ 736              		.text
+ 737              	.Letext0:
+ 738              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 739              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 740              		.file 4 "../../infinikeys-arm32/inc/infinikeys_kbcfg.h"
+ 741              		.file 5 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
+ 742              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 743              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 744              		.file 8 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 745              		.file 9 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\stdlib.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_kbcfg.c
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:16     .text._IK_CFG_FreeKeyMapTableMemory.isra.0.part.1:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:24     .text._IK_CFG_FreeKeyMapTableMemory.isra.0.part.1:00000000 _IK_CFG_FreeKeyMapTableMemory.isra.0.part.1
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:114    .text._IK_CFG_FreeKeyMapTableMemory.isra.0.part.1:00000044 $d
+                            *COM*:00000004 IK_CFG_KeyMapTable
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:119    .text._IK_CFG_AllocKeyMapTable.constprop.2:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:126    .text._IK_CFG_AllocKeyMapTable.constprop.2:00000000 _IK_CFG_AllocKeyMapTable.constprop.2
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:223    .text._IK_CFG_AllocKeyMapTable.constprop.2:00000034 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:231    .text.IK_CFG_Init:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:239    .text.IK_CFG_Init:00000000 IK_CFG_Init
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:292    .text.IK_CFG_Init:00000030 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:298    .text.IK_CFG_DeInit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:306    .text.IK_CFG_DeInit:00000000 IK_CFG_DeInit
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:343    .text.IK_CFG_DeInit:00000010 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:349    .text.IK_CFG_GetFallbackKeyLayer:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:357    .text.IK_CFG_GetFallbackKeyLayer:00000000 IK_CFG_GetFallbackKeyLayer
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:373    .text.IK_CFG_GetFallbackKeyLayer:00000008 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:378    .text.IK_CFG_SetFallbackKeyLayer:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:386    .text.IK_CFG_SetFallbackKeyLayer:00000000 IK_CFG_SetFallbackKeyLayer
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:410    .text.IK_CFG_SetFallbackKeyLayer:00000010 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:416    .text.IK_CFG_GetKeyLayerCount:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:424    .text.IK_CFG_GetKeyLayerCount:00000000 IK_CFG_GetKeyLayerCount
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:440    .text.IK_CFG_GetKeyLayerCount:00000008 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:445    .text.IK_CFG_GetKeyMap:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:453    .text.IK_CFG_GetKeyMap:00000000 IK_CFG_GetKeyMap
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:505    .text.IK_CFG_GetKeyMap:00000028 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:513    .text.IK_CFG_LoadKeyMapToTable:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:521    .text.IK_CFG_LoadKeyMapToTable:00000000 IK_CFG_LoadKeyMapToTable
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:580    .text.IK_CFG_LoadKeyMapToTable:00000030 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:586    .text.IK_CFG_ReInitKeyMap:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:594    .text.IK_CFG_ReInitKeyMap:00000000 IK_CFG_ReInitKeyMap
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:701    .text.IK_CFG_ReInitKeyMap:0000004c $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:713    .bss.IK_CFG_CurrentKeyLayer:00000000 IK_CFG_CurrentKeyLayer
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:714    .bss.IK_CFG_CurrentKeyLayer:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:719    .bss.IK_CFG_FallbackKeyLayer:00000000 IK_CFG_FallbackKeyLayer
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:720    .bss.IK_CFG_FallbackKeyLayer:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:725    .bss.IK_CFG_KeyLayerCount:00000000 IK_CFG_KeyLayerCount
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:726    .bss.IK_CFG_KeyLayerCount:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:728    .data._IK_KeyMap_None:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccgWrVk8.s:732    .data._IK_KeyMap_None:00000000 _IK_KeyMap_None
+
+UNDEFINED SYMBOLS
+free
+malloc

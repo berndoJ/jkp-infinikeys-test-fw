@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "fwtasks.h"
+#include "infinikeys.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,10 +50,8 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart1;
 
 osThreadId defaultTaskHandle;
-
-IS31FL3236_HandleTypeDef h_rgb_controller;
 /* USER CODE BEGIN PV */
-
+IS31FL3236_HandleTypeDef h_rgb_controller;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,6 +103,10 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   JKPHAL_InitIS31FL3236();
+  if (IK_Init() != 0)
+  {
+      Error_Handler();
+  }
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */

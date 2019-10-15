@@ -1,0 +1,3 @@
+infinikeys_stm32cube_usb_if.c:61:15:IK_USBD_HID_DeInit	0	static
+infinikeys_stm32cube_usb_if.c:70:15:IK_USBD_HID_OutEvent	0	static
+infinikeys_stm32cube_usb_if.c:52:15:IK_USBD_HID_Init	0	static

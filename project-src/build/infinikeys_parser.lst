@@ -1,0 +1,569 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_parser.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._IK_Parser_ParseKeyStates,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.global	_IK_Parser_ParseKeyStates
+  19              		.arch armv7-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu softvfp
+  25              	_IK_Parser_ParseKeyStates:
+  26              	.LVL0:
+  27              	.LFB65:
+  28              		.file 1 "../../infinikeys-arm32/src/infinikeys_parser.c"
+   1:../../infinikeys-arm32/src/infinikeys_parser.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_parser.c ****  * FILENAME :		infinikeys_parser.c
+   3:../../infinikeys-arm32/src/infinikeys_parser.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys_parser.c ****  * AUTHOR :			Johannes
+   5:../../infinikeys-arm32/src/infinikeys_parser.c ****  * BREIF :			Keystate parser module.
+   6:../../infinikeys-arm32/src/infinikeys_parser.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_parser.c ****  * Copyright (c) 2019 Johannes. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_parser.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_parser.c ****  * DATE CREATED :	17.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_parser.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_parser.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_parser.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_parser.c ****  * 		This module parses the pressed key states to keyboard
+  14:../../infinikeys-arm32/src/infinikeys_parser.c ****  * 		actions. The parsing is made according to the keyboard
+  15:../../infinikeys-arm32/src/infinikeys_parser.c ****  * 		configuration.
+  16:../../infinikeys-arm32/src/infinikeys_parser.c ****  * 
+  17:../../infinikeys-arm32/src/infinikeys_parser.c ****  *--------------------------------------------------------------*/
+  18:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  19:../../infinikeys-arm32/src/infinikeys_parser.c **** #include "infinikeys_parser.h"
+  20:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  21:../../infinikeys-arm32/src/infinikeys_parser.c **** #include <stddef.h>
+  22:../../infinikeys-arm32/src/infinikeys_parser.c **** #include <string.h>
+  23:../../infinikeys-arm32/src/infinikeys_parser.c **** #include "infinikeys_usbif.h"
+  24:../../infinikeys-arm32/src/infinikeys_parser.c **** #include "infinikeys_actionhandler.h"
+  25:../../infinikeys-arm32/src/infinikeys_parser.c **** #include "infinikeys_kbcfg.h"
+  26:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  27:../../infinikeys-arm32/src/infinikeys_parser.c **** #include "main.h"
+  28:../../infinikeys-arm32/src/infinikeys_parser.c **** #include "is31fl3236_driver.h"
+  29:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  30:../../infinikeys-arm32/src/infinikeys_parser.c **** /* --------------------------------------------------------------
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 2
+
+
+  31:../../infinikeys-arm32/src/infinikeys_parser.c ****  * FUNCTION DEFINITIONS
+  32:../../infinikeys-arm32/src/infinikeys_parser.c ****  * ------------------------------------------------------------*/
+  33:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  34:../../infinikeys-arm32/src/infinikeys_parser.c **** void _IK_Parser_ParseKeyStates(uint8_t* pressedkeys_table, uint16_t pressedkeys_table_size)
+  35:../../infinikeys-arm32/src/infinikeys_parser.c **** {
+  29              		.loc 1 35 1 view -0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  36:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Index for filling the HID pressed keys buffer.
+  37:../../infinikeys-arm32/src/infinikeys_parser.c **** 	uint16_t hid_pressedkeys_buffer_index = 0;
+  33              		.loc 1 37 2 view .LVU1
+  38:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Buffer for setting new key layer to.
+  39:../../infinikeys-arm32/src/infinikeys_parser.c **** 	uint8_t new_key_layer = IK_CFG_GetFallbackKeyLayer();
+  34              		.loc 1 39 2 view .LVU2
+  35:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Index for filling the HID pressed keys buffer.
+  35              		.loc 1 35 1 is_stmt 0 view .LVU3
+  36 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 40
+  39              		.cfi_offset 3, -40
+  40              		.cfi_offset 4, -36
+  41              		.cfi_offset 5, -32
+  42              		.cfi_offset 6, -28
+  43              		.cfi_offset 7, -24
+  44              		.cfi_offset 8, -20
+  45              		.cfi_offset 9, -16
+  46              		.cfi_offset 10, -12
+  47              		.cfi_offset 11, -8
+  48              		.cfi_offset 14, -4
+  40:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  41:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Clear the HID report pressed key table.
+  42:../../infinikeys-arm32/src/infinikeys_parser.c **** 	memset(IK_HID_PressedKeys_Buffer, 0x00, IK_KEY_ROLLOVER);
+  49              		.loc 1 42 2 view .LVU4
+  50 0004 0025     		movs	r5, #0
+  35:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Index for filling the HID pressed keys buffer.
+  51              		.loc 1 35 1 view .LVU5
+  52 0006 0446     		mov	r4, r0
+  53 0008 0E46     		mov	r6, r1
+  39:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  54              		.loc 1 39 26 view .LVU6
+  55 000a FFF7FEFF 		bl	IK_CFG_GetFallbackKeyLayer
+  56              	.LVL1:
+  57              	.LBB2:
+  43:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Clear the HID report modifier key buffer.
+  44:../../infinikeys-arm32/src/infinikeys_parser.c **** 	for (uint8_t i = 0; i < 8; i++)
+  45:../../infinikeys-arm32/src/infinikeys_parser.c **** 		IK_HID_ModifierKeys[i] = 0;
+  58              		.loc 1 45 26 view .LVU7
+  59 000e DFF8B880 		ldr	r8, .L29+4
+  60              	.LBE2:
+  42:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Clear the HID report modifier key buffer.
+  61              		.loc 1 42 2 view .LVU8
+  62 0012 DFF8B890 		ldr	r9, .L29+8
+  39:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  63              		.loc 1 39 26 view .LVU9
+  64 0016 8246     		mov	r10, r0
+  65              	.LVL2:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 3
+
+
+  42:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Clear the HID report modifier key buffer.
+  66              		.loc 1 42 2 is_stmt 1 view .LVU10
+  67 0018 C9F80050 		str	r5, [r9]	@ unaligned
+  68 001c 89F80450 		strb	r5, [r9, #4]
+  44:../../infinikeys-arm32/src/infinikeys_parser.c **** 		IK_HID_ModifierKeys[i] = 0;
+  69              		.loc 1 44 2 view .LVU11
+  70              	.LBB3:
+  44:../../infinikeys-arm32/src/infinikeys_parser.c **** 		IK_HID_ModifierKeys[i] = 0;
+  71              		.loc 1 44 7 view .LVU12
+  72              	.LVL3:
+  73              		.loc 1 45 3 view .LVU13
+  74              		.loc 1 45 26 is_stmt 0 view .LVU14
+  75 0020 88F80050 		strb	r5, [r8]
+  76              	.LVL4:
+  77              		.loc 1 45 3 is_stmt 1 view .LVU15
+  78              		.loc 1 45 26 is_stmt 0 view .LVU16
+  79 0024 88F80150 		strb	r5, [r8, #1]
+  80              	.LVL5:
+  81              		.loc 1 45 3 is_stmt 1 view .LVU17
+  82              		.loc 1 45 26 is_stmt 0 view .LVU18
+  83 0028 88F80250 		strb	r5, [r8, #2]
+  84              	.LVL6:
+  85              		.loc 1 45 3 is_stmt 1 view .LVU19
+  86              		.loc 1 45 26 is_stmt 0 view .LVU20
+  87 002c 88F80350 		strb	r5, [r8, #3]
+  88              	.LVL7:
+  89              		.loc 1 45 3 is_stmt 1 view .LVU21
+  90              		.loc 1 45 26 is_stmt 0 view .LVU22
+  91 0030 88F80450 		strb	r5, [r8, #4]
+  92              	.LVL8:
+  93              		.loc 1 45 3 is_stmt 1 view .LVU23
+  94              		.loc 1 45 26 is_stmt 0 view .LVU24
+  95 0034 88F80550 		strb	r5, [r8, #5]
+  96              	.LVL9:
+  97              		.loc 1 45 3 is_stmt 1 view .LVU25
+  98              		.loc 1 45 26 is_stmt 0 view .LVU26
+  99 0038 88F80650 		strb	r5, [r8, #6]
+ 100              	.LVL10:
+ 101              		.loc 1 45 3 is_stmt 1 view .LVU27
+ 102              		.loc 1 45 26 is_stmt 0 view .LVU28
+ 103 003c 88F80750 		strb	r5, [r8, #7]
+ 104              	.LVL11:
+ 105              		.loc 1 45 26 view .LVU29
+ 106              	.LBE3:
+ 107              	.LBB4:
+  46:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  47:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Parse the pressed keys table.
+  48:../../infinikeys-arm32/src/infinikeys_parser.c **** 	for (uint16_t pk_idx = 0; pk_idx < pressedkeys_table_size; pk_idx++)
+ 108              		.loc 1 48 2 view .LVU30
+ 109 0040 002E     		cmp	r6, #0
+ 110 0042 37D0     		beq	.L27
+ 111 0044 013E     		subs	r6, r6, #1
+ 112 0046 B6B2     		uxth	r6, r6
+ 113 0048 2644     		add	r6, r6, r4
+ 114              	.LBB5:
+ 115              	.LBB6:
+ 116              	.LBB7:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 4
+
+
+  49:../../infinikeys-arm32/src/infinikeys_parser.c **** 	{
+  50:../../infinikeys-arm32/src/infinikeys_parser.c **** 		uint8_t pressed_keycode = pressedkeys_table[pk_idx];
+  51:../../infinikeys-arm32/src/infinikeys_parser.c **** 		// Get the key mapping.
+  52:../../infinikeys-arm32/src/infinikeys_parser.c **** 		IK_KeyMap_t* pressed_keymap = IK_CFG_GetKeyMap(IK_CFG_CurrentKeyLayer, pressed_keycode);
+  53:../../infinikeys-arm32/src/infinikeys_parser.c **** 		// Switch the action based on the key mapping type.
+  54:../../infinikeys-arm32/src/infinikeys_parser.c **** 		switch (pressed_keymap->Type)
+  55:../../infinikeys-arm32/src/infinikeys_parser.c **** 		{
+  56:../../infinikeys-arm32/src/infinikeys_parser.c **** 		case KEYMAP_MODIFIER:
+  57:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// Retrieve map metadata.
+  58:../../infinikeys-arm32/src/infinikeys_parser.c **** 			;
+  59:../../infinikeys-arm32/src/infinikeys_parser.c **** 			IK_ModifierMapMetadata_t* mod_metadata = (IK_ModifierMapMetadata_t*)pressed_keymap->Metadata;
+  60:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  61:../../infinikeys-arm32/src/infinikeys_parser.c **** 			if (mod_metadata == NULL)
+  62:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+  63:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  64:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// Switch according to modifier key type.
+  65:../../infinikeys-arm32/src/infinikeys_parser.c **** 			switch (mod_metadata->ModifierType)
+  66:../../infinikeys-arm32/src/infinikeys_parser.c **** 			{
+  67:../../infinikeys-arm32/src/infinikeys_parser.c **** 			case MODIFIER_TYPE_HID:
+  68:../../infinikeys-arm32/src/infinikeys_parser.c **** 				// Retrieve the HID modifier metadata.
+  69:../../infinikeys-arm32/src/infinikeys_parser.c **** 				;
+  70:../../infinikeys-arm32/src/infinikeys_parser.c **** 				IK_HIDModifierMapMetadata_t* hid_mod_metadata = (IK_HIDModifierMapMetadata_t*)mod_metadata->Mod
+  71:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  72:../../infinikeys-arm32/src/infinikeys_parser.c **** 				if (hid_mod_metadata == NULL)
+  73:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+  74:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  75:../../infinikeys-arm32/src/infinikeys_parser.c **** 				// Set the HID modifier key to be active.
+  76:../../infinikeys-arm32/src/infinikeys_parser.c **** 				IK_HID_ModifierKeys[hid_mod_metadata->HIDModifierCode] = 1;
+ 117              		.loc 1 76 60 view .LVU31
+ 118 004a 4FF0010B 		mov	fp, #1
+ 119 004e 1D4F     		ldr	r7, .L29
+ 120 0050 013C     		subs	r4, r4, #1
+ 121              	.LVL12:
+ 122              		.loc 1 76 60 view .LVU32
+ 123 0052 0CE0     		b	.L8
+ 124              	.LVL13:
+ 125              	.L28:
+ 126              		.loc 1 76 60 view .LVU33
+ 127              	.LBE7:
+ 128              	.LBE6:
+  54:../../infinikeys-arm32/src/infinikeys_parser.c **** 		{
+ 129              		.loc 1 54 3 view .LVU34
+ 130 0054 012B     		cmp	r3, #1
+ 131 0056 08D1     		bne	.L5
+ 132              	.LBB11:
+  77:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+  78:../../infinikeys-arm32/src/infinikeys_parser.c **** 			case MODIFIER_TYPE_KEY_LAYER:
+  79:../../infinikeys-arm32/src/infinikeys_parser.c **** 				// Retrieve the key layer modifier metadata.
+  80:../../infinikeys-arm32/src/infinikeys_parser.c **** 				;
+  81:../../infinikeys-arm32/src/infinikeys_parser.c **** 				IK_KeyLayerModifierMetadata_t* kl_mod_metadata;
+  82:../../infinikeys-arm32/src/infinikeys_parser.c **** 				kl_mod_metadata = (IK_KeyLayerModifierMetadata_t*)mod_metadata->ModifierMetadata;
+  83:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  84:../../infinikeys-arm32/src/infinikeys_parser.c **** 				if (kl_mod_metadata == NULL)
+  85:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+  86:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  87:../../infinikeys-arm32/src/infinikeys_parser.c **** 				// Switch to the new key layer.
+  88:../../infinikeys-arm32/src/infinikeys_parser.c **** 				new_key_layer = kl_mod_metadata->KeyLayer;
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 5
+
+
+  89:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+  90:../../infinikeys-arm32/src/infinikeys_parser.c **** 			}
+  91:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+  92:../../infinikeys-arm32/src/infinikeys_parser.c **** 			/* OLD IMPLEMENTATION
+  93:../../infinikeys-arm32/src/infinikeys_parser.c **** 			if (pressed_keymap->DataSize >= 2)
+  94:../../infinikeys-arm32/src/infinikeys_parser.c **** 			{
+  95:../../infinikeys-arm32/src/infinikeys_parser.c **** 				// Retrieve the type of modifier - HID or Layer
+  96:../../infinikeys-arm32/src/infinikeys_parser.c **** 				uint8_t modifier_type = pressed_keymap->Data[0];
+  97:../../infinikeys-arm32/src/infinikeys_parser.c **** 				switch (modifier_type)
+  98:../../infinikeys-arm32/src/infinikeys_parser.c **** 				{
+  99:../../infinikeys-arm32/src/infinikeys_parser.c **** 				case IK_KEY_MAP_MODIFIER_TYPE_HID:
+ 100:../../infinikeys-arm32/src/infinikeys_parser.c **** 					// Next keymap data byte is the HID modifier bit.
+ 101:../../infinikeys-arm32/src/infinikeys_parser.c **** 					IK_HID_ModifierKeys[pressed_keymap->Data[1]] = 1;
+ 102:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+ 103:../../infinikeys-arm32/src/infinikeys_parser.c **** 				case IK_KEY_MAP_MODIFIER_TYPE_LAYER:
+ 104:../../infinikeys-arm32/src/infinikeys_parser.c **** 					// Next keymap data byte is the new keyboard layer to switch to.
+ 105:../../infinikeys-arm32/src/infinikeys_parser.c **** 					new_key_layer = pressed_keymap->Data[1];
+ 106:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+ 107:../../infinikeys-arm32/src/infinikeys_parser.c **** 				}
+ 108:../../infinikeys-arm32/src/infinikeys_parser.c **** 			}
+ 109:../../infinikeys-arm32/src/infinikeys_parser.c **** 			*/
+ 110:../../infinikeys-arm32/src/infinikeys_parser.c **** 			break;
+ 111:../../infinikeys-arm32/src/infinikeys_parser.c **** 		case KEYMAP_STATIC:
+ 112:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// Retrieve the map metadata.
+ 113:../../infinikeys-arm32/src/infinikeys_parser.c **** 			;
+ 133              		.loc 1 113 4 is_stmt 1 view .LVU35
+ 114:../../infinikeys-arm32/src/infinikeys_parser.c **** 			IK_StaticMapMetadata_t* s_metadata = (IK_StaticMapMetadata_t*)pressed_keymap->Metadata;
+ 134              		.loc 1 114 4 view .LVU36
+ 135              		.loc 1 114 28 is_stmt 0 view .LVU37
+ 136 0058 4368     		ldr	r3, [r0, #4]
+ 137              	.LVL14:
+ 115:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 116:../../infinikeys-arm32/src/infinikeys_parser.c **** 			if (s_metadata == NULL)
+ 138              		.loc 1 116 4 is_stmt 1 view .LVU38
+ 139              		.loc 1 116 7 is_stmt 0 view .LVU39
+ 140 005a 33B1     		cbz	r3, .L5
+ 117:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 118:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 119:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// Add the HID keycode to the HID report queue.
+ 120:../../infinikeys-arm32/src/infinikeys_parser.c **** 			if (hid_pressedkeys_buffer_index < IK_KEY_ROLLOVER)
+ 141              		.loc 1 120 4 is_stmt 1 view .LVU40
+ 142              		.loc 1 120 7 is_stmt 0 view .LVU41
+ 143 005c 042D     		cmp	r5, #4
+ 144 005e 04D8     		bhi	.L5
+ 121:../../infinikeys-arm32/src/infinikeys_parser.c **** 			{
+ 122:../../infinikeys-arm32/src/infinikeys_parser.c **** 				IK_HID_PressedKeys_Buffer[hid_pressedkeys_buffer_index] = s_metadata->Keycode;
+ 145              		.loc 1 122 5 is_stmt 1 view .LVU42
+ 146              		.loc 1 122 73 is_stmt 0 view .LVU43
+ 147 0060 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 123:../../infinikeys-arm32/src/infinikeys_parser.c **** 				hid_pressedkeys_buffer_index++;
+ 148              		.loc 1 123 33 view .LVU44
+ 149 0062 6B1C     		adds	r3, r5, #1
+ 150              	.LVL15:
+ 122:../../infinikeys-arm32/src/infinikeys_parser.c **** 				hid_pressedkeys_buffer_index++;
+ 151              		.loc 1 122 61 view .LVU45
+ 152 0064 09F80520 		strb	r2, [r9, r5]
+ 153              	.LVL16:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 6
+
+
+ 154              		.loc 1 123 5 is_stmt 1 view .LVU46
+ 155              		.loc 1 123 33 is_stmt 0 view .LVU47
+ 156 0068 9DB2     		uxth	r5, r3
+ 157              	.LVL17:
+ 158              	.L5:
+ 159              		.loc 1 123 33 view .LVU48
+ 160              	.LBE11:
+ 161              	.LBE5:
+  48:../../infinikeys-arm32/src/infinikeys_parser.c **** 	{
+ 162              		.loc 1 48 2 discriminator 2 view .LVU49
+ 163 006a B442     		cmp	r4, r6
+ 164 006c 15D0     		beq	.L2
+ 165              	.LVL18:
+ 166              	.L8:
+ 167              	.LBB15:
+  50:../../infinikeys-arm32/src/infinikeys_parser.c **** 		// Get the key mapping.
+ 168              		.loc 1 50 3 is_stmt 1 view .LVU50
+  52:../../infinikeys-arm32/src/infinikeys_parser.c **** 		// Switch the action based on the key mapping type.
+ 169              		.loc 1 52 3 view .LVU51
+  52:../../infinikeys-arm32/src/infinikeys_parser.c **** 		// Switch the action based on the key mapping type.
+ 170              		.loc 1 52 33 is_stmt 0 view .LVU52
+ 171 006e 14F8011F 		ldrb	r1, [r4, #1]!	@ zero_extendqisi2
+ 172              	.LVL19:
+  52:../../infinikeys-arm32/src/infinikeys_parser.c **** 		// Switch the action based on the key mapping type.
+ 173              		.loc 1 52 33 view .LVU53
+ 174 0072 3878     		ldrb	r0, [r7]	@ zero_extendqisi2
+ 175 0074 FFF7FEFF 		bl	IK_CFG_GetKeyMap
+ 176              	.LVL20:
+  54:../../infinikeys-arm32/src/infinikeys_parser.c **** 		{
+ 177              		.loc 1 54 3 is_stmt 1 view .LVU54
+  54:../../infinikeys-arm32/src/infinikeys_parser.c **** 		{
+ 178              		.loc 1 54 25 is_stmt 0 view .LVU55
+ 179 0078 0378     		ldrb	r3, [r0]	@ zero_extendqisi2
+  54:../../infinikeys-arm32/src/infinikeys_parser.c **** 		{
+ 180              		.loc 1 54 3 view .LVU56
+ 181 007a 002B     		cmp	r3, #0
+ 182 007c EAD1     		bne	.L28
+ 183              	.LBB12:
+  58:../../infinikeys-arm32/src/infinikeys_parser.c **** 			IK_ModifierMapMetadata_t* mod_metadata = (IK_ModifierMapMetadata_t*)pressed_keymap->Metadata;
+ 184              		.loc 1 58 4 is_stmt 1 view .LVU57
+  59:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 185              		.loc 1 59 4 view .LVU58
+  59:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 186              		.loc 1 59 30 is_stmt 0 view .LVU59
+ 187 007e 4368     		ldr	r3, [r0, #4]
+ 188              	.LVL21:
+  61:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 189              		.loc 1 61 4 is_stmt 1 view .LVU60
+  61:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 190              		.loc 1 61 7 is_stmt 0 view .LVU61
+ 191 0080 002B     		cmp	r3, #0
+ 192 0082 F2D0     		beq	.L5
+  65:../../infinikeys-arm32/src/infinikeys_parser.c **** 			{
+ 193              		.loc 1 65 4 is_stmt 1 view .LVU62
+  65:../../infinikeys-arm32/src/infinikeys_parser.c **** 			{
+ 194              		.loc 1 65 24 is_stmt 0 view .LVU63
+ 195 0084 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 7
+
+
+ 196 0086 72B1     		cbz	r2, .L6
+ 197 0088 012A     		cmp	r2, #1
+ 198 008a EED1     		bne	.L5
+ 199              	.LBB8:
+  80:../../infinikeys-arm32/src/infinikeys_parser.c **** 				IK_KeyLayerModifierMetadata_t* kl_mod_metadata;
+ 200              		.loc 1 80 5 is_stmt 1 view .LVU64
+  81:../../infinikeys-arm32/src/infinikeys_parser.c **** 				kl_mod_metadata = (IK_KeyLayerModifierMetadata_t*)mod_metadata->ModifierMetadata;
+ 201              		.loc 1 81 5 view .LVU65
+  82:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 202              		.loc 1 82 5 view .LVU66
+  82:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 203              		.loc 1 82 21 is_stmt 0 view .LVU67
+ 204 008c 5B68     		ldr	r3, [r3, #4]
+ 205              	.LVL22:
+  84:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+ 206              		.loc 1 84 5 is_stmt 1 view .LVU68
+  84:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+ 207              		.loc 1 84 8 is_stmt 0 view .LVU69
+ 208 008e 002B     		cmp	r3, #0
+ 209 0090 EBD0     		beq	.L5
+  88:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 210              		.loc 1 88 5 is_stmt 1 view .LVU70
+ 211              	.LBE8:
+ 212              	.LBE12:
+ 213              	.LBE15:
+  48:../../infinikeys-arm32/src/infinikeys_parser.c **** 	{
+ 214              		.loc 1 48 2 is_stmt 0 view .LVU71
+ 215 0092 B442     		cmp	r4, r6
+ 216              	.LBB16:
+ 217              	.LBB13:
+ 218              	.LBB9:
+  88:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 219              		.loc 1 88 19 view .LVU72
+ 220 0094 93F800A0 		ldrb	r10, [r3]	@ zero_extendqisi2
+ 221              	.LVL23:
+  89:../../infinikeys-arm32/src/infinikeys_parser.c **** 			}
+ 222              		.loc 1 89 5 is_stmt 1 view .LVU73
+  89:../../infinikeys-arm32/src/infinikeys_parser.c **** 			}
+ 223              		.loc 1 89 5 is_stmt 0 view .LVU74
+ 224              	.LBE9:
+ 225              	.LBE13:
+ 226              	.LBE16:
+  48:../../infinikeys-arm32/src/infinikeys_parser.c **** 	{
+ 227              		.loc 1 48 2 view .LVU75
+ 228 0098 E9D1     		bne	.L8
+ 229              	.LVL24:
+ 230              	.L2:
+  48:../../infinikeys-arm32/src/infinikeys_parser.c **** 	{
+ 231              		.loc 1 48 2 view .LVU76
+ 232              	.LBE4:
+ 124:../../infinikeys-arm32/src/infinikeys_parser.c **** 			}
+ 125:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 126:../../infinikeys-arm32/src/infinikeys_parser.c **** 			/* OLD IMPLEMENTATION
+ 127:../../infinikeys-arm32/src/infinikeys_parser.c **** 			if (pressed_keymap->DataSize >= 1)
+ 128:../../infinikeys-arm32/src/infinikeys_parser.c **** 			{
+ 129:../../infinikeys-arm32/src/infinikeys_parser.c **** 				// Retrieve the HID keycode (static binding from key to HID code)
+ 130:../../infinikeys-arm32/src/infinikeys_parser.c **** 				uint8_t hid_keycode = pressed_keymap->Data[0];
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 8
+
+
+ 131:../../infinikeys-arm32/src/infinikeys_parser.c **** 				// Add the HID keycode to the HID key report queue.
+ 132:../../infinikeys-arm32/src/infinikeys_parser.c **** 				if (hid_pressedkeys_buffer_index < IK_KEY_ROLLOVER)
+ 133:../../infinikeys-arm32/src/infinikeys_parser.c **** 				{
+ 134:../../infinikeys-arm32/src/infinikeys_parser.c **** 					IK_HID_PressedKeys_Buffer[hid_pressedkeys_buffer_index] = hid_keycode;
+ 135:../../infinikeys-arm32/src/infinikeys_parser.c **** 					hid_pressedkeys_buffer_index++;
+ 136:../../infinikeys-arm32/src/infinikeys_parser.c **** 				}
+ 137:../../infinikeys-arm32/src/infinikeys_parser.c **** 			}
+ 138:../../infinikeys-arm32/src/infinikeys_parser.c **** 			*/
+ 139:../../infinikeys-arm32/src/infinikeys_parser.c **** 			break;
+ 140:../../infinikeys-arm32/src/infinikeys_parser.c **** 		case KEYMAP_ACTION:
+ 141:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// Retrieve the map metadata.
+ 142:../../infinikeys-arm32/src/infinikeys_parser.c **** 			;
+ 143:../../infinikeys-arm32/src/infinikeys_parser.c **** 			IK_ActionMapMetadata_t* act_metadata = (IK_ActionMapMetadata_t*)pressed_keymap->Metadata;
+ 144:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 145:../../infinikeys-arm32/src/infinikeys_parser.c **** 			if (act_metadata == NULL)
+ 146:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 147:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 148:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// TODO: Implement triggering an action.
+ 149:../../infinikeys-arm32/src/infinikeys_parser.c **** 			break;
+ 150:../../infinikeys-arm32/src/infinikeys_parser.c **** 		case KEYMAP_NONE:
+ 151:../../infinikeys-arm32/src/infinikeys_parser.c **** 		default:
+ 152:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// KEYMAP_NONE or any other invalid state
+ 153:../../infinikeys-arm32/src/infinikeys_parser.c **** 			// No key-map.
+ 154:../../infinikeys-arm32/src/infinikeys_parser.c **** 			break;
+ 155:../../infinikeys-arm32/src/infinikeys_parser.c **** 		}
+ 156:../../infinikeys-arm32/src/infinikeys_parser.c **** 	}
+ 157:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 158:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Send new HID report.
+ 159:../../infinikeys-arm32/src/infinikeys_parser.c **** 	IK_USBIF_SendHIDReport();
+ 233              		.loc 1 159 2 is_stmt 1 view .LVU77
+ 234 009a FFF7FEFF 		bl	IK_USBIF_SendHIDReport
+ 235              	.LVL25:
+ 160:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 161:../../infinikeys-arm32/src/infinikeys_parser.c **** 	// Switch to new key layer (fallback if no key layer modifier is pressed)
+ 162:../../infinikeys-arm32/src/infinikeys_parser.c **** 	IK_CFG_CurrentKeyLayer = new_key_layer;
+ 236              		.loc 1 162 2 view .LVU78
+ 237              		.loc 1 162 25 is_stmt 0 view .LVU79
+ 238 009e 87F800A0 		strb	r10, [r7]
+ 163:../../infinikeys-arm32/src/infinikeys_parser.c **** }
+ 239              		.loc 1 163 1 view .LVU80
+ 240 00a2 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 241              	.LVL26:
+ 242              	.L6:
+ 243              	.LBB18:
+ 244              	.LBB17:
+ 245              	.LBB14:
+ 246              	.LBB10:
+  69:../../infinikeys-arm32/src/infinikeys_parser.c **** 				IK_HIDModifierMapMetadata_t* hid_mod_metadata = (IK_HIDModifierMapMetadata_t*)mod_metadata->Mod
+ 247              		.loc 1 69 5 is_stmt 1 view .LVU81
+  70:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 248              		.loc 1 70 5 view .LVU82
+  70:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 249              		.loc 1 70 34 is_stmt 0 view .LVU83
+ 250 00a6 5B68     		ldr	r3, [r3, #4]
+ 251              	.LVL27:
+  72:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+ 252              		.loc 1 72 5 is_stmt 1 view .LVU84
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 9
+
+
+  72:../../infinikeys-arm32/src/infinikeys_parser.c **** 					break;
+ 253              		.loc 1 72 8 is_stmt 0 view .LVU85
+ 254 00a8 002B     		cmp	r3, #0
+ 255 00aa DED0     		beq	.L5
+  76:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 256              		.loc 1 76 5 is_stmt 1 view .LVU86
+  76:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 257              		.loc 1 76 41 is_stmt 0 view .LVU87
+ 258 00ac 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 259              	.LVL28:
+  76:../../infinikeys-arm32/src/infinikeys_parser.c **** 				break;
+ 260              		.loc 1 76 60 view .LVU88
+ 261 00ae 08F803B0 		strb	fp, [r8, r3]
+ 262              	.LVL29:
+  77:../../infinikeys-arm32/src/infinikeys_parser.c **** 			case MODIFIER_TYPE_KEY_LAYER:
+ 263              		.loc 1 77 5 is_stmt 1 view .LVU89
+ 264 00b2 DAE7     		b	.L5
+ 265              	.LVL30:
+ 266              	.L27:
+  77:../../infinikeys-arm32/src/infinikeys_parser.c **** 			case MODIFIER_TYPE_KEY_LAYER:
+ 267              		.loc 1 77 5 is_stmt 0 view .LVU90
+ 268 00b4 034F     		ldr	r7, .L29
+ 269              	.LBE10:
+ 270              	.LBE14:
+ 271              	.LBE17:
+ 272              	.LBE18:
+ 159:../../infinikeys-arm32/src/infinikeys_parser.c **** 
+ 273              		.loc 1 159 2 is_stmt 1 view .LVU91
+ 274 00b6 FFF7FEFF 		bl	IK_USBIF_SendHIDReport
+ 275              	.LVL31:
+ 162:../../infinikeys-arm32/src/infinikeys_parser.c **** }
+ 276              		.loc 1 162 2 view .LVU92
+ 162:../../infinikeys-arm32/src/infinikeys_parser.c **** }
+ 277              		.loc 1 162 25 is_stmt 0 view .LVU93
+ 278 00ba 87F800A0 		strb	r10, [r7]
+ 279              		.loc 1 163 1 view .LVU94
+ 280 00be BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 281              	.LVL32:
+ 282              	.L30:
+ 283              		.loc 1 163 1 view .LVU95
+ 284 00c2 00BF     		.align	2
+ 285              	.L29:
+ 286 00c4 00000000 		.word	IK_CFG_CurrentKeyLayer
+ 287 00c8 00000000 		.word	IK_HID_ModifierKeys
+ 288 00cc 00000000 		.word	IK_HID_PressedKeys_Buffer
+ 289              		.cfi_endproc
+ 290              	.LFE65:
+ 292              		.text
+ 293              	.Letext0:
+ 294              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 295              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 296              		.file 4 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
+ 297              		.file 5 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 298              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 299              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 300              		.file 8 "../../infinikeys-arm32/inc/infinikeys_usbif.h"
+ 301              		.file 9 "../../infinikeys-arm32/inc/infinikeys_actionhandler.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 10
+
+
+ 302              		.file 10 "../../infinikeys-arm32/inc/infinikeys_kbcfg.h"
+ 303              		.file 11 "Drivers/CMSIS/Include/core_cm3.h"
+ 304              		.file 12 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 305              		.file 13 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 306              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 307              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 308              		.file 16 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 309              		.file 17 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 310              		.file 18 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+ 311              		.file 19 "Inc/main.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_parser.c
+C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s:16     .text._IK_Parser_ParseKeyStates:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s:25     .text._IK_Parser_ParseKeyStates:00000000 _IK_Parser_ParseKeyStates
+C:\Users\Johannes\AppData\Local\Temp\cc2gvz13.s:286    .text._IK_Parser_ParseKeyStates:000000c4 $d
+
+UNDEFINED SYMBOLS
+IK_CFG_GetFallbackKeyLayer
+IK_CFG_GetKeyMap
+IK_USBIF_SendHIDReport
+IK_CFG_CurrentKeyLayer
+IK_HID_ModifierKeys
+IK_HID_PressedKeys_Buffer

@@ -1,0 +1,10 @@
+infinikeys_kbcfg.c:179:13:_IK_CFG_FreeKeyMapTableMemory.isra.0	24	static
+infinikeys_kbcfg.c:80:6:IK_CFG_DeInit	0	static
+infinikeys_kbcfg.c:85:9:IK_CFG_GetFallbackKeyLayer	0	static
+infinikeys_kbcfg.c:90:6:IK_CFG_SetFallbackKeyLayer	0	static
+infinikeys_kbcfg.c:152:16:_IK_CFG_AllocKeyMapTable.constprop	8	static
+infinikeys_kbcfg.c:66:9:IK_CFG_Init	16	static
+infinikeys_kbcfg.c:97:9:IK_CFG_GetKeyLayerCount	0	static
+infinikeys_kbcfg.c:102:14:IK_CFG_GetKeyMap	0	static
+infinikeys_kbcfg.c:121:6:IK_CFG_LoadKeyMapToTable	16	static
+infinikeys_kbcfg.c:129:6:IK_CFG_ReInitKeyMap	24	static

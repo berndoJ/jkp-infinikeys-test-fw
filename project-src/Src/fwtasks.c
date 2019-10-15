@@ -20,6 +20,7 @@
 #include "cmsis_os.h"
 #include "is31fl3236_driver.h"
 #include "main.h"
+#include "infinikeys.h"
 
 void TASK_ExecMain(void const* arg)
 {
@@ -30,6 +31,7 @@ void TASK_ExecMain(void const* arg)
     // Main Task: Loop.
     for (;;)
     {
+        IK_KeyboardPollCyleTick();
         osDelay(1);
     }
 }

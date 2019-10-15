@@ -1,0 +1,427 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_hal_stm32cube.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IK_HAL_Setup,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.global	IK_HAL_Setup
+  19              		.arch armv7-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu softvfp
+  25              	IK_HAL_Setup:
+  26              	.LFB65:
+  27              		.file 1 "../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c"
+   1:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * FILENAME :		infinikeys_hal_stm32cube.c
+   3:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * BREIF :			Infinikeys STM32 Cube HAL module.
+   6:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * DATE CREATED :	21.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * 		Infinikeys hardware abstraction layer for the STM32 Cube
+  14:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * 		software platform.
+  15:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * 
+  16:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  *--------------------------------------------------------------*/
+  17:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  18:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** #include "infinikeys_stm32cube/infinikeys_hal_stm32cube.h"
+  19:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  20:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** #if defined(IK_PLATFORM_STM32_CUBE)
+  21:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  22:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** /* --------------------------------------------------------------
+  23:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * DEFINITIONS
+  24:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * ------------------------------------------------------------*/
+  25:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  26:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** #define _SENSE_LINE(i) _sense_ports[i], _sense_pins[i]
+  27:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** #define _PROBE_LINE(i) _probe_ports[i], _probe_pins[i]
+  28:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  29:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** /* --------------------------------------------------------------
+  30:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * VARIABLE DEFINITIONS
+  31:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * ------------------------------------------------------------*/
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 2
+
+
+  32:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  33:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** static GPIO_TypeDef* const _sense_ports[IK_MATRIX_SENSE_LINE_COUNT] = IK_STM32CUBE_HAL_MATRIX_SENSE
+  34:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** static const uint16_t _sense_pins[IK_MATRIX_SENSE_LINE_COUNT] = IK_STM32CUBE_HAL_MATRIX_SENSE_LINE_
+  35:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** static GPIO_TypeDef* const _probe_ports[IK_MATRIX_PROBE_LINE_COUNT] = IK_STM32CUBE_HAL_MATRIX_PROBE
+  36:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** static const uint16_t _probe_pins[IK_MATRIX_PROBE_LINE_COUNT] = IK_STM32CUBE_HAL_MATRIX_PROBE_LINE_
+  37:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  38:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** /* --------------------------------------------------------------
+  39:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * FUNCTION DEFINITIONS
+  40:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c ****  * ------------------------------------------------------------*/
+  41:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  42:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** void IK_HAL_Setup(void)
+  43:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** {
+  28              		.loc 1 43 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  44:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	// Set all probe lines to LOW.
+  45:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	for (uint8_t i = 0; i < IK_MATRIX_PROBE_LINE_COUNT; i++)
+  32              		.loc 1 45 2 view .LVU1
+  33              	.LBB2:
+  34              		.loc 1 45 7 view .LVU2
+  35              	.LVL0:
+  36              		.loc 1 45 7 is_stmt 0 view .LVU3
+  37              	.LBE2:
+  43:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	// Set all probe lines to LOW.
+  38              		.loc 1 43 1 view .LVU4
+  39 0000 70B5     		push	{r4, r5, r6, lr}
+  40              	.LCFI0:
+  41              		.cfi_def_cfa_offset 16
+  42              		.cfi_offset 4, -16
+  43              		.cfi_offset 5, -12
+  44              		.cfi_offset 6, -8
+  45              		.cfi_offset 14, -4
+  46 0002 094C     		ldr	r4, .L7
+  43:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	// Set all probe lines to LOW.
+  47              		.loc 1 43 1 view .LVU5
+  48 0004 4FF48071 		mov	r1, #256
+  49 0008 084D     		ldr	r5, .L7+4
+  50 000a 0948     		ldr	r0, .L7+8
+  51 000c 04F15406 		add	r6, r4, #84
+  52 0010 03E0     		b	.L3
+  53              	.LVL1:
+  54              	.L6:
+  43:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	// Set all probe lines to LOW.
+  55              		.loc 1 43 1 view .LVU6
+  56 0012 54F8040F 		ldr	r0, [r4, #4]!
+  57 0016 35F8021F 		ldrh	r1, [r5, #2]!
+  58              	.L3:
+  59              	.LBB3:
+  46:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	{
+  47:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		HAL_GPIO_WritePin(_PROBE_LINE(i), GPIO_PIN_RESET);
+  60              		.loc 1 47 3 is_stmt 1 discriminator 3 view .LVU7
+  61 001a 0022     		movs	r2, #0
+  62 001c FFF7FEFF 		bl	HAL_GPIO_WritePin
+  63              	.LVL2:
+  45:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	{
+  64              		.loc 1 45 2 is_stmt 0 discriminator 3 view .LVU8
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 3
+
+
+  65 0020 B442     		cmp	r4, r6
+  66 0022 F6D1     		bne	.L6
+  67              	.LBE3:
+  48:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	}
+  49:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** }
+  68              		.loc 1 49 1 view .LVU9
+  69 0024 70BD     		pop	{r4, r5, r6, pc}
+  70              	.L8:
+  71 0026 00BF     		.align	2
+  72              	.L7:
+  73 0028 00000000 		.word	.LANCHOR0
+  74 002c 00000000 		.word	.LANCHOR1
+  75 0030 00080140 		.word	1073809408
+  76              		.cfi_endproc
+  77              	.LFE65:
+  79              		.section	.text.IK_HAL_SetMatrixProbeLine,"ax",%progbits
+  80              		.align	1
+  81              		.p2align 2,,3
+  82              		.global	IK_HAL_SetMatrixProbeLine
+  83              		.syntax unified
+  84              		.thumb
+  85              		.thumb_func
+  86              		.fpu softvfp
+  88              	IK_HAL_SetMatrixProbeLine:
+  89              	.LVL3:
+  90              	.LFB66:
+  50:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  51:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** void IK_HAL_SetMatrixProbeLine(uint8_t probe_line, IK_LogicLevel_t state)
+  52:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** {
+  91              		.loc 1 52 1 is_stmt 1 view -0
+  92              		.cfi_startproc
+  93              		@ args = 0, pretend = 0, frame = 0
+  94              		@ frame_needed = 0, uses_anonymous_args = 0
+  95              		@ link register save eliminated.
+  53:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	if (probe_line >= IK_MATRIX_PROBE_LINE_COUNT)
+  96              		.loc 1 53 2 view .LVU11
+  97              		.loc 1 53 5 is_stmt 0 view .LVU12
+  98 0000 1528     		cmp	r0, #21
+  99 0002 14D8     		bhi	.L9
+  54:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		return;
+  55:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	switch (state)
+ 100              		.loc 1 55 2 is_stmt 1 view .LVU13
+ 101 0004 0A4A     		ldr	r2, .L16
+ 102 0006 0B4B     		ldr	r3, .L16+4
+ 103 0008 0129     		cmp	r1, #1
+  52:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	if (probe_line >= IK_MATRIX_PROBE_LINE_COUNT)
+ 104              		.loc 1 52 1 is_stmt 0 view .LVU14
+ 105 000a 10B4     		push	{r4}
+ 106              	.LCFI1:
+ 107              		.cfi_def_cfa_offset 4
+ 108              		.cfi_offset 4, -4
+ 109 000c 33F81030 		ldrh	r3, [r3, r0, lsl #1]
+ 110 0010 52F82040 		ldr	r4, [r2, r0, lsl #2]
+ 111              		.loc 1 55 2 view .LVU15
+ 112 0014 05D0     		beq	.L15
+  56:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	{
+  57:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	case IK_LOGIC_LEVEL_HIGH:
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 4
+
+
+  58:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		HAL_GPIO_WritePin(_PROBE_LINE(probe_line), GPIO_PIN_SET);
+  59:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		break;
+  60:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	case IK_LOGIC_LEVEL_LOW:
+  61:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	default:
+  62:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		HAL_GPIO_WritePin(_PROBE_LINE(probe_line), GPIO_PIN_RESET);
+ 113              		.loc 1 62 3 is_stmt 1 view .LVU16
+ 114 0016 2046     		mov	r0, r4
+ 115              	.LVL4:
+ 116              		.loc 1 62 3 is_stmt 0 view .LVU17
+ 117 0018 1946     		mov	r1, r3
+ 118              	.LVL5:
+ 119              		.loc 1 62 3 view .LVU18
+ 120 001a 0022     		movs	r2, #0
+  63:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		break;
+  64:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	}
+  65:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** }
+ 121              		.loc 1 65 1 view .LVU19
+ 122 001c 10BC     		pop	{r4}
+ 123              	.LCFI2:
+ 124              		.cfi_remember_state
+ 125              		.cfi_restore 4
+ 126              		.cfi_def_cfa_offset 0
+  62:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		break;
+ 127              		.loc 1 62 3 view .LVU20
+ 128 001e FFF7FEBF 		b	HAL_GPIO_WritePin
+ 129              	.LVL6:
+ 130              	.L15:
+ 131              	.LCFI3:
+ 132              		.cfi_restore_state
+  58:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		break;
+ 133              		.loc 1 58 3 is_stmt 1 view .LVU21
+ 134 0022 0A46     		mov	r2, r1
+ 135 0024 2046     		mov	r0, r4
+ 136              	.LVL7:
+  58:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		break;
+ 137              		.loc 1 58 3 is_stmt 0 view .LVU22
+ 138 0026 1946     		mov	r1, r3
+ 139              	.LVL8:
+ 140              		.loc 1 65 1 view .LVU23
+ 141 0028 10BC     		pop	{r4}
+ 142              	.LCFI4:
+ 143              		.cfi_restore 4
+ 144              		.cfi_def_cfa_offset 0
+  58:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		break;
+ 145              		.loc 1 58 3 view .LVU24
+ 146 002a FFF7FEBF 		b	HAL_GPIO_WritePin
+ 147              	.LVL9:
+ 148              	.L9:
+  58:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		break;
+ 149              		.loc 1 58 3 view .LVU25
+ 150 002e 7047     		bx	lr
+ 151              	.L17:
+ 152              		.align	2
+ 153              	.L16:
+ 154 0030 00000000 		.word	.LANCHOR0
+ 155 0034 00000000 		.word	.LANCHOR1
+ 156              		.cfi_endproc
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 5
+
+
+ 157              	.LFE66:
+ 159              		.section	.text.IK_HAL_ReadMatrixSenseLine,"ax",%progbits
+ 160              		.align	1
+ 161              		.p2align 2,,3
+ 162              		.global	IK_HAL_ReadMatrixSenseLine
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu softvfp
+ 168              	IK_HAL_ReadMatrixSenseLine:
+ 169              	.LVL10:
+ 170              	.LFB67:
+  66:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 
+  67:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** IK_LogicLevel_t IK_HAL_ReadMatrixSenseLine(uint8_t sense_line)
+  68:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** {
+ 171              		.loc 1 68 1 is_stmt 1 view -0
+ 172              		.cfi_startproc
+ 173              		@ args = 0, pretend = 0, frame = 0
+ 174              		@ frame_needed = 0, uses_anonymous_args = 0
+  69:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	if (sense_line >= IK_MATRIX_SENSE_LINE_COUNT)
+ 175              		.loc 1 69 2 view .LVU27
+ 176              		.loc 1 69 5 is_stmt 0 view .LVU28
+ 177 0000 0628     		cmp	r0, #6
+ 178 0002 01D9     		bls	.L25
+  70:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 		return IK_LOGIC_LEVEL_LOW;
+ 179              		.loc 1 70 10 view .LVU29
+ 180 0004 0020     		movs	r0, #0
+ 181              	.LVL11:
+  71:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	return HAL_GPIO_ReadPin(_SENSE_LINE(sense_line)) ? IK_LOGIC_LEVEL_HIGH : IK_LOGIC_LEVEL_LOW;
+  72:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** }
+ 182              		.loc 1 72 1 view .LVU30
+ 183 0006 7047     		bx	lr
+ 184              	.LVL12:
+ 185              	.L25:
+  71:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	return HAL_GPIO_ReadPin(_SENSE_LINE(sense_line)) ? IK_LOGIC_LEVEL_HIGH : IK_LOGIC_LEVEL_LOW;
+ 186              		.loc 1 71 2 is_stmt 1 view .LVU31
+  68:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	if (sense_line >= IK_MATRIX_SENSE_LINE_COUNT)
+ 187              		.loc 1 68 1 is_stmt 0 view .LVU32
+ 188 0008 08B5     		push	{r3, lr}
+ 189              	.LCFI5:
+ 190              		.cfi_def_cfa_offset 8
+ 191              		.cfi_offset 3, -8
+ 192              		.cfi_offset 14, -4
+  71:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	return HAL_GPIO_ReadPin(_SENSE_LINE(sense_line)) ? IK_LOGIC_LEVEL_HIGH : IK_LOGIC_LEVEL_LOW;
+ 193              		.loc 1 71 9 view .LVU33
+ 194 000a 064A     		ldr	r2, .L26
+ 195 000c 064B     		ldr	r3, .L26+4
+ 196 000e 32F81010 		ldrh	r1, [r2, r0, lsl #1]
+ 197 0012 53F82000 		ldr	r0, [r3, r0, lsl #2]
+ 198              	.LVL13:
+  71:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	return HAL_GPIO_ReadPin(_SENSE_LINE(sense_line)) ? IK_LOGIC_LEVEL_HIGH : IK_LOGIC_LEVEL_LOW;
+ 199              		.loc 1 71 9 view .LVU34
+ 200 0016 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 201              	.LVL14:
+  71:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_hal_stm32cube.c **** 	return HAL_GPIO_ReadPin(_SENSE_LINE(sense_line)) ? IK_LOGIC_LEVEL_HIGH : IK_LOGIC_LEVEL_LOW;
+ 202              		.loc 1 71 73 view .LVU35
+ 203 001a 0030     		adds	r0, r0, #0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 6
+
+
+ 204 001c 18BF     		it	ne
+ 205 001e 0120     		movne	r0, #1
+ 206              		.loc 1 72 1 view .LVU36
+ 207 0020 08BD     		pop	{r3, pc}
+ 208              	.L27:
+ 209 0022 00BF     		.align	2
+ 210              	.L26:
+ 211 0024 00000000 		.word	.LANCHOR2
+ 212 0028 00000000 		.word	.LANCHOR3
+ 213              		.cfi_endproc
+ 214              	.LFE67:
+ 216              		.section	.rodata._probe_pins,"a"
+ 217              		.align	2
+ 218              		.set	.LANCHOR1,. + 0
+ 221              	_probe_pins:
+ 222 0000 0001     		.short	256
+ 223 0002 0002     		.short	512
+ 224 0004 0001     		.short	256
+ 225 0006 8000     		.short	128
+ 226 0008 4000     		.short	64
+ 227 000a 0080     		.short	-32768
+ 228 000c 0040     		.short	16384
+ 229 000e 0020     		.short	8192
+ 230 0010 0010     		.short	4096
+ 231 0012 0008     		.short	2048
+ 232 0014 0004     		.short	1024
+ 233 0016 0200     		.short	2
+ 234 0018 0100     		.short	1
+ 235 001a 2000     		.short	32
+ 236 001c 1000     		.short	16
+ 237 001e 8000     		.short	128
+ 238 0020 0001     		.short	256
+ 239 0022 0002     		.short	512
+ 240 0024 0200     		.short	2
+ 241 0026 0020     		.short	8192
+ 242 0028 0040     		.short	16384
+ 243 002a 0080     		.short	-32768
+ 244              		.section	.rodata._probe_ports,"a"
+ 245              		.align	2
+ 246              		.set	.LANCHOR0,. + 0
+ 249              	_probe_ports:
+ 250 0000 00080140 		.word	1073809408
+ 251 0004 00100140 		.word	1073811456
+ 252 0008 00100140 		.word	1073811456
+ 253 000c 00100140 		.word	1073811456
+ 254 0010 00100140 		.word	1073811456
+ 255 0014 000C0140 		.word	1073810432
+ 256 0018 000C0140 		.word	1073810432
+ 257 001c 000C0140 		.word	1073810432
+ 258 0020 000C0140 		.word	1073810432
+ 259 0024 000C0140 		.word	1073810432
+ 260 0028 000C0140 		.word	1073810432
+ 261 002c 000C0140 		.word	1073810432
+ 262 0030 000C0140 		.word	1073810432
+ 263 0034 00100140 		.word	1073811456
+ 264 0038 00100140 		.word	1073811456
+ 265 003c 00080140 		.word	1073809408
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 7
+
+
+ 266 0040 000C0140 		.word	1073810432
+ 267 0044 000C0140 		.word	1073810432
+ 268 0048 00100140 		.word	1073811456
+ 269 004c 00100140 		.word	1073811456
+ 270 0050 00100140 		.word	1073811456
+ 271 0054 00100140 		.word	1073811456
+ 272              		.section	.rodata._sense_pins,"a"
+ 273              		.align	2
+ 274              		.set	.LANCHOR2,. + 0
+ 277              	_sense_pins:
+ 278 0000 0100     		.short	1
+ 279 0002 4000     		.short	64
+ 280 0004 2000     		.short	32
+ 281 0006 1000     		.short	16
+ 282 0008 0800     		.short	8
+ 283 000a 0400     		.short	4
+ 284 000c 0200     		.short	2
+ 285              		.section	.rodata._sense_ports,"a"
+ 286              		.align	2
+ 287              		.set	.LANCHOR3,. + 0
+ 290              	_sense_ports:
+ 291 0000 00080140 		.word	1073809408
+ 292 0004 00080140 		.word	1073809408
+ 293 0008 00080140 		.word	1073809408
+ 294 000c 00080140 		.word	1073809408
+ 295 0010 00080140 		.word	1073809408
+ 296 0014 00080140 		.word	1073809408
+ 297 0018 00080140 		.word	1073809408
+ 298              		.text
+ 299              	.Letext0:
+ 300              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 301              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 302              		.file 4 "../../infinikeys-arm32/inc/infinikeys_def.h"
+ 303              		.file 5 "Drivers/CMSIS/Include/core_cm3.h"
+ 304              		.file 6 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 305              		.file 7 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 306              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 307              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_hal_stm32cube.c
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:16     .text.IK_HAL_Setup:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:25     .text.IK_HAL_Setup:00000000 IK_HAL_Setup
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:73     .text.IK_HAL_Setup:00000028 $d
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:80     .text.IK_HAL_SetMatrixProbeLine:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:88     .text.IK_HAL_SetMatrixProbeLine:00000000 IK_HAL_SetMatrixProbeLine
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:154    .text.IK_HAL_SetMatrixProbeLine:00000030 $d
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:160    .text.IK_HAL_ReadMatrixSenseLine:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:168    .text.IK_HAL_ReadMatrixSenseLine:00000000 IK_HAL_ReadMatrixSenseLine
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:211    .text.IK_HAL_ReadMatrixSenseLine:00000024 $d
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:217    .rodata._probe_pins:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:221    .rodata._probe_pins:00000000 _probe_pins
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:245    .rodata._probe_ports:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:249    .rodata._probe_ports:00000000 _probe_ports
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:273    .rodata._sense_pins:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:277    .rodata._sense_pins:00000000 _sense_pins
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:286    .rodata._sense_ports:00000000 $d
+C:\Users\Johannes\AppData\Local\Temp\ccBYTBxk.s:290    .rodata._sense_ports:00000000 _sense_ports
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_GPIO_ReadPin

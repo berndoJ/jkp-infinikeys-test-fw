@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
   29:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** #include <stdint.h>
   30:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** #include <string.h>
   31:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 2
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 2
 
 
   32:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** /* Defining MPU_WRAPPERS_INCLUDED_FROM_API_FILE prevents task.h from redefining
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
   86:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			}																			\
   87:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		}																				\
   88:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		portCLEAR_INTERRUPT_MASK_FROM_ISR( uxSavedInterruptStatus );					\
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 3
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 3
 
 
   89:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  143:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	volatile size_t xTail;				/* Index to the next item to read within the buffer. */
  144:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	volatile size_t xHead;				/* Index to the next item to write within the buffer. */
  145:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	size_t xLength;						/* The length of the buffer pointed to by pucBuffer. */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 4
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 4
 
 
  146:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	size_t xTriggerLevelBytes;			/* The number of bytes that must be in the stream buffer before a tas
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  200:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** static size_t prvReadBytesFromBuffer( StreamBuffer_t *pxStreamBuffer,
  201:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 									  uint8_t *pucData,
  202:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 									  size_t xMaxCount,
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 5
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 5
 
 
  203:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 									  size_t xBytesAvailable ); PRIVILEGED_FUNCTION
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  257:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		}
  258:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		else
  259:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		{
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 6
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 6
 
 
  260:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			traceSTREAM_BUFFER_CREATE_FAILED( xIsMessageBuffer );
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  314:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  315:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			/* Remember this was statically allocated in case it is ever deleted
  316:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			again. */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 7
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 7
 
 
  317:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			pxStreamBuffer->ucFlags |= sbFLAGS_IS_STATICALLY_ALLOCATED;
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  371:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** BaseType_t xReturn = pdFAIL, xIsMessageBuffer;
  372:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  373:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** #if( configUSE_TRACE_FACILITY == 1 )
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 8
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 8
 
 
  374:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	UBaseType_t uxStreamBufferNumber;
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  428:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  429:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	/* It is not valid for the trigger level to be 0. */
  430:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	if( xTriggerLevel == ( size_t ) 0 )
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 9
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 9
 
 
  431:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  485:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** /*-----------------------------------------------------------*/
  486:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  487:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** size_t xStreamBufferSend( StreamBufferHandle_t xStreamBuffer,
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 10
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 10
 
 
  488:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 						  const void *pvTxData,
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  542:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			traceBLOCKING_ON_STREAM_BUFFER_SEND( xStreamBuffer );
  543:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			( void ) xTaskNotifyWait( ( uint32_t ) 0, UINT32_MAX, NULL, xTicksToWait );
  544:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			pxStreamBuffer->xTaskWaitingToSend = NULL;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 11
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 11
 
 
  545:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  599:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  600:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	/* This send function is used to write to both message buffers and stream
  601:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	buffers.  If this is a message buffer then the space needed must be
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 12
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 12
 
 
  602:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	increased by the amount of bytes needed to store the length of the
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  656:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		/* This is a stream buffer, as opposed to a message buffer, so writing a
  657:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		stream of bytes rather than discrete messages.  Write as many bytes as
  658:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		possible. */
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 13
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 13
 
 
  659:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		xShouldWrite = pdTRUE;
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  713:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		xBytesToStoreMessageLength = 0;
  714:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
  715:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 14
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 14
 
 
  716:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	if( xTicksToWait != ( TickType_t ) 0 )
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  770:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	if( xBytesAvailable > xBytesToStoreMessageLength )
  771:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
  772:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		xReceivedLength = prvReadMessageFromBuffer( pxStreamBuffer, pvRxData, xBufferLengthBytes, xBytesA
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 15
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 15
 
 
  773:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  827:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	if( xBytesAvailable > xBytesToStoreMessageLength )
  828:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
  829:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		xReceivedLength = prvReadMessageFromBuffer( pxStreamBuffer, pvRxData, xBufferLengthBytes, xBytesA
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 16
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 16
 
 
  830:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  884:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		{
  885:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			mtCOVERAGE_TEST_MARKER();
  886:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		}
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 17
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 17
 
 
  887:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  941:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	else
  942:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
  943:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		xBytesToStoreMessageLength = 0;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 18
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 18
 
 
  944:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  998:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	uxSavedInterruptStatus = ( UBaseType_t ) portSET_INTERRUPT_MASK_FROM_ISR();
  999:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
 1000:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		if( ( pxStreamBuffer )->xTaskWaitingToSend != NULL )
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 19
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 19
 
 
 1001:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		{
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1055:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	else
 1056:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
 1057:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		mtCOVERAGE_TEST_MARKER();
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 20
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 20
 
 
 1058:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1078:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		less than the number wanted if the data wraps around to the start of
 1079:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		the buffer. */
 1080:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		xFirstLength = configMIN( pxStreamBuffer->xLength - xNextTail, xCount );
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 21
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 21
 
 
   61              		.loc 1 1080 3 is_stmt 1 view .LVU10
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
   33:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** extern "C" {
   34:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** #endif
   35:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 22
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 22
 
 
   36:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** /*-----------------------------------------------------------
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
   90:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** #define portNVIC_INT_CTRL_REG		( * ( ( volatile uint32_t * ) 0xe000ed04 ) )
   91:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** #define portNVIC_PENDSVSET_BIT		( 1UL << 28UL )
   92:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** #define portEND_SWITCHING_ISR( xSwitchRequired ) if( xSwitchRequired != pdFALSE ) portYIELD()
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 23
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 23
 
 
   93:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** #define portYIELD_FROM_ISR( x ) portEND_SWITCHING_ISR( x )
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  147:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 	/*-----------------------------------------------------------*/
  148:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 
  149:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 	#define portGET_HIGHEST_PRIORITY( uxTopPriority, uxReadyPriorities ) uxTopPriority = ( 31UL - ( ui
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 24
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 24
 
 
  150:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
   87 002c BFF36F8F 		isb														
   88 0030 BFF34F8F 		dsb														
   89              	
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 25
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 25
 
 
   90              	@ 0 "" 2
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  122 0048 A342     		cmp	r3, r4
 1106:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		{
 1107:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 			xNextTail -= pxStreamBuffer->xLength;
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 26
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 26
 
 
  123              		.loc 1 1107 4 is_stmt 1 view .LVU32
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  161              		.thumb
  162              		.syntax unified
  163              	.L6:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 27
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 27
 
 
  164              		.loc 2 195 2 is_stmt 0 view .LVU45
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  202              		.loc 2 191 30 view .LVU61
  203              	.LBB153:
  193:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 28
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 28
 
 
  204              		.loc 2 193 1 view .LVU62
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  252              		.cfi_offset 6, -20
  253              		.cfi_offset 7, -16
  254              		.cfi_offset 8, -12
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 29
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 29
 
 
  255              		.cfi_offset 9, -8
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  298 0028 01A9     		add	r1, sp, #4
  299              	.LVL23:
  866:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		( void ) prvReadBytesFromBuffer( pxStreamBuffer, ( uint8_t * ) &xNextMessageLength, xBytesToStore
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 30
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 30
 
 
  300              		.loc 1 866 17 view .LVU84
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  341              		.thumb
  342              		.thumb_func
  343              		.fpu softvfp
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 31
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 31
 
 
  345              	prvInitialiseNewStreamBuffer:
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  360              		.cfi_offset 4, -24
  361              		.cfi_offset 5, -20
  362              		.cfi_offset 6, -16
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 32
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 32
 
 
  363              		.cfi_offset 7, -12
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  413              		.loc 1 1156 3 discriminator 1 view .LVU118
  414 0028 FEE7     		b	.L24
  415              	.L23:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 33
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 33
 
 
  416              	.LVL35:
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  455              	.LBE169:
 1168:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
 1169:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 34
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 34
 
 
  456              		.loc 1 1169 1 view .LVU134
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  502              		.loc 1 1034 2 is_stmt 1 view .LVU145
  503 0012 05EB0804 		add	r4, r5, r8
  504 0016 A342     		cmp	r3, r4
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 35
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 35
 
 
  505 0018 08D2     		bcs	.L31
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  547 0038 FFF7FEFF 		bl	memcpy
  548              	.LVL45:
 1039:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 36
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 36
 
 
  549              		.loc 1 1039 2 is_stmt 1 view .LVU160
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  592              	.L33:
 1047:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
  593              		.loc 1 1047 27 view .LVU174
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 37
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 37
 
 
 1050:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	if( xNextHead >= pxStreamBuffer->xLength )
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  635              		.loc 1 644 1 is_stmt 0 view .LVU189
  636 0000 70B5     		push	{r4, r5, r6, lr}
  637              	.LCFI7:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 38
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 38
 
 
  638              		.cfi_def_cfa_offset 16
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1020:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** {
  678              		.loc 1 1020 15 view .LVU204
  679              	.LBB187:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 39
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 39
 
 
 1022:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1024:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  723              		.loc 1 1024 2 is_stmt 0 view .LVU218
  724              	.LBE193:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 40
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 40
 
 
  725              	.LBE192:
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  767              		.loc 1 688 1 view .LVU230
  768 0048 02B0     		add	sp, sp, #8
  769              	.LCFI11:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 41
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 41
 
 
  770              		.cfi_remember_state
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  813              		.align	1
  814              		.p2align 2,,3
  815              		.global	xStreamBufferGenericCreate
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 42
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 42
 
 
  816              		.syntax unified
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  860              		.loc 1 220 2 is_stmt 0 discriminator 2 view .LVU255
  861 0016 F0B5     		push	{r4, r5, r6, r7, lr}
  862              	.LCFI13:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 43
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 43
 
 
  863              		.cfi_def_cfa_offset 20
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  906 0032 FEE7     		b	.L55
  907              	.L54:
  228:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 44
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 44
 
 
  908              		.loc 1 228 57 discriminator 2 view .LVU269
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  946 005a 03B0     		add	sp, sp, #12
  947              	.LCFI15:
  948              		.cfi_def_cfa_offset 20
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 45
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 45
 
 
  949              		@ sp needed
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  994              	.LBI204:
  191:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** {
  995              		.loc 2 191 30 view .LVU297
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 46
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 46
 
 
  996              	.LBB205:
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1042              		.loc 1 377 32 discriminator 2 view .LVU309
  388:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
  1043              		.loc 1 388 2 discriminator 2 view .LVU310
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 47
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 47
 
 
  388:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1084              	.LVL84:
  406:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  1085              		.loc 1 406 4 is_stmt 1 view .LVU325
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 48
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 48
 
 
  406:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1132              		.global	xStreamBufferSetTriggerLevel
  1133              		.syntax unified
  1134              		.thumb
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 49
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 49
 
 
  1135              		.thumb_func
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1174              		.loc 1 448 1 is_stmt 0 discriminator 2 view .LVU352
  1175 0014 7047     		bx	lr
  1176              	.LVL92:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 50
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 50
 
 
  1177              	.L86:
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  453:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** size_t xSpace;
  1225              		.loc 1 453 1 view .LVU363
  454:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 51
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 51
 
 
  1226              		.loc 1 454 1 view .LVU364
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1262              	.L91:
  1263              	.LBB214:
  1264              	.LBI214:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 52
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 52
 
 
  451:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** {
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1312              		.cfi_startproc
  1313              		@ args = 0, pretend = 0, frame = 0
  1314              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 53
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 53
 
 
  1315              		@ link register save eliminated.
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1134:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
  1351              		.loc 1 1134 27 is_stmt 1 view .LVU412
 1137:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 54
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 54
 
 
  1352              		.loc 1 1137 2 view .LVU413
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1397              		.thumb_func
  1398              		.fpu softvfp
  1400              	xStreamBufferSend:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 55
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 55
 
 
  1401              	.LVL110:
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1440              		.loc 1 504 4 discriminator 2 view .LVU440
  1441 0012 8946     		mov	r9, r1
  1442 0014 DB07     		lsls	r3, r3, #31
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 56
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 56
 
 
  506:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1481 0038 4BD1     		bne	.L129
  532:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 				}
  1482              		.loc 1 532 43 discriminator 2 view .LVU457
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 57
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 57
 
 
  1483 003a FFF7FEFF 		bl	xTaskGetCurrentTaskHandle
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1522 0068 8045     		cmp	r8, r0
  523:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  1523              		.loc 1 523 14 view .LVU473
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 58
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 58
 
 
  1524 006a 0546     		mov	r5, r0
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1563 008e 50B1     		cbz	r0, .L97
  566:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  1564              		.loc 1 566 52 is_stmt 1 view .LVU489
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 59
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 59
 
 
  569:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		{
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1601 00a2 9A42     		cmp	r2, r3
  1602 00a4 1ED9     		bls	.L131
  1603              	.LVL137:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 60
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 60
 
 
  1604              	.L97:
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  191:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** {
  1649              		.loc 2 191 30 view .LVU519
  1650              	.LBB227:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 61
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 61
 
 
  193:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  531:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 					pxStreamBuffer->xTaskWaitingToSend = xTaskGetCurrentTaskHandle();
  1697              		.loc 1 531 6 is_stmt 1 discriminator 3 view .LVU532
  531:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 					pxStreamBuffer->xTaskWaitingToSend = xTaskGetCurrentTaskHandle();
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 62
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 62
 
 
  1698              		.loc 1 531 6 discriminator 3 view .LVU533
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1742              	xStreamBufferSendFromISR:
  1743              	.LVL148:
  1744              	.LFB12:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 63
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 63
 
 
  592:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** StreamBuffer_t * const pxStreamBuffer = ( StreamBuffer_t * ) xStreamBuffer; /*lint !e9087 !e9079 Sa
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  595:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  1784              		.loc 1 595 8 discriminator 2 view .LVU561
  1785 0018 9046     		movpl	r8, r2
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 64
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 64
 
 
  1786              	.LVL150:
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1127:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	if ( xCount >= pxStreamBuffer->xLength )
  1825              		.loc 1 1127 26 view .LVU577
  1826 003e 2168     		ldr	r1, [r4]
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 65
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 65
 
 
 1126:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	xCount -= pxStreamBuffer->xTail;
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1856              		.loc 2 207 34 view .LVU591
  1857              	.LBB234:
  208:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** {
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 66
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 66
 
 
  209:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** uint32_t ulOriginalBASEPRI, ulNewBASEPRI;
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  621:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		}
  1893              		.loc 1 621 4 discriminator 3 view .LVU600
  1894              	.LVL162:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 67
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 67
 
 
  1895              	.LBB235:
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  1936              		.loc 2 193 1 view .LVU609
  195:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 	(
  1937              		.loc 2 195 2 view .LVU610
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 68
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 68
 
 
  1938              		.syntax unified
@@ -4078,7 +4078,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  597:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	configASSERT( pxStreamBuffer );
  1982              		.loc 1 597 2 is_stmt 1 discriminator 1 view .LVU621
  597:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	configASSERT( pxStreamBuffer );
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 69
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 69
 
 
  1983              		.loc 1 597 2 discriminator 1 view .LVU622
@@ -4138,7 +4138,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2027              		.loc 1 707 4 discriminator 2 view .LVU634
  2028 000a 037F     		ldrb	r3, [r0, #28]	@ zero_extendqisi2
  2029              	.LVL169:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 70
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 70
 
 
  695:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** StreamBuffer_t * const pxStreamBuffer = ( StreamBuffer_t * ) xStreamBuffer; /*lint !e9087 !e9079 Sa
@@ -4198,7 +4198,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1128:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
  2070              		.loc 1 1128 2 is_stmt 1 view .LVU649
 1128:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 71
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 71
 
 
  2071              		.loc 1 1128 5 is_stmt 0 view .LVU650
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2114              		.loc 2 195 2 view .LVU661
  2115              		.syntax unified
  2116              	@ 195 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h" 1
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 72
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 72
 
 
  2117 0042 4FF05003 			mov r3, #80												
@@ -4318,7 +4318,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  699:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	configASSERT( pxStreamBuffer );
  2160              		.loc 1 699 2 discriminator 1 view .LVU673
  699:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	configASSERT( pxStreamBuffer );
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 73
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 73
 
 
  2161              		.loc 1 699 2 discriminator 1 view .LVU674
@@ -4378,7 +4378,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
 1130:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
  2201              		.loc 1 1130 3 is_stmt 1 view .LVU689
 1130:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	}
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 74
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 74
 
 
  2202              		.loc 1 1130 10 is_stmt 0 view .LVU690
@@ -4438,7 +4438,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2240 0096 FFF7FEFF 		bl	vTaskSuspendAll
  2241              	.LVL189:
  778:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		}
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 75
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 75
 
 
  2242              		.loc 1 778 4 view .LVU707
@@ -4498,7 +4498,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  193:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 
  2282              		.loc 2 193 1 view .LVU722
  195:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 	(
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 76
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 76
 
 
  2283              		.loc 2 195 2 view .LVU723
@@ -4558,7 +4558,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2322 00de 2046     		mov	r0, r4
  2323 00e0 4FF0FF31 		mov	r1, #-1
  2324 00e4 FFF7FEFF 		bl	xTaskNotifyWait
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 77
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 77
 
 
  2325              	.LVL198:
@@ -4618,7 +4618,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  804:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  2368              		.loc 1 804 2 discriminator 2 view .LVU752
  2369 0002 B0B1     		cbz	r0, .L205
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 78
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 78
 
 
  804:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
@@ -4678,7 +4678,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2412              	.LBB256:
 1124:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 
  2413              		.loc 1 1124 1 discriminator 2 view .LVU765
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 79
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 79
 
 
 1126:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	xCount -= pxStreamBuffer->xTail;
@@ -4738,7 +4738,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2452              		@ sp needed
  2453 0030 F0BD     		pop	{r4, r5, r6, r7, pc}
  2454              	.LVL207:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 80
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 80
 
 
  2455              	.L205:
@@ -4798,7 +4798,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2497              		.loc 2 193 1 view .LVU793
  195:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** 	(
  2498              		.loc 2 195 2 view .LVU794
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 81
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 81
 
 
  2499              		.syntax unified
@@ -4858,7 +4858,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  834:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 		}
  2542              		.loc 1 834 4 view .LVU806
  2543              	.LBB264:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 82
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 82
 
 
  2544              	.LBI264:
@@ -4918,7 +4918,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2587              	.LBB267:
  2588              		.loc 2 229 2 discriminator 3 view .LVU818
  2589              		.syntax unified
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 83
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 83
 
 
  2590              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h" 1
@@ -4978,7 +4978,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  912:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
  2634              		.loc 1 912 2 is_stmt 1 discriminator 2 view .LVU832
  912:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** 	{
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 84
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 84
 
 
  2635              		.loc 1 912 20 is_stmt 0 discriminator 2 view .LVU833
@@ -5038,7 +5038,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2678 0022 00BF     		.section	.text.xStreamBufferIsFull,"ax",%progbits
  2679              		.align	1
  2680              		.p2align 2,,3
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 85
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 85
 
 
  2681              		.global	xStreamBufferIsFull
@@ -5098,7 +5098,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2722 0016 8CBF     		ite	hi
  2723 0018 0020     		movhi	r0, #0
  2724              	.LVL226:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 86
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 86
 
 
  957:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** /*-----------------------------------------------------------*/
@@ -5158,7 +5158,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2770              		.thumb_func
  2771              		.fpu softvfp
  2773              	xStreamBufferSendCompletedFromISR:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 87
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 87
 
 
  2774              	.LVL229:
@@ -5218,7 +5218,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2816              	
  2817              	@ 0 "" 2
  2818              	.LVL230:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 88
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 88
 
 
  223:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** }
@@ -5278,7 +5278,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2857              	.LBI276:
  227:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** {
  2858              		.loc 2 227 30 view .LVU898
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 89
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 89
 
 
  2859              	.LBB277:
@@ -5338,7 +5338,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2906              		@ sp needed
  2907 0046 70BD     		pop	{r4, r5, r6, pc}
  2908              	.LVL239:
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 90
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 90
 
 
  2909              	.L225:
@@ -5398,7 +5398,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  2956              	.LVL241:
  2957              	.LFB20:
  991:Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c **** StreamBuffer_t * const pxStreamBuffer = ( StreamBuffer_t * ) xStreamBuffer; /*lint !e9087 !e9079 Sa
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 91
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 91
 
 
  2958              		.loc 1 991 1 view -0
@@ -5458,7 +5458,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  223:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** }
  3001              		.loc 2 223 2 is_stmt 1 view .LVU931
  223:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h **** }
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 92
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 92
 
 
  3002              		.loc 2 223 2 is_stmt 0 view .LVU932
@@ -5518,7 +5518,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  3041              	.LBB287:
  3042              		.loc 2 229 2 view .LVU948
  3043              		.syntax unified
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 93
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 93
 
 
  3044              	@ 229 "Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h" 1
@@ -5578,7 +5578,7 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  3091              	.L233:
  3092              	.LCFI51:
  3093              		.cfi_def_cfa_offset 0
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 94
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 94
 
 
  3094              		.cfi_restore 4
@@ -5637,49 +5637,49 @@ ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 1
  3139              		.file 12 "Middlewares/Third_Party/FreeRTOS/Source/include/portable.h"
  3140              		.file 13 "<built-in>"
  3141              		.file 14 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\string.h"
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 95
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 95
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stream_buffer.c
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:16     .text.prvReadBytesFromBuffer:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:24     .text.prvReadBytesFromBuffer:00000000 prvReadBytesFromBuffer
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:230    .text.prvReadMessageFromBuffer:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:237    .text.prvReadMessageFromBuffer:00000000 prvReadMessageFromBuffer
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:338    .text.prvInitialiseNewStreamBuffer:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:345    .text.prvInitialiseNewStreamBuffer:00000000 prvInitialiseNewStreamBuffer
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:463    .text.prvWriteBytesToBuffer.part.1:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:470    .text.prvWriteBytesToBuffer.part.1:00000000 prvWriteBytesToBuffer.part.1
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:621    .text.prvWriteMessageToBuffer:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:628    .text.prvWriteMessageToBuffer:00000000 prvWriteMessageToBuffer
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:813    .text.xStreamBufferGenericCreate:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:821    .text.xStreamBufferGenericCreate:00000000 xStreamBufferGenericCreate
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:956    .text.vStreamBufferDelete:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:964    .text.vStreamBufferDelete:00000000 vStreamBufferDelete
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1023   .text.xStreamBufferReset:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1031   .text.xStreamBufferReset:00000000 xStreamBufferReset
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1130   .text.xStreamBufferSetTriggerLevel:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1138   .text.xStreamBufferSetTriggerLevel:00000000 xStreamBufferSetTriggerLevel
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1209   .text.xStreamBufferSpacesAvailable:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1217   .text.xStreamBufferSpacesAvailable:00000000 xStreamBufferSpacesAvailable
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1300   .text.xStreamBufferBytesAvailable:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1308   .text.xStreamBufferBytesAvailable:00000000 xStreamBufferBytesAvailable
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1392   .text.xStreamBufferSend:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1400   .text.xStreamBufferSend:00000000 xStreamBufferSend
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1734   .text.xStreamBufferSendFromISR:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1742   .text.xStreamBufferSendFromISR:00000000 xStreamBufferSendFromISR
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1991   .text.xStreamBufferReceive:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:1999   .text.xStreamBufferReceive:00000000 xStreamBufferReceive
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2348   .text.xStreamBufferReceiveFromISR:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2356   .text.xStreamBufferReceiveFromISR:00000000 xStreamBufferReceiveFromISR
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2608   .text.xStreamBufferIsEmpty:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2616   .text.xStreamBufferIsEmpty:00000000 xStreamBufferIsEmpty
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2679   .text.xStreamBufferIsFull:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2687   .text.xStreamBufferIsFull:00000000 xStreamBufferIsFull
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2765   .text.xStreamBufferSendCompletedFromISR:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2773   .text.xStreamBufferSendCompletedFromISR:00000000 xStreamBufferSendCompletedFromISR
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2947   .text.xStreamBufferReceiveCompletedFromISR:00000000 $t
-C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s:2955   .text.xStreamBufferReceiveCompletedFromISR:00000000 xStreamBufferReceiveCompletedFromISR
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:16     .text.prvReadBytesFromBuffer:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:24     .text.prvReadBytesFromBuffer:00000000 prvReadBytesFromBuffer
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:230    .text.prvReadMessageFromBuffer:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:237    .text.prvReadMessageFromBuffer:00000000 prvReadMessageFromBuffer
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:338    .text.prvInitialiseNewStreamBuffer:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:345    .text.prvInitialiseNewStreamBuffer:00000000 prvInitialiseNewStreamBuffer
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:463    .text.prvWriteBytesToBuffer.part.1:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:470    .text.prvWriteBytesToBuffer.part.1:00000000 prvWriteBytesToBuffer.part.1
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:621    .text.prvWriteMessageToBuffer:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:628    .text.prvWriteMessageToBuffer:00000000 prvWriteMessageToBuffer
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:813    .text.xStreamBufferGenericCreate:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:821    .text.xStreamBufferGenericCreate:00000000 xStreamBufferGenericCreate
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:956    .text.vStreamBufferDelete:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:964    .text.vStreamBufferDelete:00000000 vStreamBufferDelete
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1023   .text.xStreamBufferReset:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1031   .text.xStreamBufferReset:00000000 xStreamBufferReset
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1130   .text.xStreamBufferSetTriggerLevel:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1138   .text.xStreamBufferSetTriggerLevel:00000000 xStreamBufferSetTriggerLevel
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1209   .text.xStreamBufferSpacesAvailable:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1217   .text.xStreamBufferSpacesAvailable:00000000 xStreamBufferSpacesAvailable
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1300   .text.xStreamBufferBytesAvailable:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1308   .text.xStreamBufferBytesAvailable:00000000 xStreamBufferBytesAvailable
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1392   .text.xStreamBufferSend:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1400   .text.xStreamBufferSend:00000000 xStreamBufferSend
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1734   .text.xStreamBufferSendFromISR:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1742   .text.xStreamBufferSendFromISR:00000000 xStreamBufferSendFromISR
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1991   .text.xStreamBufferReceive:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:1999   .text.xStreamBufferReceive:00000000 xStreamBufferReceive
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2348   .text.xStreamBufferReceiveFromISR:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2356   .text.xStreamBufferReceiveFromISR:00000000 xStreamBufferReceiveFromISR
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2608   .text.xStreamBufferIsEmpty:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2616   .text.xStreamBufferIsEmpty:00000000 xStreamBufferIsEmpty
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2679   .text.xStreamBufferIsFull:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2687   .text.xStreamBufferIsFull:00000000 xStreamBufferIsFull
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2765   .text.xStreamBufferSendCompletedFromISR:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2773   .text.xStreamBufferSendCompletedFromISR:00000000 xStreamBufferSendCompletedFromISR
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2947   .text.xStreamBufferReceiveCompletedFromISR:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s:2955   .text.xStreamBufferReceiveCompletedFromISR:00000000 xStreamBufferReceiveCompletedFromISR
 
 UNDEFINED SYMBOLS
 memcpy
@@ -5697,6 +5697,6 @@ vTaskSuspendAll
 xTaskGenericNotify
 xTaskResumeAll
 xTaskGenericNotifyFromISR
-ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cccsCzkH.s 			page 96
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpmOaFH.s 			page 96
 
 

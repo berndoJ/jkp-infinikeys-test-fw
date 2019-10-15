@@ -1,0 +1,212 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_stm32cube_usb_if.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.IK_USBD_HID_Init,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	IK_USBD_HID_Init:
+  25              	.LFB68:
+  26              		.file 1 "../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c"
+   1:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * FILENAME :		infinikeys_stm32cube_usb_if.c
+   3:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * BREIF :			STM32 CUBE Custom HID USB Interface
+   6:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * DATE CREATED :	22.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * 		Custom interface module for the STM32 CUBE software
+  14:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * 		platform. This module is used to link the infinikeys
+  15:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * 		USB software to the HAL USB software of the STM32 CUBE
+  16:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * 		library.
+  17:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * 
+  18:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  *--------------------------------------------------------------*/
+  19:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  20:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** #include "infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h"
+  21:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  22:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** #if defined(IK_PLATFORM_STM32_CUBE)
+  23:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  24:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** #include "infinikeys_stm32cube/infinikeys_stm32cube_usb_descriptors.h"
+  25:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** #include "infinikeys_usbif.h"
+  26:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  27:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** /* --------------------------------------------------------------
+  28:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * FUNCTION DECLARATIONS
+  29:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * ------------------------------------------------------------*/
+  30:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  31:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** static int8_t IK_USBD_HID_Init(void);
+  32:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** static int8_t IK_USBD_HID_DeInit(void);
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s 			page 2
+
+
+  33:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** static int8_t IK_USBD_HID_OutEvent(uint8_t* report_buffer);
+  34:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  35:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** /* --------------------------------------------------------------
+  36:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * VARIABLE DEFINITIONS
+  37:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * ------------------------------------------------------------*/
+  38:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  39:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** IK_HID_DeviceInterface_t IK_USBD_HID_Itf =
+  40:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** {
+  41:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	IK_USB_HIDReportDescriptor,
+  42:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	IK_USBD_HID_Init,
+  43:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	IK_USBD_HID_DeInit,
+  44:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	IK_USBD_HID_OutEvent
+  45:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** };
+  46:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  47:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** /* --------------------------------------------------------------
+  48:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * FUNCTION DEFINITIONS
+  49:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * ------------------------------------------------------------*/
+  50:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  51:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** /*
+  52:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * Description
+  53:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * USB HID Interface init.
+  54:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  */
+  55:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** static int8_t IK_USBD_HID_Init(void)
+  56:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** {
+  27              		.loc 1 56 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  57:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	return USBD_OK;
+  32              		.loc 1 57 2 view .LVU1
+  58:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** }
+  33              		.loc 1 58 1 is_stmt 0 view .LVU2
+  34 0000 0020     		movs	r0, #0
+  35 0002 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE68:
+  39              		.section	.text.IK_USBD_HID_OutEvent,"ax",%progbits
+  40              		.align	1
+  41              		.p2align 2,,3
+  42              		.syntax unified
+  43              		.thumb
+  44              		.thumb_func
+  45              		.fpu softvfp
+  47              	IK_USBD_HID_OutEvent:
+  48              	.LVL0:
+  49              	.LFB70:
+  59:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+  60:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** /*
+  61:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * Description
+  62:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * USB HID Interface de-init.
+  63:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  */
+  64:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** static int8_t IK_USBD_HID_DeInit(void)
+  65:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** {
+  66:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	return USBD_OK;
+  67:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** }
+  68:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s 			page 3
+
+
+  69:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** /*
+  70:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * Description
+  71:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  * USB HID Interface OUTEvent (Microcontroller Data-IN) Handler.
+  72:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c ****  */
+  73:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** static int8_t IK_USBD_HID_OutEvent(uint8_t* report_buffer)
+  74:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** {
+  50              		.loc 1 74 1 is_stmt 1 view -0
+  51              		.cfi_startproc
+  52              		@ args = 0, pretend = 0, frame = 0
+  53              		@ frame_needed = 0, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  75:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	//IK_USBIF_RecieveHIDReportCB(report_buffer, IK_HID_OUT_REPORT_BUFFER_SIZE);
+  76:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** 	return USBD_OK;
+  55              		.loc 1 76 2 view .LVU4
+  77:../../infinikeys-arm32/src/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.c **** }
+  56              		.loc 1 77 1 is_stmt 0 view .LVU5
+  57 0000 0020     		movs	r0, #0
+  58              	.LVL1:
+  59              		.loc 1 77 1 view .LVU6
+  60 0002 7047     		bx	lr
+  61              		.cfi_endproc
+  62              	.LFE70:
+  64              		.section	.text.IK_USBD_HID_DeInit,"ax",%progbits
+  65              		.align	1
+  66              		.p2align 2,,3
+  67              		.syntax unified
+  68              		.thumb
+  69              		.thumb_func
+  70              		.fpu softvfp
+  72              	IK_USBD_HID_DeInit:
+  73              	.LFB72:
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              		@ link register save eliminated.
+  78 0000 0020     		movs	r0, #0
+  79 0002 7047     		bx	lr
+  80              		.cfi_endproc
+  81              	.LFE72:
+  83              		.global	IK_USBD_HID_Itf
+  84              		.section	.data.IK_USBD_HID_Itf,"aw"
+  85              		.align	2
+  88              	IK_USBD_HID_Itf:
+  89 0000 00000000 		.word	IK_USB_HIDReportDescriptor
+  90 0004 00000000 		.word	IK_USBD_HID_Init
+  91 0008 00000000 		.word	IK_USBD_HID_DeInit
+  92 000c 00000000 		.word	IK_USBD_HID_OutEvent
+  93              		.text
+  94              	.Letext0:
+  95              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+  96              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+  97              		.file 4 "c:\\toolchains\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\8.3.1\\include\\stddef.h"
+  98              		.file 5 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+  99              		.file 6 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 100              		.file 7 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 101              		.file 8 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\stdlib.h"
+ 102              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s 			page 4
+
+
+ 103              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 104              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103x6.h"
+ 105              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 106              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 107              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 108              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 109              		.file 16 "Middlewares/berndoJ/IS31FL3236_HAL_Driver/Inc/is31fl3236_driver.h"
+ 110              		.file 17 "Inc/main.h"
+ 111              		.file 18 "Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h"
+ 112              		.file 19 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_hid.h"
+ 113              		.file 20 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_if.h"
+ 114              		.file 21 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_stm32cube_usb_descriptors.h"
+ 115              		.file 22 "../../infinikeys-arm32/inc/infinikeys_usbif.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_stm32cube_usb_if.c
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:16     .text.IK_USBD_HID_Init:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:24     .text.IK_USBD_HID_Init:00000000 IK_USBD_HID_Init
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:40     .text.IK_USBD_HID_OutEvent:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:47     .text.IK_USBD_HID_OutEvent:00000000 IK_USBD_HID_OutEvent
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:65     .text.IK_USBD_HID_DeInit:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:72     .text.IK_USBD_HID_DeInit:00000000 IK_USBD_HID_DeInit
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:88     .data.IK_USBD_HID_Itf:00000000 IK_USBD_HID_Itf
+C:\Users\Johannes\AppData\Local\Temp\cc2wDtaV.s:85     .data.IK_USBD_HID_Itf:00000000 $d
+
+UNDEFINED SYMBOLS
+IK_USB_HIDReportDescriptor

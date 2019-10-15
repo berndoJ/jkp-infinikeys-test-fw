@@ -1,0 +1,3 @@
+infinikeys.c:33:9:IK_Init	16	static
+infinikeys.c:56:9:IK_DeInit	0	static
+infinikeys.c:61:6:IK_KeyboardPollCyleTick	8	static

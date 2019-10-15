@@ -1,0 +1,10 @@
+is31fl3236_driver.c:36:6:IS31FL3236_SetChipEnable	0	static
+is31fl3236_driver.c:44:6:IS31FL3236_WriteRegister	24	static
+is31fl3236_driver.c:55:6:IS31FL3236_Reset	0	static
+is31fl3236_driver.c:63:6:IS31FL3236_Update	0	static
+is31fl3236_driver.c:71:6:IS31FL3236_WriteLEDControl	0	static
+is31fl3236_driver.c:80:6:IS31FL3236_WriteGlobalLEDControl	24	static
+is31fl3236_driver.c:91:6:IS31FL3236_WritePWM	0	static
+is31fl3236_driver.c:101:6:IS31FL3236_WriteRGBPWM	24	static
+is31fl3236_driver.c:114:6:IS31FL3236_SetSoftwareShutdown	0	static
+is31fl3236_driver.c:26:6:IS31FL3236_Init	8	static

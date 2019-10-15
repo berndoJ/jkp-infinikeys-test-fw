@@ -1,0 +1,299 @@
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 2
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"infinikeys_acq.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text._IK_ACQ_Poll,"ax",%progbits
+  16              		.align	1
+  17              		.p2align 2,,3
+  18              		.global	_IK_ACQ_Poll
+  19              		.arch armv7-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu softvfp
+  25              	_IK_ACQ_Poll:
+  26              	.LVL0:
+  27              	.LFB65:
+  28              		.file 1 "../../infinikeys-arm32/src/infinikeys_acq.c"
+   1:../../infinikeys-arm32/src/infinikeys_acq.c **** /*----------------------------------------------------------------
+   2:../../infinikeys-arm32/src/infinikeys_acq.c ****  * FILENAME :		infinikeys_acq.c
+   3:../../infinikeys-arm32/src/infinikeys_acq.c ****  * PROJECT :		infinikeys-arm32
+   4:../../infinikeys-arm32/src/infinikeys_acq.c ****  * AUTHOR :			Johannes Berndorfer
+   5:../../infinikeys-arm32/src/infinikeys_acq.c ****  * BREIF :			Key state acquisition module.
+   6:../../infinikeys-arm32/src/infinikeys_acq.c ****  * 
+   7:../../infinikeys-arm32/src/infinikeys_acq.c ****  * Copyright (c) 2019 Johannes Berndorfer. All rights reserved.
+   8:../../infinikeys-arm32/src/infinikeys_acq.c ****  * ---------------------------------------------------------------
+   9:../../infinikeys-arm32/src/infinikeys_acq.c ****  * DATE CREATED :	16.09.2019	
+  10:../../infinikeys-arm32/src/infinikeys_acq.c ****  * VERSION :		1.0
+  11:../../infinikeys-arm32/src/infinikeys_acq.c ****  * ---------------------------------------------------------------
+  12:../../infinikeys-arm32/src/infinikeys_acq.c ****  * DESCRIPTION :
+  13:../../infinikeys-arm32/src/infinikeys_acq.c ****  * 		This module deals with the acquisition of keystates from
+  14:../../infinikeys-arm32/src/infinikeys_acq.c ****  * 		the keyboard matrix and updates the keystate table in
+  15:../../infinikeys-arm32/src/infinikeys_acq.c ****  * 		infinikeys.h.
+  16:../../infinikeys-arm32/src/infinikeys_acq.c ****  * 
+  17:../../infinikeys-arm32/src/infinikeys_acq.c ****  *--------------------------------------------------------------*/
+  18:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  19:../../infinikeys-arm32/src/infinikeys_acq.c **** #include "infinikeys_acq.h"
+  20:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  21:../../infinikeys-arm32/src/infinikeys_acq.c **** #include "infinikeys_hal.h"
+  22:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  23:../../infinikeys-arm32/src/infinikeys_acq.c **** /* --------------------------------------------------------------
+  24:../../infinikeys-arm32/src/infinikeys_acq.c ****  * FUNCTION DEFINITIONS
+  25:../../infinikeys-arm32/src/infinikeys_acq.c ****  * ------------------------------------------------------------*/
+  26:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  27:../../infinikeys-arm32/src/infinikeys_acq.c **** void _IK_ACQ_Poll(uint8_t* pressed_keys_table, uint16_t pressed_keys_table_size)
+  28:../../infinikeys-arm32/src/infinikeys_acq.c **** {
+  29              		.loc 1 28 1 view -0
+  30              		.cfi_startproc
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s 			page 2
+
+
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  29:../../infinikeys-arm32/src/infinikeys_acq.c **** 	// Clear the pressed keys table.
+  30:../../infinikeys-arm32/src/infinikeys_acq.c **** 	for (uint16_t i = 0; i < pressed_keys_table_size; i++)
+  33              		.loc 1 30 2 view .LVU1
+  34              	.LBB2:
+  35              		.loc 1 30 7 view .LVU2
+  36              		.loc 1 30 7 is_stmt 0 view .LVU3
+  37              	.LBE2:
+  28:../../infinikeys-arm32/src/infinikeys_acq.c **** 	// Clear the pressed keys table.
+  38              		.loc 1 28 1 view .LVU4
+  39 0000 2DE9F84F 		push	{r3, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+  40              	.LCFI0:
+  41              		.cfi_def_cfa_offset 40
+  42              		.cfi_offset 3, -40
+  43              		.cfi_offset 4, -36
+  44              		.cfi_offset 5, -32
+  45              		.cfi_offset 6, -28
+  46              		.cfi_offset 7, -24
+  47              		.cfi_offset 8, -20
+  48              		.cfi_offset 9, -16
+  49              		.cfi_offset 10, -12
+  50              		.cfi_offset 11, -8
+  51              		.cfi_offset 14, -4
+  28:../../infinikeys-arm32/src/infinikeys_acq.c **** 	// Clear the pressed keys table.
+  52              		.loc 1 28 1 view .LVU5
+  53 0004 8346     		mov	fp, r0
+  54              	.LBB3:
+  55              		.loc 1 30 2 view .LVU6
+  56 0006 8A46     		mov	r10, r1
+  57 0008 49B1     		cbz	r1, .L2
+  31:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+  32:../../infinikeys-arm32/src/infinikeys_acq.c **** 		pressed_keys_table[i] = 0x00;
+  58              		.loc 1 32 25 view .LVU7
+  59 000a 0021     		movs	r1, #0
+  60              	.LVL1:
+  61              		.loc 1 32 25 view .LVU8
+  62 000c 0AF1FF32 		add	r2, r10, #-1
+  63 0010 92B2     		uxth	r2, r2
+  64 0012 0244     		add	r2, r2, r0
+  65 0014 431E     		subs	r3, r0, #1
+  66              	.LVL2:
+  67              	.L3:
+  68              		.loc 1 32 3 is_stmt 1 discriminator 3 view .LVU9
+  69              		.loc 1 32 25 is_stmt 0 discriminator 3 view .LVU10
+  70 0016 03F8011F 		strb	r1, [r3, #1]!
+  30:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+  71              		.loc 1 30 2 discriminator 3 view .LVU11
+  72 001a 9342     		cmp	r3, r2
+  73 001c FBD1     		bne	.L3
+  74              	.L2:
+  30:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+  75              		.loc 1 30 2 discriminator 3 view .LVU12
+  76              	.LBE3:
+  28:../../infinikeys-arm32/src/infinikeys_acq.c **** 	// Clear the pressed keys table.
+  77              		.loc 1 28 1 view .LVU13
+  78 001e 0024     		movs	r4, #0
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s 			page 3
+
+
+  79              	.LVL3:
+  80              	.L4:
+  81              	.LBB4:
+  33:../../infinikeys-arm32/src/infinikeys_acq.c **** 	}
+  34:../../infinikeys-arm32/src/infinikeys_acq.c **** 	// Index for writing to the table.
+  35:../../infinikeys-arm32/src/infinikeys_acq.c **** 	uint16_t pressedkeys_index = 0;
+  36:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  37:../../infinikeys-arm32/src/infinikeys_acq.c **** 	// Before a poll, set all probe lines to LOW.
+  38:../../infinikeys-arm32/src/infinikeys_acq.c **** 	for (uint8_t probe_line_index = 0; probe_line_index < IK_MATRIX_PROBE_LINE_COUNT; probe_line_index
+  39:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+  40:../../infinikeys-arm32/src/infinikeys_acq.c **** 		IK_HAL_SetMatrixProbeLine(probe_line_index, IK_LOGIC_LEVEL_LOW);
+  82              		.loc 1 40 3 is_stmt 1 discriminator 3 view .LVU14
+  83 0020 E0B2     		uxtb	r0, r4
+  84 0022 0021     		movs	r1, #0
+  85 0024 0134     		adds	r4, r4, #1
+  86              	.LVL4:
+  87              		.loc 1 40 3 is_stmt 0 discriminator 3 view .LVU15
+  88 0026 FFF7FEFF 		bl	IK_HAL_SetMatrixProbeLine
+  89              	.LVL5:
+  38:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+  90              		.loc 1 38 2 discriminator 3 view .LVU16
+  91 002a 162C     		cmp	r4, #22
+  92 002c F8D1     		bne	.L4
+  93 002e 0027     		movs	r7, #0
+  94              	.LBE4:
+  35:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  95              		.loc 1 35 11 view .LVU17
+  96 0030 B846     		mov	r8, r7
+  97              	.L7:
+  98 0032 5FFA87F9 		uxtb	r9, r7
+  99              	.LVL6:
+ 100              	.LBB5:
+  41:../../infinikeys-arm32/src/infinikeys_acq.c **** 	}
+  42:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  43:../../infinikeys-arm32/src/infinikeys_acq.c **** 	// Read the whole matrix.
+  44:../../infinikeys-arm32/src/infinikeys_acq.c **** 	for (uint8_t probe_line_index = 0; probe_line_index < IK_MATRIX_PROBE_LINE_COUNT; probe_line_index
+  45:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+  46:../../infinikeys-arm32/src/infinikeys_acq.c **** 		// Set the probe line level to HIGH.
+  47:../../infinikeys-arm32/src/infinikeys_acq.c **** 		IK_HAL_SetMatrixProbeLine(probe_line_index, IK_LOGIC_LEVEL_HIGH);
+ 101              		.loc 1 47 3 is_stmt 1 view .LVU18
+ 102 0036 C7EBC706 		rsb	r6, r7, r7, lsl #3
+ 103 003a 4846     		mov	r0, r9
+ 104 003c 0121     		movs	r1, #1
+ 105 003e F6B2     		uxtb	r6, r6
+ 106 0040 0024     		movs	r4, #0
+ 107 0042 FFF7FEFF 		bl	IK_HAL_SetMatrixProbeLine
+ 108              	.LVL7:
+  48:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  49:../../infinikeys-arm32/src/infinikeys_acq.c **** 		// Loop over the sense lines and read their status.
+  50:../../infinikeys-arm32/src/infinikeys_acq.c **** 		for (uint8_t sense_line_index = 0; sense_line_index < IK_MATRIX_SENSE_LINE_COUNT; sense_line_inde
+ 109              		.loc 1 50 3 view .LVU19
+ 110              	.LBB6:
+ 111              		.loc 1 50 8 view .LVU20
+  51:../../infinikeys-arm32/src/infinikeys_acq.c **** 		{
+  52:../../infinikeys-arm32/src/infinikeys_acq.c **** 			// Check if the key is pressed.
+  53:../../infinikeys-arm32/src/infinikeys_acq.c **** 			if (IK_HAL_ReadMatrixSenseLine(sense_line_index) == IK_LOGIC_LEVEL_HIGH)
+  54:../../infinikeys-arm32/src/infinikeys_acq.c **** 			{
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s 			page 4
+
+
+  55:../../infinikeys-arm32/src/infinikeys_acq.c **** 				if (pressedkeys_index < pressed_keys_table_size)
+  56:../../infinikeys-arm32/src/infinikeys_acq.c **** 				{
+  57:../../infinikeys-arm32/src/infinikeys_acq.c **** 					pressed_keys_table[pressedkeys_index] = IK_MATRIX_ID_FROM_LINES(probe_line_index, sense_line_i
+ 112              		.loc 1 57 44 is_stmt 0 view .LVU21
+ 113 0046 0136     		adds	r6, r6, #1
+ 114 0048 01E0     		b	.L6
+ 115              	.LVL8:
+ 116              	.L5:
+  50:../../infinikeys-arm32/src/infinikeys_acq.c **** 		{
+ 117              		.loc 1 50 3 discriminator 2 view .LVU22
+ 118 004a 072C     		cmp	r4, #7
+ 119 004c 12D0     		beq	.L17
+ 120              	.LVL9:
+ 121              	.L6:
+  50:../../infinikeys-arm32/src/infinikeys_acq.c **** 		{
+ 122              		.loc 1 50 3 discriminator 2 view .LVU23
+ 123 004e E5B2     		uxtb	r5, r4
+ 124              	.LVL10:
+  53:../../infinikeys-arm32/src/infinikeys_acq.c **** 			{
+ 125              		.loc 1 53 4 is_stmt 1 view .LVU24
+  53:../../infinikeys-arm32/src/infinikeys_acq.c **** 			{
+ 126              		.loc 1 53 8 is_stmt 0 view .LVU25
+ 127 0050 2846     		mov	r0, r5
+ 128 0052 FFF7FEFF 		bl	IK_HAL_ReadMatrixSenseLine
+ 129              	.LVL11:
+  53:../../infinikeys-arm32/src/infinikeys_acq.c **** 			{
+ 130              		.loc 1 53 7 view .LVU26
+ 131 0056 0128     		cmp	r0, #1
+ 132 0058 04F10104 		add	r4, r4, #1
+ 133              	.LVL12:
+  53:../../infinikeys-arm32/src/infinikeys_acq.c **** 			{
+ 134              		.loc 1 53 7 view .LVU27
+ 135 005c F5D1     		bne	.L5
+  55:../../infinikeys-arm32/src/infinikeys_acq.c **** 				{
+ 136              		.loc 1 55 5 is_stmt 1 view .LVU28
+ 137              		.loc 1 57 6 view .LVU29
+  55:../../infinikeys-arm32/src/infinikeys_acq.c **** 				{
+ 138              		.loc 1 55 8 is_stmt 0 view .LVU30
+ 139 005e C245     		cmp	r10, r8
+ 140 0060 F3D9     		bls	.L5
+ 141              		.loc 1 57 44 view .LVU31
+ 142 0062 3544     		add	r5, r5, r6
+ 143              	.LVL13:
+  58:../../infinikeys-arm32/src/infinikeys_acq.c **** 					pressedkeys_index++;
+ 144              		.loc 1 58 23 view .LVU32
+ 145 0064 08F10103 		add	r3, r8, #1
+  50:../../infinikeys-arm32/src/infinikeys_acq.c **** 		{
+ 146              		.loc 1 50 3 view .LVU33
+ 147 0068 072C     		cmp	r4, #7
+  57:../../infinikeys-arm32/src/infinikeys_acq.c **** 					pressedkeys_index++;
+ 148              		.loc 1 57 44 view .LVU34
+ 149 006a 0BF80850 		strb	r5, [fp, r8]
+ 150              		.loc 1 58 6 is_stmt 1 view .LVU35
+ 151              		.loc 1 58 23 is_stmt 0 view .LVU36
+ 152 006e 1FFA83F8 		uxth	r8, r3
+ 153              	.LVL14:
+  50:../../infinikeys-arm32/src/infinikeys_acq.c **** 		{
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s 			page 5
+
+
+ 154              		.loc 1 50 3 view .LVU37
+ 155 0072 ECD1     		bne	.L6
+ 156              	.L17:
+  50:../../infinikeys-arm32/src/infinikeys_acq.c **** 		{
+ 157              		.loc 1 50 3 view .LVU38
+ 158              	.LBE6:
+  59:../../infinikeys-arm32/src/infinikeys_acq.c **** 				}
+  60:../../infinikeys-arm32/src/infinikeys_acq.c **** 				//else
+  61:../../infinikeys-arm32/src/infinikeys_acq.c **** 				//{
+  62:../../infinikeys-arm32/src/infinikeys_acq.c **** 					// Key pressed but could not be registered because the pressed keys table is too small.
+  63:../../infinikeys-arm32/src/infinikeys_acq.c **** 				//}
+  64:../../infinikeys-arm32/src/infinikeys_acq.c **** 			}
+  65:../../infinikeys-arm32/src/infinikeys_acq.c **** 		}
+  66:../../infinikeys-arm32/src/infinikeys_acq.c **** 
+  67:../../infinikeys-arm32/src/infinikeys_acq.c **** 		// Set the probe line level to LOW.
+  68:../../infinikeys-arm32/src/infinikeys_acq.c **** 		IK_HAL_SetMatrixProbeLine(probe_line_index, IK_LOGIC_LEVEL_LOW);
+ 159              		.loc 1 68 3 is_stmt 1 discriminator 2 view .LVU39
+ 160 0074 4846     		mov	r0, r9
+ 161 0076 0137     		adds	r7, r7, #1
+ 162 0078 0021     		movs	r1, #0
+ 163 007a FFF7FEFF 		bl	IK_HAL_SetMatrixProbeLine
+ 164              	.LVL15:
+  44:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+ 165              		.loc 1 44 2 is_stmt 0 discriminator 2 view .LVU40
+ 166 007e 162F     		cmp	r7, #22
+ 167 0080 D7D1     		bne	.L7
+  44:../../infinikeys-arm32/src/infinikeys_acq.c **** 	{
+ 168              		.loc 1 44 2 discriminator 2 view .LVU41
+ 169              	.LBE5:
+  69:../../infinikeys-arm32/src/infinikeys_acq.c **** 	}
+  70:../../infinikeys-arm32/src/infinikeys_acq.c **** }
+ 170              		.loc 1 70 1 view .LVU42
+ 171 0082 BDE8F88F 		pop	{r3, r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 172              		.loc 1 70 1 view .LVU43
+ 173              		.cfi_endproc
+ 174              	.LFE65:
+ 176 0086 00BF     		.text
+ 177              	.Letext0:
+ 178              		.file 2 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 179              		.file 3 "c:\\toolchains\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 180              		.file 4 "Drivers/CMSIS/Include/core_cm3.h"
+ 181              		.file 5 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 182              		.file 6 "../../infinikeys-arm32/inc/infinikeys_def.h"
+ 183              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 184              		.file 8 "../../infinikeys-arm32/inc/infinikeys_stm32cube/infinikeys_hal_stm32cube.h"
+ARM GAS  C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 infinikeys_acq.c
+C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s:16     .text._IK_ACQ_Poll:00000000 $t
+C:\Users\Johannes\AppData\Local\Temp\ccpuVW4k.s:25     .text._IK_ACQ_Poll:00000000 _IK_ACQ_Poll
+
+UNDEFINED SYMBOLS
+IK_HAL_SetMatrixProbeLine
+IK_HAL_ReadMatrixSenseLine

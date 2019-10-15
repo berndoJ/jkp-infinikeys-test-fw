@@ -1,0 +1,10 @@
+infinikeys_stm32cube_usb_hid.c:238:17:IK_STM32CUBE_USBD_HID_GetConfigDescriptor	0	static
+infinikeys_stm32cube_usb_hid.c:251:17:IK_STM32CUBE_USBD_HID_GetDeviceQualifierDescriptor	0	static
+infinikeys_stm32cube_usb_hid.c:265:16:IK_STM32CUBE_USBD_HID_DataIn	0	static
+infinikeys_stm32cube_usb_hid.c:296:16:IK_STM32CUBE_USBD_HID_EP0RecieveReady	8	static
+infinikeys_stm32cube_usb_hid.c:279:16:IK_STM32CUBE_USBD_HID_DataOut	16	static
+infinikeys_stm32cube_usb_hid.c:170:16:IK_STM32CUBE_USBD_HID_Setup	16	static
+infinikeys_stm32cube_usb_hid.c:147:16:IK_STM32CUBE_USBD_HID_DeInit	8	static
+infinikeys_stm32cube_usb_hid.c:118:16:IK_STM32CUBE_USBD_HID_Init	16	static
+infinikeys_stm32cube_usb_hid.c:76:9:IK_STM32CUBE_USBD_HID_SendReport	0	static
+infinikeys_stm32cube_usb_hid.c:100:9:IK_STM32CUBE_USBD_HID_RegisterInterface	0	static
